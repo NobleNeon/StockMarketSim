@@ -1,6 +1,6 @@
 public class Main{
     public static void main(String[] args){
-        System.out.println("Hello World!");
+        new IPhone14Frame();
     }
 
     public double buyStock(String ticker, int shares){
