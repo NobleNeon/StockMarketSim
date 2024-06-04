@@ -1,9 +1,10 @@
 public class Main{
+
     public static void main(String[] args) {
 
         Stock tesla = new Stock("TSLA");
 
-        tesla.getCompanyName();
+        System.out.println(tesla.getCompanyName());
     }
 
     public double buyStock(String ticker, int shares){
