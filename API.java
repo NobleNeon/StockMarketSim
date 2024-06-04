@@ -7,21 +7,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.jayway.jsonpath.JsonPath;
+import com.google.gson.JsonObject;
 import org.json.JSONObject;
 
 public class API {
 
-    public API() {
+    private final String tickerSymbol;
 
+    public API(String tickerSymbol) {
+        this.tickerSymbol = tickerSymbol;
     }
 
-    public void getStockData(String tickerSymbol) throws IOException, InterruptedException {
+    private HashMap<String, String> requiredInfo = new HashMap<String, String>();
+    private ArrayList<String> articleLinks = new ArrayList<>();
 
-        HashMap<String, String> requiredInfo = new HashMap<String, String>();
-        ArrayList<String> articleLinks = new ArrayList<>();
+
+    public void getStockData() throws IOException, InterruptedException {
 
         // For Prettifying - not my code, from Rapid API's article on how to parse through their outputs
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -32,11 +35,19 @@ public class API {
         requiredInfo.put("symbol", JsonPath.read(symbolAndStockPrice, "body.symbol"));
         requiredInfo.put("companyName", JsonPath.read(symbolAndStockPrice, "body.companyName"));
         requiredInfo.put("currentPrice", JsonPath.read(symbolAndStockPrice, "body.primaryData.lastSalePrice"));
-
-        // getting news info from other API module
-        System.out.println(requiredInfo);
     }
 
+    public String getTickerSymbol() {
+        return requiredInfo.get("symbol");
+    }
+
+    public String getCompanyName() {
+        return requiredInfo.get("companyName");
+    }
+
+    public double getCurrentPrice() {
+        return Double.parseDouble(requiredInfo.get("currentPrice").substring(1));
+    }
 
     public static String pullRequest(String tickerSymbol, String type) throws IOException, InterruptedException {
 
