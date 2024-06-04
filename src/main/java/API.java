@@ -54,8 +54,8 @@ public class API {
         // code for pulling HTTP requests is not mine, but is necessary to receive information from API
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://yahoo-finance15.p.rapidapi.com/api/v1/markets/quote?ticker="
-                                + tickerSymbol
-                                + "&type=" + type))
+                        + tickerSymbol
+                        + "&type=" + type))
                 .header("X-RapidAPI-Key", "06d015991bmshb27e5f7157037a7p143f8fjsn59dc9cb0648e")
                 .header("X-RapidAPI-Host", "yahoo-finance15.p.rapidapi.com")
                 .method("GET", HttpRequest.BodyPublishers.noBody())
