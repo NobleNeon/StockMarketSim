@@ -18,13 +18,6 @@ public class Stock {
 
     public Stock(String tickerSymbol) {
         this.tickerSymbol = tickerSymbol;
-    }
-
-    private HashMap<String, String> requiredInfo = new HashMap<String, String>();
-    private ArrayList<String> articleLinks = new ArrayList<>();
-
-
-    public void getStockData() throws IOException, InterruptedException {
 
         // For Prettifying - not my code, from Rapid API's article on how to parse through their outputs
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -36,6 +29,10 @@ public class Stock {
         requiredInfo.put("companyName", JsonPath.read(symbolAndStockPrice, "body.companyName"));
         requiredInfo.put("currentPrice", JsonPath.read(symbolAndStockPrice, "body.primaryData.lastSalePrice"));
     }
+
+    private HashMap<String, String> requiredInfo = new HashMap<String, String>();
+    private ArrayList<String> articleLinks = new ArrayList<>();
+
 
     public String getTickerSymbol() {
         return requiredInfo.get("symbol");
@@ -49,7 +46,7 @@ public class Stock {
         return Double.parseDouble(requiredInfo.get("currentPrice").substring(1));
     }
 
-    public static String pullRequest(String tickerSymbol, String type) throws IOException, InterruptedException {
+    private static String pullRequest(String tickerSymbol, String type) throws IOException, InterruptedException {
 
         // code for pulling HTTP requests is not mine, but is necessary to receive information from API
         HttpRequest request = HttpRequest.newBuilder()

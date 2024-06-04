@@ -1,8 +1,9 @@
 public class Main{
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
-        Stock tsla = new Stock("TSLA");
-        new IPhone14Frame();
+        Stock tesla = new Stock("TSLA");
+
+        tesla.getCompanyName();
     }
 
     public double buyStock(String ticker, int shares){
