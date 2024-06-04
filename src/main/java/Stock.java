@@ -12,11 +12,11 @@ import com.jayway.jsonpath.JsonPath;
 import com.google.gson.JsonObject;
 import org.json.JSONObject;
 
-public class API {
+public class Stock {
 
     private final String tickerSymbol;
 
-    public API(String tickerSymbol) {
+    public Stock(String tickerSymbol) {
         this.tickerSymbol = tickerSymbol;
     }
 

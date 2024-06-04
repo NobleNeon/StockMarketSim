@@ -1,0 +1,227 @@
+Index: .idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+new file mode 100644
+--- /dev/null	(date 1717521537885)
++++ b/.idea/.gitignore	(date 1717521537885)
+@@ -0,0 +1,8 @@
++# Default ignored files
++/shelf/
++/workspace.xml
++# Editor-based HTTP Client requests
++/httpRequests/
++# Datasource local storage ignored files
++/dataSources/
++/dataSources.local.xml
+Index: .idea/.name
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/.name b/.idea/.name
+new file mode 100644
+--- /dev/null	(date 1717440371478)
++++ b/.idea/.name	(date 1717440371478)
+@@ -0,0 +1,1 @@
++myartifactid
+\ No newline at end of file
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><project>\n  <modelVersion>4.0.0</modelVersion>\n  <groupId>mygroupid</groupId>\n  <artifactId>myartifactid</artifactId>\n  <version>0.0-SNAPSHOT</version>\n  <dependencies>\n    <dependency>\n      <groupId>junit</groupId>\n      <artifactId>junit</artifactId>\n      <version>4.12</version>\n      <type>jar</type>\n    </dependency>\n  </dependencies>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pom.xml b/pom.xml
+--- a/pom.xml	(revision aef816d9d889027eec07ddee09287d2b09252921)
++++ b/pom.xml	(date 1717521623130)
+@@ -3,7 +3,11 @@
+   <groupId>mygroupid</groupId>
+   <artifactId>myartifactid</artifactId>
+   <version>0.0-SNAPSHOT</version>
+-  <dependencies>
++    <packaging>pom</packaging>
++    <modules>
++        <module>lib</module>
++    </modules>
++    <dependencies>
+     <dependency>
+       <groupId>junit</groupId>
+       <artifactId>junit</artifactId>
+Index: .idea/jarRepositories.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/jarRepositories.xml b/.idea/jarRepositories.xml
+new file mode 100644
+--- /dev/null	(date 1717521623241)
++++ b/.idea/jarRepositories.xml	(date 1717521623241)
+@@ -0,0 +1,20 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="RemoteRepositoriesConfiguration">
++    <remote-repository>
++      <option name="id" value="central" />
++      <option name="name" value="Central Repository" />
++      <option name="url" value="https://repo.maven.apache.org/maven2" />
++    </remote-repository>
++    <remote-repository>
++      <option name="id" value="central" />
++      <option name="name" value="Maven Central repository" />
++      <option name="url" value="https://repo1.maven.org/maven2" />
++    </remote-repository>
++    <remote-repository>
++      <option name="id" value="jboss.community" />
++      <option name="name" value="JBoss Community repository" />
++      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
++    </remote-repository>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/compiler.xml b/.idea/compiler.xml
+new file mode 100644
+--- /dev/null	(date 1717521646639)
++++ b/.idea/compiler.xml	(date 1717521646639)
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="CompilerConfiguration">
++    <annotationProcessing>
++      <profile name="Maven default annotation processors profile" enabled="true">
++        <sourceOutputDir name="target/generated-sources/annotations" />
++        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
++        <outputRelativeToContentRoot value="true" />
++        <module name="lib" />
++      </profile>
++    </annotationProcessing>
++  </component>
++</project>
+\ No newline at end of file
+Index: src/main/java/API.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/API.java b/src/main/java/API.java
+new file mode 100644
+--- /dev/null	(date 1717521623413)
++++ b/src/main/java/API.java	(date 1717521623413)
+@@ -0,0 +1,67 @@
++import java.io.IOException;
++import java.net.URI;
++import java.net.http.HttpClient;
++import java.net.http.HttpRequest;
++import java.net.http.HttpResponse;
++import java.util.ArrayList;
++import java.util.HashMap;
++import com.google.gson.Gson;
++import com.google.gson.GsonBuilder;
++import com.google.gson.JsonParser;
++import com.jayway.jsonpath.JsonPath;
++import com.google.gson.JsonObject;
++import org.json.JSONObject;
++
++public class API {
++
++    private final String tickerSymbol;
++
++    public API(String tickerSymbol) {
++        this.tickerSymbol = tickerSymbol;
++    }
++
++    private HashMap<String, String> requiredInfo = new HashMap<String, String>();
++    private ArrayList<String> articleLinks = new ArrayList<>();
++
++
++    public void getStockData() throws IOException, InterruptedException {
++
++        // For Prettifying - not my code, from Rapid API's article on how to parse through their outputs
++        Gson gson = new GsonBuilder().setPrettyPrinting().create();
++
++        // getting symbol and stock price from one of the modules of the API
++        String symbolAndStockPrice = gson.toJson(JsonParser.parseString(pullRequest(tickerSymbol, "STOCKS")));
++
++        requiredInfo.put("symbol", JsonPath.read(symbolAndStockPrice, "body.symbol"));
++        requiredInfo.put("companyName", JsonPath.read(symbolAndStockPrice, "body.companyName"));
++        requiredInfo.put("currentPrice", JsonPath.read(symbolAndStockPrice, "body.primaryData.lastSalePrice"));
++    }
++
++    public String getTickerSymbol() {
++        return requiredInfo.get("symbol");
++    }
++
++    public String getCompanyName() {
++        return requiredInfo.get("companyName");
++    }
++
++    public double getCurrentPrice() {
++        return Double.parseDouble(requiredInfo.get("currentPrice").substring(1));
++    }
++
++    public static String pullRequest(String tickerSymbol, String type) throws IOException, InterruptedException {
++
++        // code for pulling HTTP requests is not mine, but is necessary to receive information from API
++        HttpRequest request = HttpRequest.newBuilder()
++                .uri(URI.create("https://yahoo-finance15.p.rapidapi.com/api/v1/markets/quote?ticker="
++                        + tickerSymbol
++                        + "&type=" + type))
++                .header("X-RapidAPI-Key", "06d015991bmshb27e5f7157037a7p143f8fjsn59dc9cb0648e")
++                .header("X-RapidAPI-Host", "yahoo-finance15.p.rapidapi.com")
++                .method("GET", HttpRequest.BodyPublishers.noBody())
++                .build();
++        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
++
++        return response.body();
++    }
++}
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1717440371563)
++++ b/.idea/vcs.xml	(date 1717440371563)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+new file mode 100644
+--- /dev/null	(date 1717521623241)
++++ b/.idea/misc.xml	(date 1717521623241)
+@@ -0,0 +1,14 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ExternalStorageConfigurationManager" enabled="true" />
++  <component name="MavenProjectsManager">
++    <option name="originalFiles">
++      <list>
++        <option value="$PROJECT_DIR$/pom.xml" />
++      </list>
++    </option>
++  </component>
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
++    <output url="file://$PROJECT_DIR$/classes" />
++  </component>
++</project>
+\ No newline at end of file

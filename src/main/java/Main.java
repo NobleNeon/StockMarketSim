@@ -1,5 +1,7 @@
 public class Main{
     public static void main(String[] args){
+
+        Stock tsla = new Stock("TSLA");
         new IPhone14Frame();
     }
 
