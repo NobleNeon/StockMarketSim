@@ -46,8 +46,4 @@ public class IPhone14Frame {
         frame.add(buttonPanel, BorderLayout.CENTER);
         frame.setVisible(true);
     }
-
-    public static void main(String[] args) {
-        new IPhone14Frame();
-    }
 }
