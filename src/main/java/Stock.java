@@ -9,15 +9,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
 import com.jayway.jsonpath.JsonPath;
-import com.google.gson.JsonObject;
-import org.json.JSONObject;
 
 public class Stock {
 
-    private final String tickerSymbol;
-
-    public Stock(String tickerSymbol) {
-        this.tickerSymbol = tickerSymbol.toUpperCase();
+    public Stock(String tickerSymbol) throws IOException, InterruptedException {
 
         // For Prettifying - not my code, from Rapid API's article on how to parse through their outputs
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -46,7 +41,7 @@ public class Stock {
         return Double.parseDouble(requiredInfo.get("currentPrice").substring(1));
     }
 
-    private static String pullRequest(String tickerSymbol, String type) throws IOException, InterruptedException {
+    public static String pullRequest(String tickerSymbol, String type) throws IOException, InterruptedException {
 
         // code for pulling HTTP requests is not mine, but is necessary to receive information from API
         HttpRequest request = HttpRequest.newBuilder()
