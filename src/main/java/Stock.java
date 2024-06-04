@@ -17,7 +17,7 @@ public class Stock {
     private final String tickerSymbol;
 
     public Stock(String tickerSymbol) {
-        this.tickerSymbol = tickerSymbol;
+        this.tickerSymbol = tickerSymbol.toUpperCase();
 
         // For Prettifying - not my code, from Rapid API's article on how to parse through their outputs
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
