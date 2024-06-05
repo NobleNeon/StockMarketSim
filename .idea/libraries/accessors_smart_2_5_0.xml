@@ -1,0 +1,21 @@
+<component name="libraryTable">
+  <library name="accessors-smart-2.5.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/accessors-smart-2.5.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asm-9.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/error_prone_annotations-2.27.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/gson-2.11.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/json-20240303.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/json-path-2.9.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/json-smart-2.5.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/log4j-core-1.0.13.5-jre14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/sl4j-1.0.13.5-jre14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-api-2.0.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-api-2.0.11.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-nop-2.0.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/swingx-1.6.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
