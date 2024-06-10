@@ -11,6 +11,7 @@ public class Main{
 //        System.out.println(tesla.getCompanyName());
 
         System.out.println("SHIMMY SHIMMY YAY");
+        System.out.println("Shimmy yay shimmy ahh");
         new LogInPage();
 
     }
