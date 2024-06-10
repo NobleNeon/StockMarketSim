@@ -14,7 +14,7 @@ public class BottomNavBar extends JPanel implements ActionListener {
     BottomNavBar(){
 
         //setting settings for bottom panel
-        this.setLayout(new GridLayout(2,1)); //setting layout
+        this.setLayout(new GridLayout(1,2)); //setting layout
 
         //creating buttons
         portfolioButton = new JButton("Portfolio");

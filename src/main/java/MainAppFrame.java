@@ -15,12 +15,11 @@ public class MainAppFrame extends JFrame {
         //creating 'BottomNavBar' panel
         bottomNavBar = new BottomNavBar();
 
-        //adding bottomNavBar to frame
-        this.add(bottomNavBar);
-
 
         //adding panels to the frame
         this.setLayout(new BorderLayout()); //setting layout
+        this.add(bottomNavBar, BorderLayout.SOUTH);
+
 
 
         //settings for the frame
