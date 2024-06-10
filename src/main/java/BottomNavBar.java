@@ -32,7 +32,7 @@ public class BottomNavBar extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == portfolioButton){
-
+            System.out.println("Lil number 1");
         }
         if (e.getSource() == tradeButton){
             System.out.println("Lol number 2");
