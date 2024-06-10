@@ -5,22 +5,28 @@ import java.awt.*;
 
 public class MainAppFrame extends JFrame {
 
-
     //initializing panels
     BottomNavBar bottomNavBar;
-
+    PortfolioPanel portfolioPanel;
+    TradePanel tradePanel;
+    JPanel defaultPanelLayer; //will be used to stack trade and portfolio panels
 
     MainAppFrame(){
 
-        //creating 'BottomNavBar' panel
+        //creating panels
         bottomNavBar = new BottomNavBar();
+        portfolioPanel = new PortfolioPanel();
+        tradePanel = new TradePanel();
+        defaultPanelLayer = new JPanel();
 
+        //adding portfolio and trade panels to default panel layer
+        defaultPanelLayer.add(portfolioPanel);
+        defaultPanelLayer.add(tradePanel);
 
-        //adding panels to the frame
+        //adding nav bar and default panel to the frame
         this.setLayout(new BorderLayout()); //setting layout
         this.add(bottomNavBar, BorderLayout.SOUTH);
-
-
+        this.add(defaultPanelLayer, BorderLayout.CENTER);
 
         //settings for the frame
         this.setTitle("Paper Trader");
@@ -32,6 +38,8 @@ public class MainAppFrame extends JFrame {
 
 
     }
+
+
 
 
 }
