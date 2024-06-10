@@ -6,9 +6,18 @@
  */
 package main.java;
 
-public class User {
+import javax.swing.*;
+import java.util.HashMap;
+
+public class User extends JFrame {
 
     private String userName, password;
+
+    public static HashMap<String, String> userCredentials = new HashMap<>();
+
+    public User() {
+        userCredentials.put("Shay", "1234");
+    }
 
     public User(String userName, String password) {
         this.userName = userName;

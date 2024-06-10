@@ -14,7 +14,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LogInPage extends JFrame implements ActionListener {
+public class LogInPage extends User implements ActionListener {
 
     // initialized fields - no need for getters and setters as they are not supposed to be used outside the class
     private final JTextField userNameField;
@@ -67,6 +67,7 @@ public class LogInPage extends JFrame implements ActionListener {
         frame.add(logInPanel, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE); //user shouldn't be able to close program by accident!
         frame.setTitle("Paper Trader");
+        frame.setResizable(false);
         frame.pack();
         frame.setVisible(true);
     }
@@ -88,9 +89,13 @@ public class LogInPage extends JFrame implements ActionListener {
 
                 System.out.println("We're still in the log-in page.");
                 System.out.println("Username: " + userNameField.getText() + "\nPassword: " + passwordField.getText());
+                if (userCredentials.get(userNameField.getText()) != null
+                    && userCredentials.get(userNameField.getText()).equals(passwordField.getText())) {
+
+                }
 
             // if the OK button is in the sign-up page...
-            } else if (signUpPanel.isVisible()){
+            } else if (signUpPanel.isVisible()) {
 
                 // if the createPassword and confirmPassword fields are not the same, ask them to try again
                 if (!passwordField.getText().equals(confirmPasswordField.getText())) {
@@ -133,6 +138,7 @@ public class LogInPage extends JFrame implements ActionListener {
 
             // show this sign-up page instead of the log-in page
             frame.add(signUpPanel);
+            frame.setResizable(false);
             frame.setVisible(true);
         }
     }
