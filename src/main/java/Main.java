@@ -10,7 +10,6 @@ public class Main{
 
 //        System.out.println(tesla.getCompanyName());
 
-        System.out.println("SKIBIDI TOILET");
         new LogInPage();
 
     }

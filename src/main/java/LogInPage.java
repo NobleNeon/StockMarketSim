@@ -89,17 +89,24 @@ public class LogInPage extends User implements ActionListener {
 
                 System.out.println("We're still in the log-in page.");
                 System.out.println("Username: " + userNameField.getText() + "\nPassword: " + passwordField.getText());
-                if (userCredentials.get(userNameField.getText()) != null
-                    && userCredentials.get(userNameField.getText()).equals(passwordField.getText())) {
+
+                if (!userNames.contains(userNameField.getText())) {
+                    errorLabel.setText("Username does not exist.");
+                } else if (userNames.indexOf(userNameField.getText()) != passwords.indexOf(passwordField.getText())) {
+                    System.out.println("Username/Password is invalid.");
+                } else {
 
                 }
 
             // if the OK button is in the sign-up page...
             } else if (signUpPanel.isVisible()) {
 
-                // if the createPassword and confirmPassword fields are not the same, ask them to try again
+                // if the createPassword and confirmPassword fields are not the same, let them know
                 if (!passwordField.getText().equals(confirmPasswordField.getText())) {
                     errorLabel.setText("Passwords do not match.");
+                // if the username already exists, let them know
+                } else if (userNames.contains(userNameField.getText())) {
+                    errorLabel.setText("Username already exists!");
                 }
 
                 System.out.println("We are now in the Sign Up Page");

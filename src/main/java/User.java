@@ -7,16 +7,18 @@
 package main.java;
 
 import javax.swing.*;
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class User extends JFrame {
 
     private String userName, password;
 
-    public static HashMap<String, String> userCredentials = new HashMap<>();
+    public static ArrayList<String> userNames = new ArrayList<>();
+    public static ArrayList<String> passwords = new ArrayList<>();
 
     public User() {
-        userCredentials.put("Shay", "1234");
+        userNames.add("Shay");
+        passwords.add("1234");
     }
 
     public User(String userName, String password) {
