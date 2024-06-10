@@ -14,6 +14,8 @@ import java.util.HashMap;
 
 public class Stock {
 
+    private double currentPrice;
+
     public Stock(String tickerSymbol) throws IOException, InterruptedException {
 
         // For Prettifying - not my code, from Rapid API's article on how to parse through their outputs
@@ -25,10 +27,12 @@ public class Stock {
         requiredInfo.put("symbol", JsonPath.read(symbolAndStockPrice, "body.symbol"));
         requiredInfo.put("companyName", JsonPath.read(symbolAndStockPrice, "body.companyName"));
         requiredInfo.put("currentPrice", JsonPath.read(symbolAndStockPrice, "body.primaryData.lastSalePrice"));
+
+        currentPrice = Double.parseDouble(requiredInfo.get("currentPrice").substring(1));
     }
 
-    private HashMap<String, String> requiredInfo = new HashMap<String, String>();
-    private ArrayList<String> articleLinks = new ArrayList<>();
+    private final HashMap<String, String> requiredInfo = new HashMap<String, String>();
+    private final ArrayList<String> articleLinks = new ArrayList<>();
 
 
     public String getTickerSymbol() {
@@ -40,7 +44,7 @@ public class Stock {
     }
 
     public double getCurrentPrice() {
-        return Double.parseDouble(requiredInfo.get("currentPrice").substring(1));
+        return currentPrice;
     }
 
     public static String pullRequest(String tickerSymbol, String type) throws IOException, InterruptedException {
@@ -54,8 +58,25 @@ public class Stock {
                 .header("X-RapidAPI-Host", "yahoo-finance15.p.rapidapi.com")
                 .method("GET", HttpRequest.BodyPublishers.noBody())
                 .build();
+
         HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 
         return response.body();
+    }
+
+    public double buyStock(int shares){
+        return currentPrice * shares;
+    }
+
+    public double sellStock(int shares){
+        return currentPrice * shares;
+    }
+
+    public double shortStock(int shares){
+        return currentPrice * shares;
+    }
+
+    public double cover(int shares){
+        return currentPrice * shares;
     }
 }
