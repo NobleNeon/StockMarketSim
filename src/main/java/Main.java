@@ -10,6 +10,7 @@ public class Main{
 
 //        System.out.println(tesla.getCompanyName());
 
+        System.out.println("Bismillah");
         new LogInPage();
 
     }
