@@ -30,8 +30,13 @@ public class MainAppFrame extends JFrame implements ActionListener {
         defaultPanelLayer.add(portfolioPanel);
         defaultPanelLayer.add(tradePanel);
 
+        //changing visibility of panels (will be changed later once user selects buttons)
+        portfolioPanel.setVisible(false);
+        tradePanel.setVisible(false);
+        defaultPanelLayer.setVisible(true);
+
         //adding portfolio and trade buttons to bottom nav bar panel
-        //setting settings for bottom panel
+        //setting for bottom panel
         bottomNavBar.setLayout(new GridLayout(1,2)); //setting layout
 
         //creating buttons
