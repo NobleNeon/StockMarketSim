@@ -24,7 +24,8 @@ public class PortfolioPanel extends JPanel {
         displayDataPanel = new JPanel();
 
         //setting grid layout size to fit the 'userData' matrix
-        displayDataPanel.setLayout(new GridLayout(userData.get(0).size(), userData.size()));
+        //displayDataPanel.setLayout(new GridLayout(userData.get(0).size(), userData.size()));
+        //TODO: fix above line's error
 
         //adding user data from 'userData' matrix to display panel
         for (int i = 0; i < userData.size(); i++) {
