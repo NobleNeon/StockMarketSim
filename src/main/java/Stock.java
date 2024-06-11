@@ -47,6 +47,10 @@ public class Stock {
         return currentPrice;
     }
 
+    public String getCurrentPriceStr() {
+        return Double.toString(currentPrice);
+    }
+
     public static String pullRequest(String tickerSymbol, String type) throws IOException, InterruptedException {
 
         // code for pulling HTTP requests is not mine, but is necessary to receive information from API
