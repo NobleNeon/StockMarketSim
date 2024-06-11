@@ -22,16 +22,15 @@ public class Main{
         MainAppFrame mainAppFrame = new MainAppFrame();
 
         //sending user data to the frame to be displayed
-        mainAppFrame.getPortfolioPanel().setUserData(convertStringMatrixToJLabel(userDataMatrix));
+        mainAppFrame.getPortfolioPanel().setUserData(sendDataForPortfolioPanel(userDataMatrix));
 
     }
 
     /**
-     * Name: convertStringMatrixToJLabel
-     * Description: will take blablabl;lablablabla
-     * @param stringMatrix: blablablablabl
+     * Description: will take
+     * @param stringMatrix
      */
-    public static ArrayList<ArrayList<JLabel>> convertStringMatrixToJLabel(ArrayList<ArrayList<String>> stringMatrix){
+    public static ArrayList<ArrayList<JLabel>> sendDataForPortfolioPanel(ArrayList<ArrayList<String>> stringMatrix){
 
         ArrayList<ArrayList<JLabel>> labelsMatrix = new ArrayList<>();
 
