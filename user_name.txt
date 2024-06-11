@@ -1,1 +1,2 @@
 StockTickerSymbols, stockLastPrices, sharesOwned, transactionType
+beeboo, beebaa, baabee, boowal
