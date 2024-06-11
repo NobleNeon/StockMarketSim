@@ -14,7 +14,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LogInPage extends User implements ActionListener {
+public class LogInPage extends JFrame implements ActionListener {
 
     // initialized fields - no need for getters and setters as they are not supposed to be used outside the class
     private final JTextField userNameField;
@@ -90,24 +90,27 @@ public class LogInPage extends User implements ActionListener {
                 System.out.println("We're still in the log-in page.");
                 System.out.println("Username: " + userNameField.getText() + "\nPassword: " + passwordField.getText());
 
-                if (!userNames.contains(userNameField.getText())) {
-                    errorLabel.setText("Username does not exist.");
-                } else if (userNames.indexOf(userNameField.getText()) != passwords.indexOf(passwordField.getText())) {
-                    System.out.println("Username/Password is invalid.");
-                } else {
-
-                }
+//                // if username doesn't exist
+//                if () {
+//                    errorLabel.setText("Username does not exist.");
+//                // if the username exists, but the password does not match
+//                } else if () {
+//                    System.out.println("Username/Password is invalid.");
+//                // if the username exists AND the password matches the account username
+//                } else {
+//
+//                }
 
             // if the OK button is in the sign-up page...
             } else if (signUpPanel.isVisible()) {
 
-                // if the createPassword and confirmPassword fields are not the same, let them know
-                if (!passwordField.getText().equals(confirmPasswordField.getText())) {
-                    errorLabel.setText("Passwords do not match.");
-                // if the username already exists, let them know
-                } else if (userNames.contains(userNameField.getText())) {
-                    errorLabel.setText("Username already exists!");
-                }
+//                // if the createPassword and confirmPassword fields are not the same, let them know
+//                if (!passwordField.getText().equals(confirmPasswordField.getText())) {
+//                    errorLabel.setText("Passwords do not match.");
+//                // if the username already exists, let them know
+//                } else if (userNames.contains(userNameField.getText())) {
+//                    errorLabel.setText("Username already exists!");
+//                }
 
                 System.out.println("We are now in the Sign Up Page");
                 System.out.println("Username: " + userNameField.getText()
