@@ -90,6 +90,7 @@ public class LogInPage extends JFrame implements ActionListener {
                 System.out.println("We're still in the log-in page.");
                 System.out.println("Username: " + userNameField.getText() + "\nPassword: " + passwordField.getText());
 
+                //TODO finish making these once Broden and Amir figure out how to store user information
 //                // if username doesn't exist
 //                if () {
 //                    errorLabel.setText("Username does not exist.");
@@ -104,6 +105,7 @@ public class LogInPage extends JFrame implements ActionListener {
             // if the OK button is in the sign-up page...
             } else if (signUpPanel.isVisible()) {
 
+                //TODO same thing above
 //                // if the createPassword and confirmPassword fields are not the same, let them know
 //                if (!passwordField.getText().equals(confirmPasswordField.getText())) {
 //                    errorLabel.setText("Passwords do not match.");
