@@ -1,6 +1,0 @@
-String: Username
-String Password
-arraylist: Stock ticker symbols
-arraylist: stock last prices
-arraylist: shares owned
-arraylist: transaction type

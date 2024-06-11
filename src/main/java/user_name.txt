@@ -1,0 +1,1 @@
+StockTickerSymbols, stockLastPrices, sharesOwned, transactionType
