@@ -20,6 +20,11 @@ public class Main{
         System.out.println("BIDIBIDIBI TOILET");
         new LogInPage();
 
+        //loading user data
+        //readUserData("user_name.txt");
+        //TODO: how to get the correct file path for above^
+
+
         //initializing the main frame
         MainAppFrame mainAppFrame = new MainAppFrame();
 
@@ -50,11 +55,12 @@ public class Main{
     }
 
     /**
-     *
-     * @param userNameFile
+     * Name: readUserData
+     * Description: blablablablaba
+     * @param userNameFile: blablablablabl
      * @throws IOException
      */
-    public static void readFileInfo(String userNameFile) throws IOException{
+    public static void readUserData(String userNameFile) throws IOException{
 
         File myFile = new File(userNameFile);
         Scanner readFile = new Scanner(myFile);
