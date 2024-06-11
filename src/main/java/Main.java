@@ -13,8 +13,8 @@ public class Main{
 //        Stock tesla = new Stock("TSLA");
 
 //        System.out.println(tesla.getCompanyName());
-        new MainAppFrame();
-        System.out.println("SKIBIDI TOILET");
+
+        System.out.println("BIDIBIDI TOILET");
         new LogInPage();
 
     }
