@@ -61,6 +61,55 @@ public class MainAppFrame extends JFrame implements ActionListener {
 
     }
 
+    //getters and setters
+    public PortfolioPanel getPortfolioPanel() {
+        return portfolioPanel;
+    }
+
+    public void setPortfolioPanel(PortfolioPanel portfolioPanel) {
+        this.portfolioPanel = portfolioPanel;
+    }
+
+    public TradePanel getTradePanel() {
+        return tradePanel;
+    }
+
+    public void setTradePanel(TradePanel tradePanel) {
+        this.tradePanel = tradePanel;
+    }
+
+    public JPanel getDefaultPanelLayer() {
+        return defaultPanelLayer;
+    }
+
+    public void setDefaultPanelLayer(JPanel defaultPanelLayer) {
+        this.defaultPanelLayer = defaultPanelLayer;
+    }
+
+    public JPanel getBottomNavBar() {
+        return bottomNavBar;
+    }
+
+    public void setBottomNavBar(JPanel bottomNavBar) {
+        this.bottomNavBar = bottomNavBar;
+    }
+
+    public JButton getPortfolioButton() {
+        return portfolioButton;
+    }
+
+    public void setPortfolioButton(JButton portfolioButton) {
+        this.portfolioButton = portfolioButton;
+    }
+
+    public JButton getTradeButton() {
+        return tradeButton;
+    }
+
+    public void setTradeButton(JButton tradeButton) {
+        this.tradeButton = tradeButton;
+    }
+
     /**
      *
      * @param e the event to be processed
