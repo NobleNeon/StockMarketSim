@@ -11,6 +11,7 @@ public class PortfolioPanel extends JPanel {
 
     //array list to store user data
     private ArrayList<ArrayList<JLabel>> userData = new ArrayList<>();
+    //panel to display the 'userData' matrix and add it to the main panel
     private JPanel displayDataPanel;
 
     PortfolioPanel(){
