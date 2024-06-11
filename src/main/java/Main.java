@@ -15,7 +15,7 @@ public class Main{
 
 //        System.out.println(tesla.getCompanyName());
 
-        System.out.println("BIDIBIDIBI TOILET");
+        System.out.println("BIDIBIDIB TOILET");
         new LogInPage();
 
         //initializing the main frame
