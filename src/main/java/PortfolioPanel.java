@@ -5,6 +5,7 @@ import java.awt.*;
 
 public class PortfolioPanel extends JPanel {
 
+
     //label for just displaing (delete this later)
     JLabel portfolioPanelLabel;
 
