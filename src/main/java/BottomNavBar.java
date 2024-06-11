@@ -1,3 +1,15 @@
+/**
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ * This class ended up not being used but let's not delete it just in case
+ */
+
 package main.java;
 
 import javax.swing.*;
