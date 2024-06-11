@@ -14,7 +14,7 @@ public class Main{
 
 //        System.out.println(tesla.getCompanyName());
 
-        System.out.println("BIDIBIDI TOILET");
+        System.out.println("BIDIBIDIBI TOILET");
         new LogInPage();
 
     }
