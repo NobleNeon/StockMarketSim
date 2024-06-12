@@ -1,13 +1,16 @@
 package main.java;
 
+import io.polygon.kotlin.sdk.rest.PolygonRestClient;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 public class TradePanel extends JPanel implements ActionListener{
 
-    private JLabel testLabel = new JLabel(); // TODO - temporary for testing (delete this later)
+    private final JLabel testLabel = new JLabel(); // TODO - temporary for testing (delete this later)
 
 
     TradePanel(){
@@ -57,6 +60,13 @@ public class TradePanel extends JPanel implements ActionListener{
         this.add(buttonPanel, BorderLayout.WEST);
         this.add(testLabel);//TODO - temporary
         this.setBounds(0, 0, 600, 600);
+    }
+
+    public void createGraph() {
+        String apiKey = "xWzhEHlJS0D6qsOoOi1_sBrcD_umz4Sj";
+        PolygonRestClient client = new PolygonRestClient(apiKey);
+
+//        String response = client.getAggregates("AAPL", 1, "day", "2020-01-01", "2020-01-05");
     }
 
     @Override

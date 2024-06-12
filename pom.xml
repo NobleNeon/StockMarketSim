@@ -18,5 +18,28 @@
       <version>4.12</version>
       <type>jar</type>
     </dependency>
-  </dependencies>
+    <!-- Add the polygon.io client SDK dependency -->
+    <dependency>
+      <groupId>com.github.polygon-io</groupId>
+      <artifactId>client-jvm</artifactId>
+      <version>5.1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-stdlib</artifactId>
+      <version>1.3.72</version> <!-- Use the version compatible with your Kotlin runtime -->
+    </dependency>
+
+    </dependencies>
+
+  <!-- Make sure to have jitpack.io in your list of repositories -->
+  <repositories>
+    <!-- Other repositories -->
+
+    <!-- Add jitpack.io repository -->
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+    </repository>
+  </repositories>
 </project>
