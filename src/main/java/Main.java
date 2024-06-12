@@ -10,6 +10,8 @@ public class Main{
 
     //public 'ArrayList' matrix to store user's info
     public static ArrayList<String[]> userDataMatrix = new ArrayList<>();
+    public static ArrayList<String> usernames = new ArrayList<>();
+    public static ArrayList<String> passwords = new ArrayList<>();
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
@@ -71,6 +73,19 @@ public class Main{
             String[] tokens = line.split(", ");
 
             userDataMatrix.add(tokens);
+        }
+    }
+
+    public static void getLoginInfo() throws IOException {
+        File myFile = new File("users.txt");
+        Scanner readFile = new Scanner(myFile);
+
+        while (readFile.hasNext()){
+            String line = readFile.nextLine();
+            String[] tokens = line.split("  ");
+
+            usernames.add(tokens[0]);
+            passwords.add(tokens[1]);
         }
     }
 }

@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6e28828b-47b4-4064-83e9-6d1ab0c8c7a0" name="Changes" comment="Updating">
-      <change beforePath="$PROJECT_DIR$/src/main/java/PortfolioPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PortfolioPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,14 +37,12 @@
     &quot;assignee&quot;: &quot;Amir-Nafissi&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">
-    <option name="selectedUrlAndAccountId">
-      <UrlAndAccount>
-        <option name="accountId" value="abb6ad81-5813-484d-81cc-b748b7a0177d" />
-        <option name="url" value="https://github.com/NobleNeon/StockMarketSim" />
-      </UrlAndAccount>
-    </option>
-  </component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/NobleNeon/StockMarketSim.git",
+    "accountId": "c0055362-4a83-42f0-ad5b-86bc2a1d9d15"
+  }
+}]]></component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -144,7 +142,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-5cd809f4" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17890.1" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17890.1" />
       </set>
     </attachedChunks>
   </component>
@@ -161,6 +160,7 @@
       <workItem from="1717524431622" duration="2220000" />
       <workItem from="1717551325727" duration="28077000" />
       <workItem from="1718122433658" duration="161000" />
+      <workItem from="1718207749849" duration="303000" />
     </task>
     <task id="LOCAL-00001" summary="Updating">
       <option name="closed" value="true" />
@@ -314,39 +314,7 @@
       <option name="project" value="LOCAL" />
       <updated>1718122179417</updated>
     </task>
-    <task id="LOCAL-00020" summary="Updating">
-      <option name="closed" value="true" />
-      <created>1718148536379</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1718148536379</updated>
-    </task>
-    <task id="LOCAL-00021" summary="Updating">
-      <option name="closed" value="true" />
-      <created>1718148755038</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1718148755038</updated>
-    </task>
-    <task id="LOCAL-00022" summary="Updating">
-      <option name="closed" value="true" />
-      <created>1718149440703</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1718149440703</updated>
-    </task>
-    <task id="LOCAL-00023" summary="Updating">
-      <option name="closed" value="true" />
-      <created>1718149650514</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1718149650514</updated>
-    </task>
-    <option name="localTasksCounter" value="24" />
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
