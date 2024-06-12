@@ -30,8 +30,13 @@ public class MainAppFrame extends JFrame implements ActionListener {
         defaultPanelLayer.add(portfolioPanel);
         defaultPanelLayer.add(tradePanel);
 
+        //changing visibility of panels (will be changed later once user selects buttons)
+        portfolioPanel.setVisible(false);
+        tradePanel.setVisible(false);
+        defaultPanelLayer.setVisible(true);
+
         //adding portfolio and trade buttons to bottom nav bar panel
-        //setting settings for bottom panel
+        //setting for bottom panel
         bottomNavBar.setLayout(new GridLayout(1,2)); //setting layout
 
         //creating buttons
@@ -59,6 +64,55 @@ public class MainAppFrame extends JFrame implements ActionListener {
         this.setVisible(true);
 
 
+    }
+
+    //getters and setters
+    public PortfolioPanel getPortfolioPanel() {
+        return portfolioPanel;
+    }
+
+    public void setPortfolioPanel(PortfolioPanel portfolioPanel) {
+        this.portfolioPanel = portfolioPanel;
+    }
+
+    public TradePanel getTradePanel() {
+        return tradePanel;
+    }
+
+    public void setTradePanel(TradePanel tradePanel) {
+        this.tradePanel = tradePanel;
+    }
+
+    public JPanel getDefaultPanelLayer() {
+        return defaultPanelLayer;
+    }
+
+    public void setDefaultPanelLayer(JPanel defaultPanelLayer) {
+        this.defaultPanelLayer = defaultPanelLayer;
+    }
+
+    public JPanel getBottomNavBar() {
+        return bottomNavBar;
+    }
+
+    public void setBottomNavBar(JPanel bottomNavBar) {
+        this.bottomNavBar = bottomNavBar;
+    }
+
+    public JButton getPortfolioButton() {
+        return portfolioButton;
+    }
+
+    public void setPortfolioButton(JButton portfolioButton) {
+        this.portfolioButton = portfolioButton;
+    }
+
+    public JButton getTradeButton() {
+        return tradeButton;
+    }
+
+    public void setTradeButton(JButton tradeButton) {
+        this.tradeButton = tradeButton;
     }
 
     /**

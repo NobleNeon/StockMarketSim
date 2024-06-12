@@ -1,38 +1,76 @@
 package main.java;
 
-
-import java.io.*;
-import java.util.*;
+import javax.swing.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main{
+
+    //public 'ArrayList' matrix to store user's info
+    public static ArrayList<String[]> userDataMatrix = new ArrayList<>();
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
 //        Stock tesla = new Stock("TSLA");
 
 //        System.out.println(tesla.getCompanyName());
-        new MainAppFrame();
-        System.out.println("SKIBIDI TOILET");
+
+        System.out.println("BIDIBIDIBI TOILET");
         new LogInPage();
-        txtReader();
+
+        //loading user data
+        //readUserData("user_name.txt");
+        //TODO: how to get the correct file path for above^
+
+
+        //initializing the main frame
+        MainAppFrame mainAppFrame = new MainAppFrame();
+
+        //sending user data to the portfolio panel to be displayed
+        mainAppFrame.getPortfolioPanel().setUserData(convertStringMatrixToJLabel(userDataMatrix));
 
     }
 
-    public static void txtReader() throws IOException {
-        File myFile = new File("user_name.txt");
+    /**
+     * Name: convertStringMatrixToJLabel
+     * Description: will take blablabl;lablablabla
+     * @param stringMatrix: blablablablabl
+     */
+    public static ArrayList<ArrayList<JLabel>> convertStringMatrixToJLabel(ArrayList<String[]> stringMatrix){
+
+        ArrayList<ArrayList<JLabel>> labelsMatrix = new ArrayList<>();
+
+        for (int i = 0; i < stringMatrix.size(); i++) {
+
+            labelsMatrix.add(new ArrayList<>());
+
+            for (int j = 0; j < stringMatrix.get(i).length; j++) {
+
+                labelsMatrix.get(i).add(new JLabel(stringMatrix.get(i)[j]));
+            }
+        }
+        return labelsMatrix;
+    }
+
+    /**
+     * Name: readUserData
+     * Description: blablablablaba
+     * @param userNameFile: blablablablabl
+     * @throws IOException
+     */
+    public static void readUserData(String userNameFile) throws IOException{
+
+        File myFile = new File(userNameFile);
         Scanner readFile = new Scanner(myFile);
-        ArrayList<ArrayList<String>> userData = new ArrayList<ArrayList<String>>();
 
         while (readFile.hasNext()){
-            String[] tokens = readFile.nextLine().split(", ");
-            for (int i = 0; i < tokens.length; i++){
-                userData.add(new ArrayList());
-            }
-            for (int i = 0; i < tokens.length; i++){
-                userData.get(i).add(tokens[i]);
-            }
-            System.out.println(userData);
-        }
+            String line = readFile.nextLine();
 
+            String[] tokens = line.split(", ");
+
+            userDataMatrix.add(tokens);
+        }
     }
 }

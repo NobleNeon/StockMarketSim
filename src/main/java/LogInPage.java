@@ -106,13 +106,6 @@ public class LogInPage extends JFrame implements ActionListener {
             } else if (signUpPanel.isVisible()) {
 
                 //TODO same thing above
-//                // if the createPassword and confirmPassword fields are not the same, let them know
-//                if (!passwordField.getText().equals(confirmPasswordField.getText())) {
-//                    errorLabel.setText("Passwords do not match.");
-//                // if the username already exists, let them know
-//                } else if (userNames.contains(userNameField.getText())) {
-//                    errorLabel.setText("Username already exists!");
-//                }
 
                 System.out.println("We are now in the Sign Up Page");
                 System.out.println("Username: " + userNameField.getText()
