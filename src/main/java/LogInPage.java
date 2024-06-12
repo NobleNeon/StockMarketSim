@@ -28,6 +28,7 @@ public class LogInPage extends JFrame implements ActionListener {
     private final JButton okButton;
 
     public LogInPage() {
+
         frame = new JFrame();
 
         // adding buttons and their action listeners
