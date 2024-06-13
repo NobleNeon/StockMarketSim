@@ -37,8 +37,16 @@ public class LogInPage extends JFrame implements ActionListener {
 
     public LogInPage() throws FileNotFoundException {
 
-        // parse through the users.txt and get ALL the current usernames and their passwords
-        Scanner readFile = new Scanner(new File("users.txt"));
+        File myFile = new File("users.txt");
+        Scanner readFile = new Scanner(myFile);
+
+        while (readFile.hasNext()){
+            String line = readFile.nextLine();
+            String[] tokens = line.split("  ");
+
+            userNamesArray.add(tokens[0]);
+            passwordsArray.add(tokens[1]);
+        }
 
 
         System.out.println(userNamesArray);
@@ -90,6 +98,10 @@ public class LogInPage extends JFrame implements ActionListener {
         frame.setVisible(true);
     }
 
+    public String getFileName() {
+        return userNameField.getText() + ".txt";
+    }
+
     /**
      * Name: actionPerformed
      * Description: It does specific actions based on certain Swing objects. For example, this method takes the user
@@ -119,15 +131,9 @@ public class LogInPage extends JFrame implements ActionListener {
                 // if the username exists AND the password matches the account username
                 } else {
                     errorLabel.setText("SUCCESS"); // TODO - temporary (delete this later)
-                    //TODO - access the user information (i.e. their stock information / portfolio)
-
-                    try {
-                        Scanner readFile = new Scanner(new File("/Users/" + userNameField.getText() + ".txt"));
-                    } catch (FileNotFoundException ex) {
-                        throw new RuntimeException(ex);
-                    }
-
+                    frame.dispose();
                 }
+
 
             // if the OK button is in the sign-up page...
             } else if (signUpPanel.isVisible()) {
@@ -143,7 +149,7 @@ public class LogInPage extends JFrame implements ActionListener {
                     // if the username exists AND the password matches the account username
                 } else {
                     errorLabel.setText("SUCCESS"); // TODO - temporary (delete this later)
-                    //TODO - access the user information (i.e. their stock information / portfolio)
+                    frame.dispose();
                 }
 
                 System.out.println("We are now in the Sign Up Page");
