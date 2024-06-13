@@ -102,7 +102,7 @@ public class LogInPage extends JFrame implements ActionListener {
      * @param e the event to be processed
      */
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e){
 
         // if the user presses "OK"
         if ("ok".equals(e.getActionCommand())) {
@@ -125,6 +125,13 @@ public class LogInPage extends JFrame implements ActionListener {
                 } else {
                     errorLabel.setText("SUCCESS"); // TODO - temporary (delete this later)
                     //TODO - access the user information (i.e. their stock information / portfolio)
+
+                    try {
+                        Scanner readFile = new Scanner(new File("/Users/" + userNameField.getText() + ".txt"));
+                    } catch (FileNotFoundException ex) {
+                        throw new RuntimeException(ex);
+                    }
+
                 }
 
             // if the OK button is in the sign-up page...
