@@ -66,7 +66,17 @@ public class TradePanel extends JPanel implements ActionListener{
         String apiKey = "xWzhEHlJS0D6qsOoOi1_sBrcD_umz4Sj";
         PolygonRestClient client = new PolygonRestClient(apiKey);
 
-//        String response = client.getAggregates("AAPL", 1, "day", "2020-01-01", "2020-01-05");
+        // Set up the parameters for the aggregates request
+//        AggregatesParameters params = new AggregatesParameters.Builder()
+//                .withTicker("AAPL") // The ticker symbol for the stock
+//                .withMultiplier(1) // The size of the timespan multiplier
+//                .withTimespan("day") // The size of the time window (e.g., "minute", "hour", "day")
+//                .withFrom("2020-01-01") // Start date for the aggregate window
+//                .withTo("2020-01-05") // End date for the aggregate window
+//                .build();
+//
+//        // Fetch the aggregate bars
+//        AggregatesDTO aggregates = client.getRestClient().getStocksClient().getAggregatesBlocking(params);
     }
 
     @Override
