@@ -42,6 +42,7 @@ public class Main {
 
     /**
      * Description: will take
+     * @param stringMatrix
      */
     public static ArrayList<ArrayList<JLabel>> turnStringMatrixToJPanel(ArrayList<ArrayList<String>> stringMatrix) {
 
