@@ -15,10 +15,9 @@ public class Main {
 //        Stock tesla = new Stock("TSLA");
 
 //        System.out.println(tesla.getCompanyName());
-        getLoginInfo();
+
         new LogInPage();
         new MainAppFrame();
-
 
 //        //initializing the main frame
 //        MainAppFrame mainAppFrame = new MainAppFrame();
