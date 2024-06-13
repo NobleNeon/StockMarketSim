@@ -40,11 +40,6 @@ public class LogInPage extends JFrame implements ActionListener {
         // parse through the users.txt and get ALL the current usernames and their passwords
         Scanner readFile = new Scanner(new File("users.txt"));
 
-        while (readFile.hasNextLine()) {
-            String[] soak = readFile.nextLine().split("\t");
-            userNamesArray.add(soak[0]);
-            passwordsArray.add(soak[1]);
-        }
 
         System.out.println(userNamesArray);
         System.out.println(passwordsArray);
