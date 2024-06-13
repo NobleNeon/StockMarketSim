@@ -1,12 +1,14 @@
 package main.java;
 
-import java.io.IOException;
-import java.util.ArrayList;
+import java.io.*;
+import java.util.*;
 
 public class Main {
 
     //public 'ArrayList' matrix to store user's info
     public static ArrayList<ArrayList<String>> userDataMatrix = new ArrayList<>();
+    public static ArrayList<String> usernames = new ArrayList<>();
+    public static ArrayList<String> passwords = new ArrayList<>();
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
@@ -22,6 +24,18 @@ public class Main {
 //
 //        //sending user data to the frame to be displayed
 //        mainAppFrame.getPortfolioPanel().setUserData(sendDataForPortfolioPanel(userDataMatrix));
+    }
+    public static void getLoginInfo() throws IOException {
+        File myFile = new File("users.txt");
+        Scanner readFile = new Scanner(myFile);
+
+        while (readFile.hasNext()){
+            String line = readFile.nextLine();
+            String[] tokens = line.split("  ");
+
+            usernames.add(tokens[0]);
+            passwords.add(tokens[1]);
+        }
     }
 
 //    /**
