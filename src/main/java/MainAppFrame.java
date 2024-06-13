@@ -61,6 +61,7 @@ public class MainAppFrame extends JFrame implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setSize(500, 750);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 

@@ -1,10 +1,8 @@
 package main.java;
 
 import javax.swing.*;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Main {
 
@@ -16,34 +14,25 @@ public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
 
 //        Stock tesla = new Stock("TSLA");
-
 //        System.out.println(tesla.getCompanyName());
 
         LogInPage userLogin = new LogInPage();
 
+        while (userLogin.getFrame().isVisible()) {
+            Thread.sleep(1000);
+        }
+
         //initializing the main frame
         MainAppFrame mainAppFrame = new MainAppFrame();
-//
+
         //sending user data to the frame to be displayed
 //        mainAppFrame.getPortfolioPanel().setUserData(turnStringMatrixToJPanel(getUserInput(userLogin.getFileName())));
-    }
-    public static void getLoginInfo() throws IOException {
-        File myFile = new File("users.txt");
-        Scanner readFile = new Scanner(myFile);
-
-        while (readFile.hasNext()){
-            String line = readFile.nextLine();
-            String[] tokens = line.split("  ");
-
-            usernames.add(tokens[0]);
-            passwords.add(tokens[1]);
-        }
     }
 
     /**
      * Description: will take
      * @param stringMatrix
-     */
+     * */
     public static ArrayList<ArrayList<JLabel>> turnStringMatrixToJPanel(ArrayList<ArrayList<String>> stringMatrix) {
 
         ArrayList<ArrayList<JLabel>> labelsMatrix = new ArrayList<>();

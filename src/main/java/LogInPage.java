@@ -13,8 +13,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -45,7 +44,7 @@ public class LogInPage extends JFrame implements ActionListener {
 
         while (readFile.hasNext()){
             String line = readFile.nextLine();
-            String[] tokens = line.split("  ");
+            String[] tokens = line.split("\t");
 
             userNamesArray.add(tokens[0]);
             passwordsArray.add(tokens[1]);
@@ -98,12 +97,62 @@ public class LogInPage extends JFrame implements ActionListener {
         frame.setTitle("Paper Trader");
         frame.setResizable(false);
         frame.pack();
+        frame.setLocationRelativeTo(null); // centring the JFrame
         frame.setVisible(true);
+    }
+
+    public JPasswordField getConfirmPasswordField() {
+        return confirmPasswordField;
+    }
+
+    public void setConfirmPasswordField(JPasswordField confirmPasswordField) {
+        this.confirmPasswordField = confirmPasswordField;
+    }
+
+    public JLabel getErrorLabel() {
+        return errorLabel;
+    }
+
+    public JFrame getFrame() {
+        return frame;
+    }
+
+    public JPanel getLogInPanel() {
+        return logInPanel;
+    }
+
+    public JButton getOkButton() {
+        return okButton;
+    }
+
+    public JPasswordField getPasswordField() {
+        return passwordField;
+    }
+
+    public ArrayList<String> getPasswordsArray() {
+        return passwordsArray;
+    }
+
+    public JPanel getSignUpPanel() {
+        return signUpPanel;
+    }
+
+    public JLabel getUserName() {
+        return userName;
+    }
+
+    public JTextField getUserNameField() {
+        return userNameField;
+    }
+
+    public ArrayList<String> getUserNamesArray() {
+        return userNamesArray;
     }
 
     public String getFileName() {
         return userNameField.getText() + ".txt";
     }
+
 
     /**
      * Name: actionPerformed
@@ -124,13 +173,10 @@ public class LogInPage extends JFrame implements ActionListener {
                 System.out.println("Username: " + userNameField.getText()
                                 + "\nPassword: " + passwordField.getText());
 
-                //TODO finish making these once Brodin and Amir figure out how to store user information
-                //if username doesn't exist
-                if (!userNamesArray.contains(userNameField.getText())) {
-                    errorLabel.setText("Username does not exist.");
-                // if the username exists, but the password does not match
-                } else if (userNamesArray.indexOf(userNameField.getText()) != passwordsArray.indexOf(passwordField.getText())) {
-                    errorLabel.setText("Username/Password is invalid.");
+                //if username doesn't exist or the password is invalid
+                if (!userNamesArray.contains(userNameField.getText()) ||
+                    userNamesArray.indexOf(userNameField.getText()) != passwordsArray.indexOf(passwordField.getText())) {
+                    errorLabel.setText("Invalid username/password");
                 // if the username exists AND the password matches the account username
                 } else {
                     errorLabel.setText("SUCCESS"); // TODO - temporary (delete this later)
@@ -145,24 +191,33 @@ public class LogInPage extends JFrame implements ActionListener {
                 //TODO same thing above
                 //if username already exists
                 if (userNamesArray.contains(userNameField.getText())) {
-                    errorLabel.setText("Username already exists.");
-                    // if the username exists, but the password does not match
-                } else if (userNamesArray.indexOf(userNameField.getText()) != passwordsArray.indexOf(passwordField.getText())) {
-                    errorLabel.setText("Username/Password is invalid.");
+                    errorLabel.setText("Username already exists!");
+                    // if the username has not been created, but the passwords do not match
+                } else if (!passwordField.getText().equals(confirmPasswordField.getText())) {
+                    errorLabel.setText("Passwords do not match!");
                     // if the username exists AND the password matches the account username
                 } else {
                     errorLabel.setText("SUCCESS"); // TODO - temporary (delete this later)
+                    userNamesArray.add(userNameField.getText());
+                    passwordsArray.add(passwordField.getText());
                     frame.dispose();
-                }
 
-                System.out.println("We are now in the Sign Up Page");
-                System.out.println("Username: " + userNameField.getText()
-                                + "\nPassword: " + passwordField.getText()
-                                + "\nConfirm Password: " + confirmPasswordField.getText());
+                    //TODO - add the new username and password into the users.txt file and make a file in the Users folder
+                    try {
+                        File newUser = new File("Users/" + userNameField.getText() + ".txt");
+
+                        // we only want this method to create the file, no point in using the boolean
+                        newUser.createNewFile(); // although this method returns a variable, we just want it
+
+                        PrintWriter userInfo = new PrintWriter(new FileWriter("users.txt"), true);
+
+                        for (int i = 0; i < userNamesArray.size(); i++) {
+                            userInfo.println(userNamesArray.get(i) + "\t" + passwordsArray.get(i));
+                        }
+                    } catch (IOException ignored) {}
+                }
             }
 
-            //TODO take the userNameField and passwordField and check if they are already in the file
-            // Broden will make the file?
         // if the user presses the "Sign Up" button...
         } else if ("signup".equals(e.getActionCommand())) {
             // close the log-in page
