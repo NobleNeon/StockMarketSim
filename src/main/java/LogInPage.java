@@ -18,6 +18,9 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static main.java.Main.passwords;
+import static main.java.Main.usernames;
+
 public class LogInPage extends JFrame implements ActionListener {
 
     // initialized fields - no need for getters and setters as they are not supposed to be used outside the class
@@ -185,5 +188,9 @@ public class LogInPage extends JFrame implements ActionListener {
             frame.setResizable(false);
             frame.setVisible(true);
         }
+    }
+    public static void newUser(String username, String password) {
+        passwords.add(password);
+        usernames.add(username);
     }
 }
