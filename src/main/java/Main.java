@@ -62,7 +62,7 @@ public class Main {
         File myFile = new File(fileName);
         Scanner readFile = new Scanner(myFile);
 
-        String soak = readFile.nextLine(); // TODO - do we really need the title? Check PortfolioPanel.java class to see what I mean
+        String soak = readFile.nextLine();
 
         while (readFile.hasNext()){
 
