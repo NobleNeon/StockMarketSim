@@ -17,6 +17,7 @@ public class Main {
 
         LogInPage userLogin = new LogInPage();
 
+        //only open the Main App Frame once the user has successfully logged in
         while (userLogin.getFrame().isVisible()) {
             Thread.sleep(1000);
         }
@@ -51,7 +52,7 @@ public class Main {
     /**
      * Description: Will take a filename and read data to array
      * @param fileName: desired file name to be read
-     * @throws IOException
+     * @throws IOException: if the file is not found (it will always be found)
      */
     public static ArrayList<String[]> readUserData(String fileName) throws IOException{
 
