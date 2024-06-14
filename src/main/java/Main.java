@@ -53,7 +53,7 @@ public class Main {
     /**
      * Description: Will take a filename and read data to array
      * @param fileName: desired file name to be read
-     * @throws IOException: if the file is not found (it will always be found)
+     * @throws IOException: if the file is not found (it will always be found, but we need to throw for program to run)
      */
     public static ArrayList<String[]> readUserData(String fileName) throws IOException{
 
@@ -61,6 +61,8 @@ public class Main {
 
         File myFile = new File(fileName);
         Scanner readFile = new Scanner(myFile);
+
+        String soak = readFile.nextLine(); // TODO - do we really need the title? Check PortfolioPanel.java class to see what I mean
 
         while (readFile.hasNext()){
 

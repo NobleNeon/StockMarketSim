@@ -47,7 +47,6 @@ public class LogInPage extends JFrame implements ActionListener {
             passwordsArray.add(tokens[1]);
         }
 
-
         System.out.println(userNamesArray);
         System.out.println(passwordsArray);
 
