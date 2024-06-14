@@ -10,17 +10,17 @@ public class PortfolioPanel extends JPanel {
     private ArrayList<ArrayList<JLabel>> userData = new ArrayList<>();
     private JPanel displayDataPanel;
 
-    PortfolioPanel(){
+    PortfolioPanel() {
 
     }
 
     /**
      *
-     *
      */
     public void updateLayout() {
         //making display data panel
         displayDataPanel = new JPanel();
+
         //setting grid layout size to fit the 'userData' matrix
         displayDataPanel.setLayout(new GridLayout(userData.get(0).size(), userData.size()));
 
@@ -30,28 +30,27 @@ public class PortfolioPanel extends JPanel {
                 displayDataPanel.add(userData.get(i).get(j));
             }
         }
-
-        //changing panel settings
-        this.setLayout(new BorderLayout());
-        //adding 'displayDataPanel' to portfolio panel
-        this.add(displayDataPanel, BorderLayout.CENTER);
-        this.setBounds(0, 0, 600, 600);
+            //changing panel settings
+            this.setLayout(new BorderLayout());
+            //adding 'displayDataPanel' to portfolio panel
+            this.add(displayDataPanel, BorderLayout.CENTER);
+            this.setBounds(0, 0, 600, 600);
     }
 
     //getters and setters:
-    public ArrayList<ArrayList<JLabel>> getUserData() {
+    public ArrayList<ArrayList<JLabel>> getUserData () {
         return userData;
     }
 
-    public void setUserData(ArrayList<ArrayList<JLabel>> userData) {
+    public void setUserData (ArrayList < ArrayList < JLabel >> userData) {
         this.userData = userData;
     }
 
-    public JPanel getDisplayDataPanel() {
+    public JPanel getDisplayDataPanel () {
         return displayDataPanel;
     }
 
-    public void setDisplayDataPanel(JPanel displayDataPanel) {
+    public void setDisplayDataPanel (JPanel displayDataPanel){
         this.displayDataPanel = displayDataPanel;
     }
 }
