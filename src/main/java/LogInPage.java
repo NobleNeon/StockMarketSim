@@ -166,10 +166,6 @@ public class LogInPage extends JFrame implements ActionListener {
             // if the OK button is in the log-in page...
             if (logInPanel.isVisible()) {
 
-                System.out.println("We're still in the log-in page.");
-                System.out.println("Username: " + userNameField.getText()
-                                + "\nPassword: " + passwordField.getText());
-
                 //if username doesn't exist or the password is invalid
                 if (!userNamesArray.contains(userNameField.getText()) ||
                     userNamesArray.indexOf(userNameField.getText()) != passwordsArray.indexOf(passwordField.getText())) {
