@@ -25,19 +25,18 @@ public class PortfolioPanel extends JPanel {
 
         //setting grid layout size to fit the 'userData' matrix
 
-        if (userData.get(0).isEmpty())
 
-        //int xValue = (userData.get(0).isEmpty()) ? 1 : userData.get(0).size();
-        //int yValue = (userData.isEmpty()) ? 1 : userData.size();
+        int xValue = (userData.get(0).isEmpty()) ? 1 : userData.get(0).size();
+        int yValue = (userData.isEmpty()) ? 1 : userData.size();
 
-        //displayDataPanel.setLayout(new GridLayout(xValue, yValue));
+        displayDataPanel.setLayout(new GridLayout(xValue, yValue));
 
         //adding user data from 'userData' matrix to display panel
-//        for (int i = 0; i < userData.size(); i++) {
-//            for (int j = 0; j < userData.get(i).size(); j++) {
-//                displayDataPanel.add(userData.get(i).get(j));
-//            }
-//        }
+        for (int i = 0; i < userData.size(); i++) {
+            for (int j = 0; j < userData.get(i).size(); j++) {
+                displayDataPanel.add(userData.get(i).get(j));
+            }
+        }
 
         //adding 'displayDataPanel' to portfolio panel
         this.add(displayDataPanel, BorderLayout.CENTER);
