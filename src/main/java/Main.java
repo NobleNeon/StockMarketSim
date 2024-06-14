@@ -25,7 +25,7 @@ public class Main {
         MainAppFrame mainAppFrame = new MainAppFrame();
 
         //sending user data to the frame to be displayed
-        //mainAppFrame.getPortfolioPanel().setUserData(turnStringMatrixToJPanel(readUserData(userLogin.getFileName())));
+        mainAppFrame.getPortfolioPanel().setUserData(turnStringMatrixToJPanel(readUserData(userLogin.getFileLocation())));
     }
 
     /**
