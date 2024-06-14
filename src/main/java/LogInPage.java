@@ -13,6 +13,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class LogInPage extends JFrame implements ActionListener {
 
@@ -27,7 +31,24 @@ public class LogInPage extends JFrame implements ActionListener {
     private final JLabel userName;
     private final JButton okButton;
 
-    public LogInPage() {
+    // for storing usernames and passwords from file
+    private final ArrayList<String> userNamesArray = new ArrayList<>();
+    private final ArrayList<String> passwordsArray = new ArrayList<>();
+
+    public LogInPage() throws FileNotFoundException {
+
+        // parse through the users.txt and get ALL the current usernames and their passwords
+        Scanner readFile = new Scanner(new File("users.txt"));
+
+        while (readFile.hasNextLine()) {
+            String[] soak = readFile.nextLine().split("\t");
+            userNamesArray.add(soak[0]);
+            passwordsArray.add(soak[1]);
+        }
+
+        System.out.println(userNamesArray);
+        System.out.println(passwordsArray);
+
         frame = new JFrame();
 
         // adding buttons and their action listeners
@@ -62,6 +83,8 @@ public class LogInPage extends JFrame implements ActionListener {
         logInPanel.add(new JLabel("New User? "));
         logInPanel.add(signUpButton);
 
+        errorLabel.setForeground(Color.RED); // set text color to red
+        logInPanel.add(errorLabel);
 
         // adding the log-in panel to the frame
         frame.add(logInPanel, BorderLayout.CENTER);
@@ -88,24 +111,38 @@ public class LogInPage extends JFrame implements ActionListener {
             if (logInPanel.isVisible()) {
 
                 System.out.println("We're still in the log-in page.");
-                System.out.println("Username: " + userNameField.getText() + "\nPassword: " + passwordField.getText());
+                System.out.println("Username: " + userNameField.getText()
+                                + "\nPassword: " + passwordField.getText());
 
-                //TODO finish making these once Broden and Amir figure out how to store user information
-//                // if username doesn't exist
-//                if () {
-//                    errorLabel.setText("Username does not exist.");
-//                // if the username exists, but the password does not match
-//                } else if () {
-//                    System.out.println("Username/Password is invalid.");
-//                // if the username exists AND the password matches the account username
-//                } else {
-//
-//                }
+                //TODO finish making these once Brodin and Amir figure out how to store user information
+                //if username doesn't exist
+                if (!userNamesArray.contains(userNameField.getText())) {
+                    errorLabel.setText("Username does not exist.");
+                // if the username exists, but the password does not match
+                } else if (userNamesArray.indexOf(userNameField.getText()) != passwordsArray.indexOf(passwordField.getText())) {
+                    errorLabel.setText("Username/Password is invalid.");
+                // if the username exists AND the password matches the account username
+                } else {
+                    errorLabel.setText("SUCCESS"); // TODO - temporary (delete this later)
+                    //TODO - access the user information (i.e. their stock information / portfolio)
+                }
 
             // if the OK button is in the sign-up page...
             } else if (signUpPanel.isVisible()) {
+                errorLabel.setText("");
 
                 //TODO same thing above
+                //if username already exists
+                if (userNamesArray.contains(userNameField.getText())) {
+                    errorLabel.setText("Username already exists.");
+                    // if the username exists, but the password does not match
+                } else if (userNamesArray.indexOf(userNameField.getText()) != passwordsArray.indexOf(passwordField.getText())) {
+                    errorLabel.setText("Username/Password is invalid.");
+                    // if the username exists AND the password matches the account username
+                } else {
+                    errorLabel.setText("SUCCESS"); // TODO - temporary (delete this later)
+                    //TODO - access the user information (i.e. their stock information / portfolio)
+                }
 
                 System.out.println("We are now in the Sign Up Page");
                 System.out.println("Username: " + userNameField.getText()
