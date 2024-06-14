@@ -14,7 +14,7 @@ import java.util.HashMap;
 
 public class Stock {
 
-    private double currentPrice;
+    private final double currentPrice;
 
     public Stock(String tickerSymbol) throws IOException, InterruptedException {
 
