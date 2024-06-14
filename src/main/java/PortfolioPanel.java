@@ -6,28 +6,22 @@ import java.util.ArrayList;
 
 public class PortfolioPanel extends JPanel {
 
-    //label for just displaying (delete this later)
-    JLabel portfolioPanelLabel;
-
     //array list to store user data
     private ArrayList<ArrayList<JLabel>> userData = new ArrayList<>();
     private JPanel displayDataPanel;
 
     PortfolioPanel(){
 
-        //making label
-        portfolioPanelLabel = new JLabel();
-        portfolioPanelLabel.setText("PORTFOLIO");
-
-        //making display data panel
-        displayDataPanel = new JPanel();
-
-
-        //setting grid layout size to fit the 'userData' matrix
-
     }
 
+    /**
+     *
+     *
+     */
     public void updateLayout() {
+        //making display data panel
+        displayDataPanel = new JPanel();
+        //setting grid layout size to fit the 'userData' matrix
         displayDataPanel.setLayout(new GridLayout(userData.get(0).size(), userData.size()));
 
         //adding user data from 'userData' matrix to display panel
@@ -37,12 +31,10 @@ public class PortfolioPanel extends JPanel {
             }
         }
 
-        //adding 'displayDataPanel' to portfolio panel
-        this.add(displayDataPanel, BorderLayout.CENTER);
-
         //changing panel settings
         this.setLayout(new BorderLayout());
-        this.add(portfolioPanelLabel, BorderLayout.NORTH);
+        //adding 'displayDataPanel' to portfolio panel
+        this.add(displayDataPanel, BorderLayout.CENTER);
         this.setBounds(0, 0, 600, 600);
     }
 
