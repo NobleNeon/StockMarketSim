@@ -1,13 +1,12 @@
 package main.java;
 
 import javax.swing.*;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.io.*;
+import java.util.*;
 
 public class Main {
 
     //public 'ArrayList' matrix to store user's info
-    public static ArrayList<ArrayList<String>> userDataMatrix = new ArrayList<>();
     public static ArrayList<String> usernames = new ArrayList<>();
     public static ArrayList<String> passwords = new ArrayList<>();
 
@@ -26,14 +25,14 @@ public class Main {
         MainAppFrame mainAppFrame = new MainAppFrame();
 
         //sending user data to the frame to be displayed
-//        mainAppFrame.getPortfolioPanel().setUserData(turnStringMatrixToJPanel(getUserInput(userLogin.getFileName())));
+        //mainAppFrame.getPortfolioPanel().setUserData(turnStringMatrixToJPanel(readUserData(userLogin.getFileName())));
     }
 
     /**
      * Description: will take
      * @param stringMatrix
      * */
-    public static ArrayList<ArrayList<JLabel>> turnStringMatrixToJPanel(ArrayList<ArrayList<String>> stringMatrix) {
+    public static ArrayList<ArrayList<JLabel>> turnStringMatrixToJPanel(ArrayList<String[]> stringMatrix) {
 
         ArrayList<ArrayList<JLabel>> labelsMatrix = new ArrayList<>();
 
@@ -41,11 +40,38 @@ public class Main {
 
             labelsMatrix.add(new ArrayList<>());
 
-            for (int j = 0; j < stringMatrix.get(i).size(); j++) {
+            for (int j = 0; j < stringMatrix.get(i).length; j++) {
 
-                labelsMatrix.get(i).add(new JLabel(stringMatrix.get(i).get(j)));
+                labelsMatrix.get(i).add(new JLabel(stringMatrix.get(i)[j]));
             }
         }
         return labelsMatrix;
     }
+
+    /**
+     * Description: Will take a filename and read data to array
+     * @param fileName: desired file name to be read
+     * @throws IOException
+     */
+    public static ArrayList<String[]> readUserData(String fileName) throws IOException{
+
+        ArrayList<String[]> userDataMatrix = new ArrayList<>();
+
+        File myFile = new File(fileName);
+        Scanner readFile = new Scanner(myFile);
+
+        while (readFile.hasNext()){
+
+            userDataMatrix.add(new String[4]);
+
+            String line = readFile.nextLine();
+
+            String[] tokens = line.split(", ");
+
+            userDataMatrix.add(tokens);
+        }
+
+        return userDataMatrix;
+    }
+
 }
