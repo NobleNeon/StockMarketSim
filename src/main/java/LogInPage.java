@@ -17,9 +17,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static main.java.Main.passwords;
-import static main.java.Main.usernames;
-
 public class LogInPage extends JFrame implements ActionListener {
 
     // initialized fields - no need for getters and setters as they are not supposed to be used outside the class
@@ -149,8 +146,8 @@ public class LogInPage extends JFrame implements ActionListener {
         return userNamesArray;
     }
 
-    public String getFileName() {
-        return userNameField.getText() + ".txt";
+    public String getFileLocation() {
+        return "Users/" + userNameField.getText() + ".txt";
     }
 
 
@@ -169,10 +166,6 @@ public class LogInPage extends JFrame implements ActionListener {
             // if the OK button is in the log-in page...
             if (logInPanel.isVisible()) {
 
-                System.out.println("We're still in the log-in page.");
-                System.out.println("Username: " + userNameField.getText()
-                                + "\nPassword: " + passwordField.getText());
-
                 //if username doesn't exist or the password is invalid
                 if (!userNamesArray.contains(userNameField.getText()) ||
                     userNamesArray.indexOf(userNameField.getText()) != passwordsArray.indexOf(passwordField.getText())) {
@@ -188,11 +181,16 @@ public class LogInPage extends JFrame implements ActionListener {
             } else if (signUpPanel.isVisible()) {
                 errorLabel.setText("");
 
-                //TODO same thing above
-                //if username already exists
+                // if username already exists
                 if (userNamesArray.contains(userNameField.getText())) {
                     errorLabel.setText("Username already exists!");
-                    // if the username has not been created, but the passwords do not match
+                // if the username, password, or confirm password fields are still empty
+                } else if (userNameField.getText().isEmpty()
+                        || passwordField.getText().isEmpty()
+                        || confirmPasswordField.getText().isEmpty()) {
+                    errorLabel.setText(""); // shouldn't be necessary to specify what to do (it's implied)
+
+                // if the username has not been created, but the passwords do not match
                 } else if (!passwordField.getText().equals(confirmPasswordField.getText())) {
                     errorLabel.setText("Passwords do not match!");
                     // if the username exists AND the password matches the account username
@@ -202,12 +200,12 @@ public class LogInPage extends JFrame implements ActionListener {
                     passwordsArray.add(passwordField.getText());
                     frame.dispose();
 
-                    //TODO - add the new username and password into the users.txt file and make a file in the Users folder
+                    //add the new username and password into the users.txt file and make a file in the Users folder
                     try {
                         File newUser = new File("Users/" + userNameField.getText() + ".txt");
 
                         // we only want this method to create the file, no point in using the boolean
-                        newUser.createNewFile(); // although this method returns a variable, we just want it
+                        newUser.createNewFile();
 
                         PrintWriter userInfo = new PrintWriter(new FileWriter("users.txt"), true);
 
@@ -222,6 +220,7 @@ public class LogInPage extends JFrame implements ActionListener {
         } else if ("signup".equals(e.getActionCommand())) {
             // close the log-in page
             logInPanel.setVisible(false);
+            errorLabel.setText(""); // remove any previous errors from the log-in page
 
             // now use the signUpPanel object and...
                 // add the previous objects from the log-in page (no other efficient way to do this)
@@ -249,9 +248,5 @@ public class LogInPage extends JFrame implements ActionListener {
             frame.setResizable(false);
             frame.setVisible(true);
         }
-    }
-    public static void newUser(String username, String password) {
-        passwords.add(password);
-        usernames.add(username);
     }
 }
