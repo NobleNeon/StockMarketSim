@@ -1,7 +1,0 @@
-StockTickerSymbols, stockLastPrices, sharesOwned, transactionType
-symbol_1, $1314, 52352, idk what this means_1
-symbol_2, $1314, 52352, idk what this means_2
-symbol_3, $1314, 52352, idk what this means_3
-symbol_4, $1314, 52352, idk what this means_4
-symbol_5, $1314, 52352, idk what this means_5
-symbol_6, $1314, 52352, idk what this means_6
