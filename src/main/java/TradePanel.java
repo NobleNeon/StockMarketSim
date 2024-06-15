@@ -46,6 +46,8 @@ public class TradePanel extends JPanel implements ActionListener{
         JTextField tickerSymbolTextField = new JTextField(15);
         JLabel numberOfSharesLabel = new JLabel("Number of Shares: ");
         JTextField numberOfSharesTextField = new JTextField(15);
+        JLabel errorLabel = new JLabel("Ticker Symbol Not Found!");
+        errorLabel.setForeground(Color.RED);
 
 
         //Panel for labels and text fields
@@ -55,11 +57,13 @@ public class TradePanel extends JPanel implements ActionListener{
         textFieldAndLabelPanel.add(tickerSymbolTextField);
         textFieldAndLabelPanel.add(numberOfSharesLabel);
         textFieldAndLabelPanel.add(numberOfSharesTextField);
+        textFieldAndLabelPanel.add(errorLabel);
 
         this.setLayout(new GridLayout(3,0));
         this.add(textFieldAndLabelPanel, BorderLayout.WEST);
         this.add(buttonPanel, BorderLayout.WEST);
         this.add(testLabel);//TODO - temporary
+
         this.setBounds(0, 0, 600, 600);
     }
 
