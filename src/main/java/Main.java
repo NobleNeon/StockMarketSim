@@ -1,9 +1,10 @@
 package main.java;
 
 import javax.swing.*;
-import java.io.*;
-import java.sql.SQLOutput;
-import java.util.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
 
@@ -20,7 +21,6 @@ public class Main {
 //        System.out.println(tesla.getCompanyName());
 
         getTickerSymbols();
-        System.out.println(stockList);
 
         LogInPage userLogin = new LogInPage();
 
@@ -93,5 +93,4 @@ public class Main {
             stockList.add(line);
         }
     }
-
 }
