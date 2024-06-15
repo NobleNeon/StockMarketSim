@@ -2,6 +2,7 @@ package main.java;
 
 import javax.swing.*;
 import java.io.*;
+import java.sql.SQLOutput;
 import java.util.*;
 
 public class Main {
@@ -9,11 +10,17 @@ public class Main {
     //public 'ArrayList' matrix to store user's info
     public static ArrayList<String> usernames = new ArrayList<>();
     public static ArrayList<String> passwords = new ArrayList<>();
+    public static ArrayList<String[]> userDataMatrix = new ArrayList<>();
+    public static Double userBalance = 0.00;
+    public static ArrayList<String> stockList = new ArrayList<>();
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
 //        Stock tesla = new Stock("TSLA");
 //        System.out.println(tesla.getCompanyName());
+
+        getTickerSymbols();
+        System.out.println(stockList);
 
         LogInPage userLogin = new LogInPage();
 
@@ -57,8 +64,6 @@ public class Main {
      */
     public static ArrayList<String[]> readUserData(String fileName) throws IOException{
 
-        ArrayList<String[]> userDataMatrix = new ArrayList<>();
-
         File myFile = new File(fileName);
         Scanner readFile = new Scanner(myFile);
 
@@ -66,7 +71,7 @@ public class Main {
 
         while (readFile.hasNext()){
 
-            userDataMatrix.add(new String[4]);
+            userDataMatrix.add(new String[5]);
 
             String line = readFile.nextLine();
 
@@ -76,6 +81,17 @@ public class Main {
         }
 
         return userDataMatrix;
+    }
+
+    public static void getTickerSymbols() throws IOException {
+
+        File myFile = new File("tickerSymbolsOnly.txt");
+        Scanner readFile = new Scanner(myFile);
+
+        while (readFile.hasNext()){
+            String line = readFile.nextLine();
+            stockList.add(line);
+        }
     }
 
 }
