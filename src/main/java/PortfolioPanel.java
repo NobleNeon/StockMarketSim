@@ -19,12 +19,14 @@ public class PortfolioPanel extends JPanel {
         userData.remove(0);
 
         //converting the mutable 'userData' 'ArrayList' into an immutable 'userDataArray'
-        String[][] userDataArray = new String[userData.size()][userData.get(0).size()];
+        String[][] userDataArray = new String[userData.size()][];
         for (int i = 0; i < userData.size(); i++) {
+            userDataArray[i] = new String[userData.get(i).size()];
             for (int j = 0; j < userData.get(i).size(); j++) {
                 userDataArray[i][j] = userData.get(i).get(j).getText();
             }
         }
+
 
         // creating a table of user's portfolio
         JTable displayDataTable = new JTable(userDataArray, new String[]{"Ticker Symbol", "Last Price",
@@ -34,8 +36,7 @@ public class PortfolioPanel extends JPanel {
         disabling user's ability to edit table:
         the for loop below was copy and pasted from https://stackoverflow.com/a/20568608
         */
-        for (int c = 0; c < displayDataTable.getColumnCount(); c++)
-        {
+        for (int c = 0; c < displayDataTable.getColumnCount(); c++) {
             Class<?> col_class = displayDataTable.getColumnClass(c);
             displayDataTable.setDefaultEditor(col_class, null);
         }
