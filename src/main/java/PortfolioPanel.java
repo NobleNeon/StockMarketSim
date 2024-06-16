@@ -27,7 +27,6 @@ public class PortfolioPanel extends JPanel {
             }
         }
 
-
         // creating a table of user's portfolio
         JTable displayDataTable = new JTable(userDataArray, new String[]{"Ticker Symbol", "Last Price",
                 "Shares Owned", "Transaction Type"});
