@@ -11,6 +11,7 @@ import java.io.IOException;
 
 import static main.java.Main.stockList;
 import static main.java.Main.userDataMatrix;
+import static main.java.Main.userBalance;
 
 
 public class TradePanel extends JPanel implements ActionListener{
@@ -20,6 +21,7 @@ public class TradePanel extends JPanel implements ActionListener{
     private final JTextField numberOfSharesTextField;
     private final JLabel errorLabel = new JLabel();
     private Stock stock = new Stock();
+    private JPanel buttonPanel = new JPanel();
 
     TradePanel(){
         // Creating buttons and their action listeners
@@ -40,7 +42,6 @@ public class TradePanel extends JPanel implements ActionListener{
         searchTickerButton.setActionCommand("search");
 
         // Panels for buttons
-        JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(2,4));
         buttonPanel.add(buyButton);
         buttonPanel.add(sellButton);
@@ -73,6 +74,7 @@ public class TradePanel extends JPanel implements ActionListener{
         this.setLayout(new GridLayout(4,0));
         this.add(textFieldAndLabelPanel, BorderLayout.WEST);
         this.add(buttonPanel, BorderLayout.WEST);
+        buttonPanel.setVisible(false);
         this.add(testLabel);//TODO - temporary
 
 
@@ -120,16 +122,18 @@ public class TradePanel extends JPanel implements ActionListener{
         int symbolIndex = 0;
         if ("search".equals(e.getActionCommand())) {
             symbolIndex = binarySearch(tickerSymbolTextField.getText());
+            errorLabel.setText("");
 
             if (symbolIndex == -1) {
                 errorLabel.setForeground(Color.RED);
                 errorLabel.setText("Ticker Symbol Not Found!");
             } else {
-                errorLabel.setText("");
+                buttonPanel.setVisible(true);
                 try {
                     stock = new Stock(stockList.get(symbolIndex)); // Update the stock object
                     System.out.println(stock.getCompanyName());
-                    testLabel.setText("Stock found: " + stock.getCompanyName());
+                    errorLabel.setForeground(Color.GREEN);
+                    errorLabel.setText("Stock found: " + stock.getCompanyName());
                 } catch (IOException | InterruptedException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -138,6 +142,7 @@ public class TradePanel extends JPanel implements ActionListener{
         } else if ("buy".equals(e.getActionCommand())){
 
             userDataMatrix.add(new String[]{stock.getTickerSymbol(), stock.getCurrentPriceStr(), numberOfSharesTextField.getText(), "BUY" });
+            userBalance -= stock.buyStock(Integer.parseInt(numberOfSharesTextField.getText()));
             for (int i = 0; i < userDataMatrix.size(); i++) {
                 for (int j = 0; j < userDataMatrix.get(i).length; j++) {
                     System.out.println(userDataMatrix.get(i)[j]);
@@ -147,6 +152,7 @@ public class TradePanel extends JPanel implements ActionListener{
             testLabel.setText("SELLING");
         } else if ("short".equals(e.getActionCommand())) {
             testLabel.setText("SHORT");
+            userDataMatrix.add(new String[]{stock.getTickerSymbol(), stock.getCurrentPriceStr(), numberOfSharesTextField.getText(), "SHORT" });
         } else if ("cover".equals(e.getActionCommand())) {
             testLabel.setText("COVER");
         }
