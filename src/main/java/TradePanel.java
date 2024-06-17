@@ -56,8 +56,6 @@ public class TradePanel extends JPanel implements ActionListener{
         JLabel numberOfSharesLabel = new JLabel("Number of Shares: ");
         numberOfSharesTextField = new JTextField(15);
 
-
-
         //Panel for labels and text fields
         JPanel textFieldAndLabelPanel = new JPanel();
         textFieldAndLabelPanel.setLayout(new GridLayout(4,2));
