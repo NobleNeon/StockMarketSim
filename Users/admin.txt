@@ -1,30 +1,32 @@
-symbol_1, $1314, 52352, Womp womp 1
-symbol_2, $1314, 52352, Womp womp 2
-symbol_3, $1314, 52352, Womp womp 3
-symbol_4, $1314, 52352, Womp womp 4
-symbol_5, $1314, 52352, Womp womp 5
-symbol_6, $1314, 52352, Womp womp 6
-symbol_1, $1314, 52352, Womp womp 1
-symbol_2, $1314, 52352, Womp womp 2
-symbol_3, $1314, 52352, Womp womp 3
-symbol_4, $1314, 52352, Womp womp 4
-symbol_5, $1314, 52352, Womp womp 5
-symbol_6, $1314, 52352, Womp womp 6
-symbol_1, $1314, 52352, Womp womp 1
-symbol_2, $1314, 52352, Womp womp 2
-symbol_3, $1314, 52352, Womp womp 3
-symbol_4, $1314, 52352, Womp womp 4
-symbol_5, $1314, 52352, Womp womp 5
-symbol_6, $1314, 52352, Womp womp 6
-symbol_1, $1314, 52352, Womp womp 1
-symbol_2, $1314, 52352, Womp womp 2
-symbol_3, $1314, 52352, Womp womp 3
-symbol_4, $1314, 52352, Womp womp 4
-symbol_5, $1314, 52352, Womp womp 5
-symbol_6, $1314, 52352, Womp womp 6
-symbol_1, $1314, 52352, Womp womp 1
-symbol_2, $1314, 52352, Womp womp 2
-symbol_3, $1314, 52352, Womp womp 3
-symbol_4, $1314, 52352, Womp womp 4
-symbol_5, $1314, 52352, Womp womp 5
-symbol_6, $1314, 52352, Womp womp 6
+symbol 1, 12441, 656346, BUY
+symbol 2, 12441, 656346, BUY
+symbol 3, 12441, 656346, BUY
+symbol 4, 12441, 656346, BUY
+symbol 5, 12441, 656346, BUY
+symbol 6, 12441, 656346, BUY
+symbol 7, 12441, 656346, BUY
+symbol 8, 12441, 656346, BUY
+symbol 9, 12441, 656346, BUY
+symbol 10, 12441, 656346, BUY
+symbol 11, 12441, 656346, BUY
+symbol 12, 12441, 656346, BUY
+symbol 13, 12441, 656346, BUY
+symbol 14, 12441, 656346, BUY
+symbol 15, 12441, 656346, BUY
+symbol 16, 12441, 656346, BUY
+symbol 1, 12441, 656346, BUY
+symbol 2, 12441, 656346, BUY
+symbol 3, 12441, 656346, BUY
+symbol 4, 12441, 656346, BUY
+symbol 5, 12441, 656346, BUY
+symbol 6, 12441, 656346, BUY
+symbol 7, 12441, 656346, BUY
+symbol 8, 12441, 656346, BUY
+symbol 9, 12441, 656346, BUY
+symbol 10, 12441, 656346, BUY
+symbol 11, 12441, 656346, BUY
+symbol 12, 12441, 656346, BUY
+symbol 13, 12441, 656346, BUY
+symbol 14, 12441, 656346, BUY
+symbol 15, 12441, 656346, BUY
+symbol 16, 12441, 656346, BUY
