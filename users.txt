@@ -2,3 +2,4 @@ admin	password
 SHIMMY	1234
 amir	amir
 Brodin	Password123
+Swing	1234

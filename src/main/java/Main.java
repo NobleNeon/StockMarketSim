@@ -67,18 +67,16 @@ public class Main {
         File myFile = new File(fileName);
         Scanner readFile = new Scanner(myFile);
 
-        String soak = readFile.nextLine();
+        String soak;
 
         while (readFile.hasNext()){
+            soak = readFile.nextLine();
 
-            userDataMatrix.add(new String[5]);
-
-            String line = readFile.nextLine();
-
-            String[] tokens = line.split(", ");
+            String[] tokens = soak.split(", ");
 
             userDataMatrix.add(tokens);
         }
+
 
         return userDataMatrix;
     }
