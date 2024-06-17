@@ -1,5 +1,6 @@
 package main.java;
 
+import com.jayway.jsonpath.PathNotFoundException;
 import io.polygon.kotlin.sdk.rest.PolygonRestClient;
 
 import javax.swing.*;
@@ -115,16 +116,9 @@ public class TradePanel extends JPanel implements ActionListener{
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) throws PathNotFoundException {
         int symbolIndex = 0;
         Stock stock = null;
-        try {
-            stock = new Stock("");
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        } catch (InterruptedException ex) {
-            throw new RuntimeException(ex);
-        }
 
         if ("search".equals(e.getActionCommand())) {
             symbolIndex = binarySearch(tickerSymbolTextField.getText());
@@ -143,7 +137,14 @@ public class TradePanel extends JPanel implements ActionListener{
                 }
             }
 
-        } else if ("buy".equals(e.getActionCommand())) {
+        } else if ("buy".equals(e.getActionCommand())){
+            try {
+                stock = new Stock(stockList.get(symbolIndex));
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
             userDataMatrix.add(new String[]{stockList.get(symbolIndex), stock.getCurrentPriceStr(), numberOfSharesTextField.getText(), "BUY" });
             System.out.println(userDataMatrix);
         } else if ("sell".equals(e.getActionCommand())) {
