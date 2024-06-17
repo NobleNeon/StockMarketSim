@@ -9,12 +9,14 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import static main.java.Main.stockList;
+import static main.java.Main.userDataMatrix;
 
 
 public class TradePanel extends JPanel implements ActionListener{
 
     private final JLabel testLabel = new JLabel(); // TODO - temporary for testing (delete this later)
     private final JTextField tickerSymbolTextField;
+    private final JTextField numberOfSharesTextField;
     private final JLabel errorLabel = new JLabel();
 
     TradePanel(){
@@ -52,7 +54,7 @@ public class TradePanel extends JPanel implements ActionListener{
         JLabel tickerSymbolLabel = new JLabel("Ticker Symbol: ");
         tickerSymbolTextField = new JTextField(15);
         JLabel numberOfSharesLabel = new JLabel("Number of Shares: ");
-        JTextField numberOfSharesTextField = new JTextField(15);
+        numberOfSharesTextField = new JTextField(15);
 
 
 
@@ -116,9 +118,18 @@ public class TradePanel extends JPanel implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        int symbolIndex = 0;
+        Stock stock = null;
+        try {
+            stock = new Stock("");
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        } catch (InterruptedException ex) {
+            throw new RuntimeException(ex);
+        }
 
         if ("search".equals(e.getActionCommand())) {
-            int symbolIndex = binarySearch(tickerSymbolTextField.getText());
+            symbolIndex = binarySearch(tickerSymbolTextField.getText());
 
             if (symbolIndex == -1) {
                 errorLabel.setForeground(Color.RED);
@@ -126,15 +137,17 @@ public class TradePanel extends JPanel implements ActionListener{
             } else {
                 errorLabel.setText("");
                 try {
-                    Stock stock = new Stock(stockList.get(symbolIndex));
+                    stock = new Stock(stockList.get(symbolIndex)); // Update the stock object
                     System.out.println(stock.getCompanyName());
+                    testLabel.setText("Stock found: " + stock.getCompanyName());
                 } catch (IOException | InterruptedException ex) {
                     throw new RuntimeException(ex);
                 }
             }
 
         } else if ("buy".equals(e.getActionCommand())) {
-            testLabel.setText("BUY");
+            userDataMatrix.add(new String[]{stockList.get(symbolIndex), stock.getCurrentPriceStr(), numberOfSharesTextField.getText(), "BUY" });
+            System.out.println(userDataMatrix);
         } else if ("sell".equals(e.getActionCommand())) {
             testLabel.setText("SELLING");
         } else if ("short".equals(e.getActionCommand())) {
