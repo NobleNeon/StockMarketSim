@@ -21,6 +21,8 @@ public class MainAppFrame extends JFrame implements ActionListener {
 
     MainAppFrame() {
 
+        ImageIcon img = new ImageIcon("stockIcon.png");
+        frame.setIconImage(img.getImage());
         //creating panels
         portfolioPanel = new PortfolioPanel();
         tradePanel = new TradePanel();

@@ -51,6 +51,8 @@ public class LogInPage extends JFrame implements ActionListener {
         System.out.println(passwordsArray);
 
         frame = new JFrame();
+        ImageIcon img = new ImageIcon("stockIcon.png");
+        frame.setIconImage(img.getImage());
 
         // adding buttons and their action listeners
         okButton = new JButton("OK");

@@ -1,4 +1,3 @@
-Ticker Symbol, Last Price, Shares Owned, Transaction Type
 symbol_1, $1314, 52352, Womp womp 1
 symbol_2, $1314, 52352, Womp womp 2
 symbol_3, $1314, 52352, Womp womp 3

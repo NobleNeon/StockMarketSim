@@ -6,12 +6,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+
+import static main.java.Main.stockList;
 
 
 public class TradePanel extends JPanel implements ActionListener{
 
     private final JLabel testLabel = new JLabel(); // TODO - temporary for testing (delete this later)
-
+    private final JTextField tickerSymbolTextField;
+    private final JLabel errorLabel = new JLabel();
 
     TradePanel(){
         // Creating buttons and their action listeners
@@ -27,6 +31,9 @@ public class TradePanel extends JPanel implements ActionListener{
         JButton coverButton = new JButton("COVER");
         coverButton.addActionListener(this);
         coverButton.setActionCommand("cover");
+        JButton searchTickerButton = new JButton("SEARCH");
+        searchTickerButton.addActionListener(this);
+        searchTickerButton.setActionCommand("search");
 
         // Panels for buttons
         JPanel buttonPanel = new JPanel();
@@ -43,23 +50,28 @@ public class TradePanel extends JPanel implements ActionListener{
 
         //Labels and Text Fields
         JLabel tickerSymbolLabel = new JLabel("Ticker Symbol: ");
-        JTextField tickerSymbolTextField = new JTextField(15);
+        tickerSymbolTextField = new JTextField(15);
         JLabel numberOfSharesLabel = new JLabel("Number of Shares: ");
         JTextField numberOfSharesTextField = new JTextField(15);
 
-
         //Panel for labels and text fields
         JPanel textFieldAndLabelPanel = new JPanel();
-        textFieldAndLabelPanel.setLayout(new GridLayout(2,2));
+        textFieldAndLabelPanel.setLayout(new GridLayout(4,2));
         textFieldAndLabelPanel.add(tickerSymbolLabel);
         textFieldAndLabelPanel.add(tickerSymbolTextField);
+        textFieldAndLabelPanel.add(errorLabel);
+        textFieldAndLabelPanel.add(searchTickerButton);
         textFieldAndLabelPanel.add(numberOfSharesLabel);
         textFieldAndLabelPanel.add(numberOfSharesTextField);
+        textFieldAndLabelPanel.add(new JLabel());
 
-        this.setLayout(new GridLayout(3,0));
+
+        this.setLayout(new GridLayout(4,0));
         this.add(textFieldAndLabelPanel, BorderLayout.WEST);
         this.add(buttonPanel, BorderLayout.WEST);
         this.add(testLabel);//TODO - temporary
+
+
         this.setBounds(0, 0, 600, 600);
     }
 
@@ -80,11 +92,47 @@ public class TradePanel extends JPanel implements ActionListener{
 //        AggregatesDTO aggregates = client.getRestClient().getStocksClient().getAggregatesBlocking(params);
     }
 
+    public int binarySearch (String target) {
+        int low = 0;
+        int high = stockList.size() - 1;
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            String midElement = stockList.get(mid);
+
+            if (midElement.equals(target)) {
+                return mid; // found the target element
+            } else if (midElement.compareTo(target) < 0) {
+                low = mid + 1; // target is in the upper half
+            } else {
+                high = mid - 1; // target is in the lower half
+            }
+        }
+
+        return -1; // not found
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if ("buy".equals(e.getActionCommand())) {
-            testLabel.setText("BUYING");
+        if ("search".equals(e.getActionCommand())) {
+            int symbolIndex = binarySearch(tickerSymbolTextField.getText());
+
+            if (symbolIndex == -1) {
+                errorLabel.setForeground(Color.RED);
+                errorLabel.setText("Ticker Symbol Not Found!");
+            } else {
+                errorLabel.setText("");
+                try {
+                    Stock stock = new Stock(stockList.get(symbolIndex));
+                    System.out.println(stock.getCompanyName());
+                } catch (IOException | InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+
+        } else if ("buy".equals(e.getActionCommand())) {
+            testLabel.setText("BUY");
         } else if ("sell".equals(e.getActionCommand())) {
             testLabel.setText("SELLING");
         } else if ("short".equals(e.getActionCommand())) {

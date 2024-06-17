@@ -24,6 +24,7 @@ public class Stock {
         // getting symbol and stock price from one of the modules of the API
         String symbolAndStockPrice = gson.toJson(JsonParser.parseString(pullRequest(tickerSymbol, "STOCKS")));
 
+
         requiredInfo.put("symbol", JsonPath.read(symbolAndStockPrice, "body.symbol"));
         requiredInfo.put("companyName", JsonPath.read(symbolAndStockPrice, "body.companyName"));
         requiredInfo.put("currentPrice", JsonPath.read(symbolAndStockPrice, "body.primaryData.lastSalePrice"));

@@ -1,19 +1,26 @@
 package main.java;
 
 import javax.swing.*;
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
 
     //public 'ArrayList' matrix to store user's info
     public static ArrayList<String> usernames = new ArrayList<>();
     public static ArrayList<String> passwords = new ArrayList<>();
+    public static ArrayList<String[]> userDataMatrix = new ArrayList<>();
+    public static Double userBalance = 0.00;
+    public static ArrayList<String> stockList = new ArrayList<>();
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
 //        Stock tesla = new Stock("TSLA");
 //        System.out.println(tesla.getCompanyName());
+
+        getTickerSymbols();
 
         LogInPage userLogin = new LogInPage();
 
@@ -57,25 +64,31 @@ public class Main {
      */
     public static ArrayList<String[]> readUserData(String fileName) throws IOException{
 
-        ArrayList<String[]> userDataMatrix = new ArrayList<>();
-
         File myFile = new File(fileName);
         Scanner readFile = new Scanner(myFile);
 
-        String soak = readFile.nextLine();
+        String soak;
 
         while (readFile.hasNext()){
+            soak = readFile.nextLine();
 
-            userDataMatrix.add(new String[4]);
-
-            String line = readFile.nextLine();
-
-            String[] tokens = line.split(", ");
+            String[] tokens = soak.split(", ");
 
             userDataMatrix.add(tokens);
         }
 
+
         return userDataMatrix;
     }
 
+    public static void getTickerSymbols() throws IOException {
+
+        File myFile = new File("tickerSymbolsOnly.txt");
+        Scanner readFile = new Scanner(myFile);
+
+        while (readFile.hasNext()){
+            String line = readFile.nextLine();
+            stockList.add(line);
+        }
+    }
 }
