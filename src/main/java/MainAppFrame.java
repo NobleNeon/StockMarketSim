@@ -111,7 +111,6 @@ public class MainAppFrame extends JFrame implements ActionListener {
     public JButton getTradeButton() {
         return tradeButton;
     }
-
     public void setTradeButton(JButton tradeButton) {
         this.tradeButton = tradeButton;
     }

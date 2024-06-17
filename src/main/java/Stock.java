@@ -11,7 +11,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 public class Stock {
 
     private final double currentPrice;
@@ -25,6 +24,7 @@ public class Stock {
         String symbolAndStockPrice = gson.toJson(JsonParser.parseString(pullRequest(tickerSymbol, "STOCKS")));
 
 
+        // We only need the following information from the JSON String we receive from the API
         requiredInfo.put("symbol", JsonPath.read(symbolAndStockPrice, "body.symbol"));
         requiredInfo.put("companyName", JsonPath.read(symbolAndStockPrice, "body.companyName"));
         requiredInfo.put("currentPrice", JsonPath.read(symbolAndStockPrice, "body.primaryData.lastSalePrice"));

@@ -14,7 +14,6 @@ public class PortfolioPanel extends JPanel {
 
         //making display data panel
         displayDataPanel = new JPanel();
-
         //converting the mutable 'userData' 'ArrayList' into an immutable 'userDataArray'
         String[][] userDataArray = new String[userData.size()][];
         for (int i = 0; i < userData.size(); i++) {

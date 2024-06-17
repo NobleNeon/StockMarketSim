@@ -146,7 +146,6 @@ public class LogInPage extends JFrame implements ActionListener {
     public ArrayList<String> getUserNamesArray() {
         return userNamesArray;
     }
-
     public String getFileLocation() {
         return "Users/" + userNameField.getText() + ".txt";
     }

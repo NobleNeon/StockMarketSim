@@ -91,7 +91,6 @@ public class TradePanel extends JPanel implements ActionListener{
 //        // Fetch the aggregate bars
 //        AggregatesDTO aggregates = client.getRestClient().getStocksClient().getAggregatesBlocking(params);
     }
-
     public int binarySearch (String target) {
         int low = 0;
         int high = stockList.size() - 1;
