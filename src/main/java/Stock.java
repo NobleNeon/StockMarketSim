@@ -11,10 +11,12 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 public class Stock {
 
-    private final double currentPrice;
+
+    public Stock () {
+
+    }
 
     public Stock(String tickerSymbol) throws IOException, InterruptedException {
 
@@ -25,11 +27,11 @@ public class Stock {
         String symbolAndStockPrice = gson.toJson(JsonParser.parseString(pullRequest(tickerSymbol, "STOCKS")));
 
 
+        // We only need the following information from the JSON String we receive from the API
         requiredInfo.put("symbol", JsonPath.read(symbolAndStockPrice, "body.symbol"));
         requiredInfo.put("companyName", JsonPath.read(symbolAndStockPrice, "body.companyName"));
         requiredInfo.put("currentPrice", JsonPath.read(symbolAndStockPrice, "body.primaryData.lastSalePrice"));
 
-        currentPrice = Double.parseDouble(requiredInfo.get("currentPrice").substring(1));
     }
 
     private final HashMap<String, String> requiredInfo = new HashMap<String, String>();
@@ -45,11 +47,11 @@ public class Stock {
     }
 
     public double getCurrentPrice() {
-        return currentPrice;
+        return Double.parseDouble(requiredInfo.get("currentPrice").substring(1));
     }
 
     public String getCurrentPriceStr() {
-        return Double.toString(currentPrice);
+        return requiredInfo.get("currentPrice");
     }
 
     public static String pullRequest(String tickerSymbol, String type) throws IOException, InterruptedException {
@@ -70,18 +72,18 @@ public class Stock {
     }
 
     public double buyStock(int shares){
-        return currentPrice * shares;
+        return getCurrentPrice() * shares;
     }
 
     public double sellStock(int shares){
-        return currentPrice * shares;
+        return getCurrentPrice() * shares;
     }
 
     public double shortStock(int shares){
-        return currentPrice * shares;
+        return getCurrentPrice() * shares;
     }
 
     public double cover(int shares){
-        return currentPrice * shares;
+        return getCurrentPrice() * shares;
     }
 }

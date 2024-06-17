@@ -2,33 +2,29 @@ package main.java;
 
 import javax.swing.*;
 import java.awt.*;
-
-import static main.java.Main.userDataMatrix;
+import java.util.ArrayList;
 
 public class PortfolioPanel extends JPanel {
-    
 
-    
-    
-
+    //array list to store user data
+    private ArrayList<ArrayList<JLabel>> userData = new ArrayList<>();
     private JPanel displayDataPanel;
 
     public void updateLayout() {
 
         //making display data panel
         displayDataPanel = new JPanel();
-
-        //converting the mutable 'userDataMatrix' 'ArrayList' into an immutable 'userDataMatrixArray'
-        String[][] userDataMatrixArray = new String[userDataMatrix.size()][4];
-        for (int i = 0; i < userDataMatrix.size(); i++) {
-            userDataMatrixArray[i] = new String[userDataMatrix.get(i).length];
-            for (int j = 0; j < userDataMatrix.get(i).length; j++) {
-                userDataMatrixArray[i][j] = userDataMatrix.get(i)[j];
+        //converting the mutable 'userData' 'ArrayList' into an immutable 'userDataArray'
+        String[][] userDataArray = new String[userData.size()][];
+        for (int i = 0; i < userData.size(); i++) {
+            userDataArray[i] = new String[userData.get(i).size()];
+            for (int j = 0; j < userData.get(i).size(); j++) {
+                userDataArray[i][j] = userData.get(i).get(j).getText();
             }
         }
 
         // creating a table of user's portfolio
-        JTable displayDataTable = new JTable(userDataMatrixArray, new String[]{"Ticker Symbol", "Last Price",
+        JTable displayDataTable = new JTable(userDataArray, new String[]{"Ticker Symbol", "Last Price",
                 "Shares Owned", "Transaction Type"});
 
         /*
@@ -48,6 +44,15 @@ public class PortfolioPanel extends JPanel {
 
         //adding 'displayDataPanel' to 'PortfolioPanel'
         this.add(displayDataPanel);
+    }
+
+    //getters and setters:
+    public ArrayList<ArrayList<JLabel>> getUserData() {
+        return userData;
+    }
+
+    public void setUserData(ArrayList<ArrayList<JLabel>> userData) {
+        this.userData = userData;
     }
 
     public JPanel getDisplayDataPanel() {

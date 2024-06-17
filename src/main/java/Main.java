@@ -73,7 +73,6 @@ public class Main {
 
         while (readFile.hasNext()){
             soak = readFile.nextLine();
-
             String[] tokens = soak.split(", ");
 
             userDataMatrix.add(tokens);
