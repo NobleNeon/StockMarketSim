@@ -49,6 +49,7 @@ public class Main {
      */
     public static void readUserData(String fileName) throws IOException{
 
+        //initializing objects
         File myFile = new File(fileName);
         Scanner readFile = new Scanner(myFile);
 
@@ -69,10 +70,12 @@ public class Main {
      * @throws IOException
      */
     public static void printFileData(String fileName) throws IOException {
-        //printing back to file:
+
+        //initializing objects
         FileWriter fWrite = new FileWriter(fileName, false);
         PrintWriter outFile = new PrintWriter(fWrite);
 
+        //printing back to file:
         for (int i = 0; i < userDataMatrix.size(); i++) {
             for (int j = 0; j < userDataMatrix.get(i).length; j++) {
 

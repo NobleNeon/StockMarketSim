@@ -55,12 +55,4 @@ public class PortfolioPanel extends JPanel {
     public void setDisplayDataPanel(JPanel displayDataPanel) {
         this.displayDataPanel = displayDataPanel;
     }
-
-    /**
-     * Name: clearPanel
-     * Description: will clear the portfolio panel so new data can be displayed
-     */
-    public void clearPanel(){
-        this.remove(displayDataPanel);
-    }
 }
