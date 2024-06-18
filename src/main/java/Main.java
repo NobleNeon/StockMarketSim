@@ -55,7 +55,9 @@ public class Main {
 
         //reading the rest of the file
         while (readFile.hasNext()){
+
             String line = readFile.nextLine();
+
             String[] tokens = line.split(", ");
 
             userDataMatrix.add(tokens);
