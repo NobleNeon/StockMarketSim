@@ -16,9 +16,9 @@ public class TradePanel extends JPanel implements ActionListener{
 
     private final JLabel testLabel = new JLabel(); // TODO - temporary for testing (delete this later)
     private final JTextField tickerSymbolTextField;
-    private final JTextField numberOfSharesTextField;
+    private static JTextField numberOfSharesTextField = null;
     private final JLabel errorLabel = new JLabel();
-    private Stock stock = new Stock();
+    private static Stock stock = new Stock();
     private final JPanel buttonPanel = new JPanel();
     private final JPanel longSaveButtonPanel;
 
@@ -129,12 +129,18 @@ public class TradePanel extends JPanel implements ActionListener{
         return -1; // not found
     }
 
+    private static void addToUserDataMatrix(String transactionType) {
+        userDataMatrix.add(new String[]{stock.getTickerSymbol(),
+                stock.getCurrentPriceStr(),
+                numberOfSharesTextField.getText(),
+                transactionType.toUpperCase()});
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) throws PathNotFoundException {
         int symbolIndex = 0;
         if ("search".equals(e.getActionCommand())) {
             symbolIndex = binarySearch(tickerSymbolTextField.getText());
-            errorLabel.setText("");
 
             if (symbolIndex == -1) {
                 errorLabel.setForeground(Color.RED);
@@ -144,8 +150,8 @@ public class TradePanel extends JPanel implements ActionListener{
                 try {
                     stock = new Stock(stockList.get(symbolIndex)); // Update the stock object
                     System.out.println(stock.getCompanyName());
-                    errorLabel.setForeground(Color.GREEN);
-                    errorLabel.setText("Stock found: " + stock.getCompanyName());
+                    errorLabel.setForeground(Color.BLUE);
+                    errorLabel.setText("Stock found!");
                 } catch (IOException | InterruptedException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -153,6 +159,7 @@ public class TradePanel extends JPanel implements ActionListener{
 
         } else if ("buy".equals(e.getActionCommand())){
             longSaveButtonPanel.setVisible(true);
+            addToUserDataMatrix("BUY");
             userBalance -= stock.buyStock(Integer.parseInt(numberOfSharesTextField.getText()));
             for (int i = 0; i < userDataMatrix.size(); i++) {
                 for (int j = 0; j < userDataMatrix.get(i).length; j++) {
@@ -160,16 +167,20 @@ public class TradePanel extends JPanel implements ActionListener{
                 }
             }
         } else if ("sell".equals(e.getActionCommand())) {
+            addToUserDataMatrix("SELL");
             longSaveButtonPanel.setVisible(true);
             testLabel.setText("SELLING");
         } else if ("short".equals(e.getActionCommand())) {
+            addToUserDataMatrix("SHORT");
             longSaveButtonPanel.setVisible(true);
             testLabel.setText("SHORT");
             userDataMatrix.add(new String[]{stock.getTickerSymbol(), stock.getCurrentPriceStr(), numberOfSharesTextField.getText(), "SHORT" });
         } else if ("cover".equals(e.getActionCommand())) {
+            addToUserDataMatrix("COVER");
             longSaveButtonPanel.setVisible(true);
             testLabel.setText("COVER");
         } else if ("save".equals(e.getActionCommand())) {
+
                 //saving user's data:
                 try {
                     printFileData(userDataFileLocation);
