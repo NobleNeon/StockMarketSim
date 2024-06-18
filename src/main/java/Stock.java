@@ -4,15 +4,18 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
 import com.jayway.jsonpath.JsonPath;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 public class Stock {
 
+    DecimalFormat df = new DecimalFormat("$#.##");
 
     public Stock () {
 
@@ -47,11 +50,12 @@ public class Stock {
     }
 
     public double getCurrentPrice() {
-        return Double.parseDouble(requiredInfo.get("currentPrice").substring(1));
+        return Double.parseDouble(getCurrentPriceStr().substring(1));
+
     }
 
     public String getCurrentPriceStr() {
-        return requiredInfo.get("currentPrice");
+        return df.format(Double.parseDouble(requiredInfo.get("currentPrice").substring(1)));
     }
 
     public static String pullRequest(String tickerSymbol, String type) throws IOException, InterruptedException {

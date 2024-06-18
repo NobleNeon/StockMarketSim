@@ -16,7 +16,7 @@ public class PortfolioPanel extends JPanel {
 
         //converting the mutable 'userDataMatrix' into an immutable 'userDataArray'
 
-        String[][] userDataArray = new String[userDataMatrix.size()][];
+        String[][] userDataArray = new String[userDataMatrix.size()][userDataMatrix.get(0).length];
 
         for (int i = 0; i < userDataMatrix.size(); i++) {
             userDataArray[i] = new String[userDataMatrix.get(i).length];
