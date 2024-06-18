@@ -46,6 +46,7 @@ public class PortfolioPanel extends JPanel {
 
         //adding 'displayDataPanel' to 'PortfolioPanel'
         this.add(displayDataPanel);
+
     }
 
     public JPanel getDisplayDataPanel() {

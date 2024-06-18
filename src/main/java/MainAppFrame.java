@@ -4,10 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-
-import static main.java.Main.printFileData;
-import static main.java.Main.userDataFileLocation;
 
 public class MainAppFrame extends JFrame implements ActionListener {
 
@@ -23,7 +19,6 @@ public class MainAppFrame extends JFrame implements ActionListener {
     JButton portfolioButton;
     JButton tradeButton;
 
-    JButton saveDataButton;
 
     MainAppFrame() {
 
@@ -51,17 +46,13 @@ public class MainAppFrame extends JFrame implements ActionListener {
         //creating buttons
         portfolioButton = new JButton("Portfolio");
         tradeButton = new JButton("Trade");
-        saveDataButton = new JButton("Save");
-
         //adding action listener to buttons
         portfolioButton.addActionListener(this);
         tradeButton.addActionListener(this);
-        saveDataButton.addActionListener(this);
 
         //adding buttons
         bottomNavBar.add(portfolioButton);
         bottomNavBar.add(tradeButton);
-        bottomNavBar.add(saveDataButton);
 
         //adding nav bar and default panel to the frame
         frame.setLayout(new BorderLayout()); //setting layout
@@ -124,13 +115,6 @@ public class MainAppFrame extends JFrame implements ActionListener {
         this.tradeButton = tradeButton;
     }
 
-    public JButton getSaveDataButton() {
-        return saveDataButton;
-    }
-
-    public void setSaveDataButton(JButton saveDataButton) {
-        this.saveDataButton = saveDataButton;
-    }
 
     /**
      *
@@ -163,21 +147,6 @@ public class MainAppFrame extends JFrame implements ActionListener {
             //changing frame's title to match the panel the user is currently on
             frame.setTitle("Trade");
             frame.setVisible(true);
-        }
-        if (e.getSource() == saveDataButton){
-
-            //saving user's data:
-            try {
-                printFileData(userDataFileLocation);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-
-            //notifying user that their data has been saved
-            JOptionPane.showMessageDialog(null,
-                    "Your data has been saved",
-                    "Message from Aura",
-                    JOptionPane.INFORMATION_MESSAGE);
         }
     }
 }

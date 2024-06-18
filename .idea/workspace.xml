@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6e28828b-47b4-4064-83e9-6d1ab0c8c7a0" name="Changes" comment="Updating" />
+    <list default="true" id="6e28828b-47b4-4064-83e9-6d1ab0c8c7a0" name="Changes" comment="Updating">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Users/admin.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Users/admin.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MainAppFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MainAppFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/PortfolioPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PortfolioPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/TradePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TradePanel.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

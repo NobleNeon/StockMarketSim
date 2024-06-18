@@ -1,7 +1,7 @@
 package main.java;
 
 import com.jayway.jsonpath.PathNotFoundException;
-import io.polygon.kotlin.sdk.rest.PolygonRestClient;
+import io.polygon.kotlin.sdk.rest.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,9 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import static main.java.Main.stockList;
-import static main.java.Main.userDataMatrix;
-import static main.java.Main.userBalance;
+import static main.java.Main.*;
 
 
 public class TradePanel extends JPanel implements ActionListener{
@@ -21,7 +19,8 @@ public class TradePanel extends JPanel implements ActionListener{
     private final JTextField numberOfSharesTextField;
     private final JLabel errorLabel = new JLabel();
     private Stock stock = new Stock();
-    private JPanel buttonPanel = new JPanel();
+    private final JPanel buttonPanel = new JPanel();
+    private final JPanel longSaveButtonPanel;
 
     TradePanel(){
         // Creating buttons and their action listeners
@@ -40,6 +39,10 @@ public class TradePanel extends JPanel implements ActionListener{
         JButton searchTickerButton = new JButton("SEARCH");
         searchTickerButton.addActionListener(this);
         searchTickerButton.setActionCommand("search");
+        JButton saveDataButton = new JButton("SAVE");
+        saveDataButton.addActionListener(this);
+        saveDataButton.setActionCommand("save");
+
 
         // Panels for buttons
         buttonPanel.setLayout(new GridLayout(2,4));
@@ -70,11 +73,20 @@ public class TradePanel extends JPanel implements ActionListener{
         textFieldAndLabelPanel.add(numberOfSharesTextField);
         textFieldAndLabelPanel.add(new JLabel());
 
+        longSaveButtonPanel = new JPanel();
+        longSaveButtonPanel.setLayout(new GridLayout(3,0));
+        longSaveButtonPanel.add(saveDataButton);
+
 
         this.setLayout(new GridLayout(4,0));
         this.add(textFieldAndLabelPanel, BorderLayout.WEST);
         this.add(buttonPanel, BorderLayout.WEST);
         buttonPanel.setVisible(false);
+
+        //TODO - add the graph before this save button
+        this.add(longSaveButtonPanel, BorderLayout.CENTER);
+        longSaveButtonPanel.setVisible(false);
+
         this.add(testLabel);//TODO - temporary
 
 
@@ -95,8 +107,9 @@ public class TradePanel extends JPanel implements ActionListener{
 //                .build();
 //
 //        // Fetch the aggregate bars
-//        AggregatesDTO aggregates = client.getRestClient().getStocksClient().getAggregatesBlocking(params);
+//        AggregatesDTO aggregates;
     }
+
     public int binarySearch (String target) {
         int low = 0;
         int high = stockList.size() - 1;
@@ -113,7 +126,6 @@ public class TradePanel extends JPanel implements ActionListener{
                 high = mid - 1; // target is in the lower half
             }
         }
-
         return -1; // not found
     }
 
@@ -140,8 +152,7 @@ public class TradePanel extends JPanel implements ActionListener{
             }
 
         } else if ("buy".equals(e.getActionCommand())){
-
-            userDataMatrix.add(new String[]{stock.getTickerSymbol(), stock.getCurrentPriceStr(), numberOfSharesTextField.getText(), "BUY" });
+            longSaveButtonPanel.setVisible(true);
             userBalance -= stock.buyStock(Integer.parseInt(numberOfSharesTextField.getText()));
             for (int i = 0; i < userDataMatrix.size(); i++) {
                 for (int j = 0; j < userDataMatrix.get(i).length; j++) {
@@ -149,12 +160,29 @@ public class TradePanel extends JPanel implements ActionListener{
                 }
             }
         } else if ("sell".equals(e.getActionCommand())) {
+            longSaveButtonPanel.setVisible(true);
             testLabel.setText("SELLING");
         } else if ("short".equals(e.getActionCommand())) {
+            longSaveButtonPanel.setVisible(true);
             testLabel.setText("SHORT");
             userDataMatrix.add(new String[]{stock.getTickerSymbol(), stock.getCurrentPriceStr(), numberOfSharesTextField.getText(), "SHORT" });
         } else if ("cover".equals(e.getActionCommand())) {
+            longSaveButtonPanel.setVisible(true);
             testLabel.setText("COVER");
+        } else if ("save".equals(e.getActionCommand())) {
+                //saving user's data:
+                try {
+                    printFileData(userDataFileLocation);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+                //notifying user that their data has been saved
+                JOptionPane.showMessageDialog(null,
+                        "Your data has been saved",
+                        "Message from Aura",
+                        JOptionPane.INFORMATION_MESSAGE);
+
         }
     }
 }
