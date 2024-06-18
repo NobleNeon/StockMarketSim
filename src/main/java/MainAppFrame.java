@@ -46,6 +46,7 @@ public class MainAppFrame extends JFrame implements ActionListener {
         defaultPanelLayer.setVisible(true);
 
         //adding instructions to instructions panel layer
+        //TODO - fix this formating
         instructionsPanel.add(new JLabel("Welcome to Aura Traders!"));
         instructionsPanel.add(new JLabel("Welcome to Aura Traders!"));
         instructionsPanel.add(new JLabel("Here's how to use the program:"));
