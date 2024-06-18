@@ -143,7 +143,6 @@ public class MainAppFrame extends JFrame implements ActionListener {
             //clearing portfolio panel to make room for new data once user clicks on 'portfolioButton' again
             portfolioPanel.remove(portfolioPanel.getDisplayDataPanel());
 
-
             //changing frame's title to match the panel the user is currently on
             frame.setTitle("Trade");
             frame.setVisible(true);

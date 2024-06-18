@@ -45,7 +45,7 @@ public class TradePanel extends JPanel implements ActionListener{
 
 
         // Panels for buttons
-        buttonPanel.setLayout(new GridLayout(2,4));
+        buttonPanel.setLayout(new GridLayout(4,4));
         buttonPanel.add(buyButton);
         buttonPanel.add(sellButton);
         buttonPanel.add(shortButton);
