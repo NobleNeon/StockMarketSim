@@ -19,9 +19,6 @@ public class Main {
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
-//        Stock tesla = new Stock("TSLA");
-//        System.out.println(tesla.getCompanyName());
-
         getTickerSymbols();
 
         LogInPage userLogin = new LogInPage();
@@ -67,7 +64,7 @@ public class Main {
     /**
      * Description: Will print contents of array to given file
      * @param fileName: file that will be written to
-     * @throws IOException
+     * @throws IOException: bro it is an IOException
      */
     public static void printFileData(String fileName) throws IOException {
 
