@@ -46,6 +46,7 @@ public class Main {
      */
     public static void readUserData(String fileName) throws IOException{
 
+        //initializing objects
         File myFile = new File(fileName);
         Scanner readFile = new Scanner(myFile);
 
@@ -54,7 +55,9 @@ public class Main {
 
         //reading the rest of the file
         while (readFile.hasNext()){
+
             String line = readFile.nextLine();
+
             String[] tokens = line.split(", ");
 
             userDataMatrix.add(tokens);
@@ -66,10 +69,12 @@ public class Main {
      * @throws IOException: bro it is an IOException
      */
     public static void printFileData(String fileName) throws IOException {
-        //printing back to file:
+
+        //initializing objects
         FileWriter fWrite = new FileWriter(fileName, false);
         PrintWriter outFile = new PrintWriter(fWrite);
 
+        //printing back to file:
         for (int i = 0; i < userDataMatrix.size(); i++) {
             for (int j = 0; j < userDataMatrix.get(i).length; j++) {
 
