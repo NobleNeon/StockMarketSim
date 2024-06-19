@@ -1,7 +1,7 @@
 package main.java;
 
 import com.jayway.jsonpath.PathNotFoundException;
-import io.polygon.kotlin.sdk.rest.*;
+import io.polygon.kotlin.sdk.rest.PolygonRestClient;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,6 +21,10 @@ public class TradePanel extends JPanel implements ActionListener{
     private static Stock stock = new Stock();
     private final JPanel buttonPanel = new JPanel();
     private final JPanel longSaveButtonPanel;
+    private boolean containsValue;
+    private int dataIndexI;
+    private String[] sharesArray = new String[4];
+    private int sharesSold;
 
     TradePanel(){
         // Creating buttons and their action listeners
@@ -129,13 +133,6 @@ public class TradePanel extends JPanel implements ActionListener{
         return -1; // not found
     }
 
-    private static void addToUserDataMatrix(String transactionType) {
-        userDataMatrix.add(new String[]{stock.getTickerSymbol(),
-                stock.getCurrentPriceStr(),
-                numberOfSharesTextField.getText(),
-                transactionType.toUpperCase()});
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) throws PathNotFoundException {
         int symbolIndex = 0;
@@ -158,27 +155,130 @@ public class TradePanel extends JPanel implements ActionListener{
             }
 
         } else if ("buy".equals(e.getActionCommand())){
-            longSaveButtonPanel.setVisible(true);
-            addToUserDataMatrix("BUY");
-            userBalance -= stock.buyStock(Integer.parseInt(numberOfSharesTextField.getText()));
+            containsValue = false;
             for (int i = 0; i < userDataMatrix.size(); i++) {
-                for (int j = 0; j < userDataMatrix.get(i).length; j++) {
-                    System.out.println(userDataMatrix.get(i)[j]);
+                String[] stringArray = userDataMatrix.get(i);
+
+                for (int j = 0; j < stringArray.length; j++) {
+                    if (stringArray[j].equals(stock.getTickerSymbol())){
+                        containsValue = true;
+                        break;
+                    }
                 }
             }
+            if (containsValue) {
+                testLabel.setText("You already long/short this stock");
+            }
+            else {
+                userDataMatrix.add(new String[]{
+                        stock.getTickerSymbol(),
+                        stock.getCurrentPriceStr(),
+                        numberOfSharesTextField.getText(),
+                        "BUY"});
+                userBalance -= (Integer.parseInt(numberOfSharesTextField.getText()) * stock.getCurrentPrice());
+                testLabel.setText("Successfully bought stock");
+                longSaveButtonPanel.setVisible(true);
+            }
+
         } else if ("sell".equals(e.getActionCommand())) {
-            addToUserDataMatrix("SELL");
-            longSaveButtonPanel.setVisible(true);
-            testLabel.setText("SELLING");
+            for (int i = 0; i < userDataMatrix.size(); i++) {
+                String[] stringArray = userDataMatrix.get(i);
+                dataIndexI = i;
+                containsValue = false;
+                for (int j = 0; j < stringArray.length; j++) {
+                    if (stringArray[j].equals(stock.getTickerSymbol())){
+                        containsValue = true;
+                        break;
+                    }
+                }
+            }
+            if (containsValue) {
+                sharesSold = Integer.parseInt(numberOfSharesTextField.getText());
+                sharesArray = userDataMatrix.get(dataIndexI);
+                for (int i = 0; i < sharesArray.length; i++) {
+                    System.out.println(sharesArray[i]);
+                }
+                if (Integer.parseInt(sharesArray[2]) > sharesSold && sharesArray[3].equals("BUY")){
+                    sharesArray[2] = Integer.toString(Integer.parseInt(sharesArray[2]) - sharesSold);
+                    userDataMatrix.set(dataIndexI, sharesArray);
+                    userBalance += (sharesSold * stock.getCurrentPrice());
+                    longSaveButtonPanel.setVisible(true);
+                    testLabel.setText("Successfully sold stock");
+                }
+                else if (Integer.parseInt(sharesArray[2]) == sharesSold && sharesArray[3].equals("BUY")){
+                    userDataMatrix.remove(dataIndexI);
+                    longSaveButtonPanel.setVisible(true);
+                    testLabel.setText("Successfully sold stock");
+                }
+                else {
+                    testLabel.setText("you do not own that many shares");
+                }
+            }
+            else {
+                testLabel.setText("You dont own this stock");
+            }
         } else if ("short".equals(e.getActionCommand())) {
-            addToUserDataMatrix("SHORT");
-            longSaveButtonPanel.setVisible(true);
-            testLabel.setText("SHORT");
-            userDataMatrix.add(new String[]{stock.getTickerSymbol(), stock.getCurrentPriceStr(), numberOfSharesTextField.getText(), "SHORT" });
+            containsValue = false;
+            for (int i = 0; i < userDataMatrix.size(); i++) {
+                String[] stringArray = userDataMatrix.get(i);
+
+                for (int j = 0; j < stringArray.length; j++) {
+                    if (stringArray[j].equals(stock.getTickerSymbol())){
+                        containsValue = true;
+                        break;
+                    }
+                }
+            }
+            if (containsValue) {
+                testLabel.setText("You already long/short this stock");
+            }
+            else {
+                userDataMatrix.add(new String[]{
+                        stock.getTickerSymbol(),
+                        stock.getCurrentPriceStr(),
+                        numberOfSharesTextField.getText(),
+                        "SHORT"});
+                userBalance -= (Integer.parseInt(numberOfSharesTextField.getText()) * stock.getCurrentPrice());
+                testLabel.setText("Successfully shorted stock");
+                longSaveButtonPanel.setVisible(true);
+            }
         } else if ("cover".equals(e.getActionCommand())) {
-            addToUserDataMatrix("COVER");
-            longSaveButtonPanel.setVisible(true);
-            testLabel.setText("COVER");
+            containsValue = false;
+            for (int i = 0; i < userDataMatrix.size(); i++) {
+                String[] stringArray = userDataMatrix.get(i);
+                dataIndexI = i;
+                for (int j = 0; j < stringArray.length; j++) {
+                    if (stringArray[j].equals(stock.getTickerSymbol())){
+                        containsValue = true;
+                        break;
+                    }
+                }
+            }
+            if (containsValue) {
+                sharesSold = Integer.parseInt(numberOfSharesTextField.getText());
+                sharesArray = userDataMatrix.get(dataIndexI);
+                for (int i = 0; i < sharesArray.length; i++) {
+                    System.out.println(sharesArray[i]);
+                }
+                if (Integer.parseInt(sharesArray[2]) > sharesSold && sharesArray[3].equals("SHORT")){
+                    sharesArray[2] = Integer.toString(Integer.parseInt(sharesArray[2]) - sharesSold);
+                    userDataMatrix.set(dataIndexI, sharesArray);
+                    userBalance += (sharesSold * (Integer.parseInt(sharesArray[1]) - stock.getCurrentPrice()));
+                    longSaveButtonPanel.setVisible(true);
+                    testLabel.setText("Successfully covered stock");
+                }
+                else if (Integer.parseInt(sharesArray[2]) == sharesSold && sharesArray[3].equals("SHORT")){
+                    userDataMatrix.remove(dataIndexI);
+                    longSaveButtonPanel.setVisible(true);
+                    testLabel.setText("Successfully covered stock");
+                }
+                else {
+                    testLabel.setText("you do not short that many shares");
+                }
+            }
+            else {
+                testLabel.setText("You dont short this stock");
+            }
         } else if ("save".equals(e.getActionCommand())) {
 
                 //saving user's data:
