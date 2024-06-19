@@ -4,4 +4,3 @@ amir	amir
 Brodin	Password123
 Swing	1234
 Janicas	1234
-lollll	lmao

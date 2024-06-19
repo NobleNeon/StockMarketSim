@@ -49,10 +49,10 @@ public class MainAppFrame extends JFrame implements ActionListener {
 
         //initializing instructions paragraph using HTML formatting
         String instructionsString = "<html><p>Welcome to Aura Traders!" +
-                "<br>Here's how to use the program:" +
+                "<br><br>Here's how to use the program:" +
                 "<br>You can check your portfolio buy clicking the 'Portfolio' button below" +
-                "<br>The portfolio shows the amount of stocks you own, and your total buying power" +
-                "<br>You can make trades by clicking the 'Trade' button below" +
+                "<br>The portfolio shows the stocks you own and your balance" +
+                "<br>You can make trades by clicking  the 'Trade' button below" +
                 "<br>Make sure you press the 'save' button after making a trade!</p></html>";
 
         //adding instructions to instructions panel layer

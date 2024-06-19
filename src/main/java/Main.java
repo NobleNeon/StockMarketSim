@@ -50,8 +50,14 @@ public class Main {
         File myFile = new File(fileName);
         Scanner readFile = new Scanner(myFile);
 
-        //getting user balance which is the first line
-        userBalance = Double.parseDouble(readFile.nextLine());
+        /*
+        checking if user already has a balance, if true will update 'userBalance' variable
+        if false (as is the case with new users) will add $10,000 to balance by default
+         */
+        if (readFile.hasNext())
+            userBalance = Double.parseDouble(readFile.nextLine());
+        else
+            userBalance = 10000.0;
 
         //reading the rest of the file
         while (readFile.hasNext()){
@@ -60,7 +66,7 @@ public class Main {
 
             String[] tokens = line.split(", ");
 
-            userDataMatrix.add(tokens);
+            userDataMatrix.add(tokens); //adding data to 'userDataMatrix'
         }
     }
     /**
@@ -75,7 +81,7 @@ public class Main {
         PrintWriter outFile = new PrintWriter(fWrite);
 
         //printing user's balance first:
-        outFile.print(userBalance);
+        outFile.println(userBalance);
 
         //printing user's portfolio:
         for (int i = 0; i < userDataMatrix.size(); i++) {
