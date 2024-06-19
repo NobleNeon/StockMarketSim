@@ -51,7 +51,7 @@ public class Main {
         Scanner readFile = new Scanner(myFile);
 
         //getting user balance which is the first line
-        //userBalance = Double.parseDouble(readFile.nextLine());
+        userBalance = Double.parseDouble(readFile.nextLine());
 
         //reading the rest of the file
         while (readFile.hasNext()){
@@ -74,7 +74,10 @@ public class Main {
         FileWriter fWrite = new FileWriter(fileName, false);
         PrintWriter outFile = new PrintWriter(fWrite);
 
-        //printing back to file:
+        //printing user's balance first:
+        outFile.print(userBalance);
+
+        //printing user's portfolio:
         for (int i = 0; i < userDataMatrix.size(); i++) {
             for (int j = 0; j < userDataMatrix.get(i).length; j++) {
 

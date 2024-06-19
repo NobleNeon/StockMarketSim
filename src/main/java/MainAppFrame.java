@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static main.java.Main.userDataMatrix;
+
 public class MainAppFrame extends JFrame implements ActionListener {
 
     //initializing panels
@@ -45,16 +47,16 @@ public class MainAppFrame extends JFrame implements ActionListener {
         instructionsPanel.setVisible(true);
         defaultPanelLayer.setVisible(true);
 
+        //initializing instructions paragraph using HTML formatting
+        String instructionsString = "<html><p>Welcome to Aura Traders!" +
+                "<br>Here's how to use the program:" +
+                "<br>You can check your portfolio buy clicking the 'Portfolio' button below" +
+                "<br>The portfolio shows the amount of stocks you own, and your total buying power" +
+                "<br>You can make trades by clicking the 'Trade' button below" +
+                "<br>Make sure you press the 'save' button after making a trade!</p></html>";
+
         //adding instructions to instructions panel layer
-        //TODO - fix this formating
-        instructionsPanel.add(new JLabel("Welcome to Aura Traders!"));
-        instructionsPanel.add(new JLabel("Welcome to Aura Traders!"));
-        instructionsPanel.add(new JLabel("Here's how to use the program:"));
-        instructionsPanel.add(new JLabel("You can check your portfolio buy clicking the 'Portfolio' button below\""));
-        instructionsPanel.add(new JLabel("The portfolio shows the amount of stocks you own, and your total buying power"));
-        instructionsPanel.add(new JLabel("You can make trades by clicking the 'Trade' button below"));
-        instructionsPanel.add(new JLabel("Make sure you save your progress! You can do this by clicking the 'save' button after making a trade"));
-        instructionsPanel.add(new JLabel("Have fun!"));
+        instructionsPanel.add(new JLabel(instructionsString));
 
         //adding portfolio and trade buttons to bottom nav bar panel
         //setting for bottom panel
@@ -169,7 +171,12 @@ public class MainAppFrame extends JFrame implements ActionListener {
             portfolioButton.setEnabled(true);
 
             //clearing portfolio panel to make room for new data once user clicks on 'portfolioButton' again
-            portfolioPanel.remove(portfolioPanel.getDisplayDataPanel());
+            if (userDataMatrix.isEmpty())
+                portfolioPanel.remove(portfolioPanel.getDisplayEmptyDataLabel()); //remove this label if no data
+            else
+                portfolioPanel.remove(portfolioPanel.getDisplayDataPanel()); //remove this label if have data
+
+            portfolioPanel.remove(portfolioPanel.getDisplayUserBalance()); //always remove this label
 
             //changing frame's title to match the panel the user is currently on
             frame.setTitle("Trade");
