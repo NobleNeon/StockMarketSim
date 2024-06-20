@@ -12,10 +12,7 @@ public class PortfolioPanel extends JPanel {
     private JLabel displayEmptyDataLabel; //for letting the user know that their portfolio is empty
     private JLabel displayUserBalance; //for displaying user's balance
 
-    /**
-     *
-     *
-     */
+
     public void updateLayout() {
 
         //initializing display data panel
