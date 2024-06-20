@@ -1,13 +1,22 @@
 package main.java;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParser;
 import com.jayway.jsonpath.PathNotFoundException;
-import io.polygon.kotlin.sdk.rest.PolygonRestClient;
+import org.json.JSONObject;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 import static main.java.Main.*;
 
@@ -21,10 +30,13 @@ public class TradePanel extends JPanel implements ActionListener{
     private static Stock stock = new Stock();
     private final JPanel buttonPanel = new JPanel();
     private final JPanel longSaveButtonPanel;
+    private final JPanel graphingPanel;
     private boolean containsValue;
     private int dataIndexI;
     private String[] sharesArray = new String[4];
     private int sharesSold;
+    public static java.util.List<Long> timestampsList = new ArrayList<>();
+    public static List<Double> closingPricesList = new ArrayList<>();
 
     TradePanel(){
         // Creating buttons and their action listeners
@@ -77,16 +89,23 @@ public class TradePanel extends JPanel implements ActionListener{
         textFieldAndLabelPanel.add(numberOfSharesTextField);
         textFieldAndLabelPanel.add(new JLabel());
 
+        // Panel specifically for the save button
         longSaveButtonPanel = new JPanel();
         longSaveButtonPanel.setLayout(new GridLayout(3,0));
         longSaveButtonPanel.add(saveDataButton);
 
+        // Panel for the graph being displayed
+//        graphingPanel = new JPanel();
+//        // TODO - please remove later! This needs to be added only once the ticker symbol is found
+//        graphingPanel.setSize(300, 300);
+//        graphingPanel.add(new StockGraph());
 
-        this.setLayout(new GridLayout(4,0));
+
+        this.setLayout(new GridLayout(6 ,0));
         this.add(textFieldAndLabelPanel, BorderLayout.WEST);
         this.add(buttonPanel, BorderLayout.WEST);
         buttonPanel.setVisible(false);
-
+//        this.add(graphingPanel);
         //TODO - add the graph before this save button
         this.add(longSaveButtonPanel, BorderLayout.CENTER);
         longSaveButtonPanel.setVisible(false);
@@ -97,21 +116,51 @@ public class TradePanel extends JPanel implements ActionListener{
         this.setBounds(0, 0, 600, 600);
     }
 
-    public void createGraph() {
+    public static void createGraph() throws IOException {
         String apiKey = "xWzhEHlJS0D6qsOoOi1_sBrcD_umz4Sj";
-        PolygonRestClient client = new PolygonRestClient(apiKey);
 
-        // Set up the parameters for the aggregates request
-//        AggregatesParameters params = new AggregatesParameters.Builder()
-//                .withTicker("AAPL") // The ticker symbol for the stock
-//                .withMultiplier(1) // The size of the timespan multiplier
-//                .withTimespan("day") // The size of the time window (e.g., "minute", "hour", "day")
-//                .withFrom("2020-01-01") // Start date for the aggregate window
-//                .withTo("2020-01-05") // End date for the aggregate window
-//                .build();
-//
-//        // Fetch the aggregate bars
-//        AggregatesDTO aggregates;
+        //TODO - edit this better please
+        String apiURL = "https://api.polygon.io/v2/aggs/ticker/" +
+                "AAPL" + //
+                "/range/" +
+                "1" + //
+                "/day/" +
+                "2023-01-09" + //
+                "/" +
+                "2023-02-10" + //
+                "?adjusted=" +
+                "true" + //
+                "&sort=" +
+                "asc" + //
+                "&limit=" +
+                "5000" + //
+                "&apiKey=" + apiKey;
+
+        URLConnection connection = new URL(apiURL).openConnection();
+
+        InputStream inputStream = connection.getInputStream();
+
+        String response = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+        response = gson.toJson(JsonParser.parseString(response));
+        System.out.println(response);
+
+        JSONObject responseJSON = new JSONObject(response);
+
+        org.json.JSONArray resultsArray = (org.json.JSONArray) responseJSON.get("results");
+
+        for (int i = 0; i < resultsArray.length(); i++) {
+            JSONObject resultObject = resultsArray.getJSONObject(i);
+            long timestamp = resultObject.getLong("t");
+            timestampsList.add(timestamp);
+            double closingPrice = resultObject.getDouble("c");
+            closingPricesList.add(closingPrice);
+        }
+
+        System.out.println("Timestamps: " + timestampsList);
+        System.out.println("Closing Prices: " + closingPricesList);
     }
 
     public int binarySearch (String target) {
