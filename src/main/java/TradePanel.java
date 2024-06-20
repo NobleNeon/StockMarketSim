@@ -105,7 +105,7 @@ public class TradePanel extends JPanel implements ActionListener{
         this.add(textFieldAndLabelPanel, BorderLayout.WEST);
         this.add(buttonPanel, BorderLayout.WEST);
         buttonPanel.setVisible(false);
-        this.add(graphingPanel);
+//        this.add(graphingPanel);
         //TODO - add the graph before this save button
         this.add(longSaveButtonPanel, BorderLayout.CENTER);
         longSaveButtonPanel.setVisible(false);
