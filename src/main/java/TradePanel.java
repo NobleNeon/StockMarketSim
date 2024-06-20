@@ -20,7 +20,6 @@ import java.util.List;
 
 import static main.java.Main.*;
 
-
 public class TradePanel extends JPanel implements ActionListener{
 
     private final JLabel testLabel = new JLabel(); // TODO - temporary for testing (delete this later)
@@ -181,9 +180,15 @@ public class TradePanel extends JPanel implements ActionListener{
         return -1; // not found
     }
 
+    /**
+     *
+     * @param e the event to be processed
+     * @throws PathNotFoundException
+     */
     @Override
     public void actionPerformed(ActionEvent e) throws PathNotFoundException {
         int symbolIndex = 0;
+
         // if statement for if search button is pressed
         if ("search".equals(e.getActionCommand())) {
             symbolIndex = binarySearch(tickerSymbolTextField.getText());
@@ -191,9 +196,11 @@ public class TradePanel extends JPanel implements ActionListener{
             if (symbolIndex == -1) {
                 errorLabel.setForeground(Color.RED);
                 errorLabel.setText("Ticker Symbol Not Found!");
-            } else {
+            }
+            else {
                 buttonPanel.setVisible(true);
                 try {
+
                     stock = new Stock(stockList.get(symbolIndex)); // Update the stock object
                     System.out.println(stock.getCompanyName());
                     errorLabel.setForeground(Color.BLUE);
@@ -202,15 +209,18 @@ public class TradePanel extends JPanel implements ActionListener{
                     throw new RuntimeException(ex);
                 }
             }
+        }
         // if statement for when user presses buy button
-        } else if ("buy".equals(e.getActionCommand()) && userBalance >= (Integer.parseInt(numberOfSharesTextField.getText()) * stock.getCurrentPrice())){
+        else if ("buy".equals(e.getActionCommand())) {
+
             containsValue = false;
+
             // for loop to separate userDataMatrix rows and search for a value
             for (int i = 0; i < userDataMatrix.size(); i++) {
                 String[] stringArray = userDataMatrix.get(i);
 
                 for (int j = 0; j < stringArray.length; j++) {
-                    if (stringArray[j].equals(stock.getTickerSymbol())){
+                    if (stringArray[j].equals(stock.getTickerSymbol())) {
                         containsValue = true;
                         break;
                     }
@@ -219,19 +229,30 @@ public class TradePanel extends JPanel implements ActionListener{
             if (containsValue) {
                 testLabel.setText("You already long/short this stock");
             }
+            /*
+            checking if user has enough in their balance:
+            the .replaceAll("[^\\d]", "") method is used to remove all non-numeric characters from the text field
+            and is taken from https://stackoverflow.com/a/10372905
+             */
+            else if (userBalance < Integer.parseInt(numberOfSharesTextField.getText().replaceAll("[^\\d]", ""))
+                    * stock.getCurrentPrice()) {
+                testLabel.setText("Insufficient funds");
+            }
             // else statement adds buy transaction to portfolio and adjusts user balance
             else {
                 userDataMatrix.add(new String[]{
                         stock.getTickerSymbol(),
                         stock.getCurrentPriceStr(),
-                        numberOfSharesTextField.getText(),
+                        numberOfSharesTextField.getText().replaceAll("[^\\d]", ""),
                         "BUY"});
-                userBalance -= (Integer.parseInt(numberOfSharesTextField.getText()) * stock.getCurrentPrice());
+                userBalance -= (Integer.parseInt(numberOfSharesTextField.getText().replaceAll("[^\\d]", ""))
+                        * stock.getCurrentPrice());
                 testLabel.setText("Successfully bought stock");
                 longSaveButtonPanel.setVisible(true);
             }
+        }
         // if statement for when sell is pressed
-        } else if ("sell".equals(e.getActionCommand())) {
+        else if ("sell".equals(e.getActionCommand())) {
             //for statement to check if a value is in userDataMatrix
             for (int i = 0; i < userDataMatrix.size(); i++) {
                 String[] stringArray = userDataMatrix.get(i);
@@ -246,7 +267,8 @@ public class TradePanel extends JPanel implements ActionListener{
             }
             // if it contains the ticker symbol
             if (containsValue) {
-                sharesSold = Integer.parseInt(numberOfSharesTextField.getText());
+
+                sharesSold = Integer.parseInt(numberOfSharesTextField.getText().replaceAll("[^\\d]", ""));
                 sharesArray = userDataMatrix.get(dataIndexI);
                 // if statements to allow the user to sell their shares
                 if (Integer.parseInt(sharesArray[2]) > sharesSold && sharesArray[3].equals("BUY")){
@@ -269,9 +291,11 @@ public class TradePanel extends JPanel implements ActionListener{
             else {
                 testLabel.setText("You dont own this stock");
             }
-            // if statement of the user selects short button
-        } else if ("short".equals(e.getActionCommand()) && userBalance >= (Integer.parseInt(numberOfSharesTextField.getText()) * stock.getCurrentPrice())) {
+        // if statement for if the user selects short button
+        }
+        else if ("short".equals(e.getActionCommand())) {
             containsValue = false;
+
             // checks if user data contains a value
             for (int i = 0; i < userDataMatrix.size(); i++) {
                 String[] stringArray = userDataMatrix.get(i);
@@ -286,19 +310,25 @@ public class TradePanel extends JPanel implements ActionListener{
             if (containsValue) {
                 testLabel.setText("You already long/short this stock");
             }
+            //checking if user has enough in their balance
+            else if (userBalance < Integer.parseInt(numberOfSharesTextField.getText().replaceAll("[^\\d]", "")) * stock.getCurrentPrice()) {
+                testLabel.setText("Insufficient funds");
+            }
             // adds new user data to portfolio when user buys stock
             else {
                 userDataMatrix.add(new String[]{
                         stock.getTickerSymbol(),
                         stock.getCurrentPriceStr(),
-                        numberOfSharesTextField.getText(),
+                        numberOfSharesTextField.getText().replaceAll("[^\\d]", ""),
                         "SHORT"});
-                userBalance -= (Integer.parseInt(numberOfSharesTextField.getText()) * stock.getCurrentPrice());
+                userBalance -= (Integer.parseInt(numberOfSharesTextField.getText().replaceAll("[^\\d]", ""))
+                        * stock.getCurrentPrice());
                 testLabel.setText("Successfully shorted stock");
                 longSaveButtonPanel.setVisible(true);
             }
-            // if statement for when user presses cover button
-        } else if ("cover".equals(e.getActionCommand())) {
+        }
+        // if statement for when user presses cover button
+        else if ("cover".equals(e.getActionCommand())) {
             containsValue = false;
             for (int i = 0; i < userDataMatrix.size(); i++) {
                 String[] stringArray = userDataMatrix.get(i);
@@ -311,19 +341,24 @@ public class TradePanel extends JPanel implements ActionListener{
                 }
             }
             if (containsValue) {
-                sharesSold = Integer.parseInt(numberOfSharesTextField.getText());
+                sharesSold = Integer.parseInt(numberOfSharesTextField.getText().replaceAll("[^\\d]", ""));
                 sharesArray = userDataMatrix.get(dataIndexI);
+
                 // if statement that allows user to cover a stock
                 if (Integer.parseInt(sharesArray[2]) > sharesSold && sharesArray[3].equals("SHORT")){
                     sharesArray[2] = Integer.toString(Integer.parseInt(sharesArray[2]) - sharesSold);
                     userDataMatrix.set(dataIndexI, sharesArray);
-                    userBalance += (sharesSold * stock.getCurrentPrice() + (sharesSold * (Integer.parseInt(sharesArray[1]) - stock.getCurrentPrice())));
+                    userBalance += (sharesSold * stock.getCurrentPrice() +
+                            (sharesSold * (Double.parseDouble(sharesArray[1].substring(1)) -
+                                    stock.getCurrentPrice())));
                     longSaveButtonPanel.setVisible(true);
                     testLabel.setText("Successfully covered stock");
                 }
                 else if (Integer.parseInt(sharesArray[2]) == sharesSold && sharesArray[3].equals("SHORT")){
                     userDataMatrix.remove(dataIndexI);
-                    userBalance += (sharesSold * stock.getCurrentPrice() + (sharesSold * (Integer.parseInt(sharesArray[1]) - stock.getCurrentPrice())));
+                    userBalance += (sharesSold * stock.getCurrentPrice() +
+                            (sharesSold * (Double.parseDouble(sharesArray[1].substring(1)) -
+                                    stock.getCurrentPrice())));
                     longSaveButtonPanel.setVisible(true);
                     testLabel.setText("Successfully covered stock");
                 }
@@ -334,21 +369,23 @@ public class TradePanel extends JPanel implements ActionListener{
             else {
                 testLabel.setText("You dont short this stock");
             }
-            // if statement for when user presses save button
-        } else if ("save".equals(e.getActionCommand())) {
 
-                //saving user's data:
-                try {
-                    printFileData(userDataFileLocation);
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
+        // if statement for when user presses save button
+        }
+        else if ("save".equals(e.getActionCommand())) {
 
-                //notifying user that their data has been saved
-                JOptionPane.showMessageDialog(null,
-                        "Your data has been saved",
-                        "Message from Aura",
-                        JOptionPane.INFORMATION_MESSAGE);
+            //saving user's data:
+            try {
+                printFileData(userDataFileLocation);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+
+            //notifying user that their data has been saved
+            JOptionPane.showMessageDialog(null,
+                    "Your data has been saved",
+                    "Message from Aura",
+                    JOptionPane.INFORMATION_MESSAGE);
 
         }
     }

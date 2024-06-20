@@ -2,8 +2,7 @@
  * Program: Aura Traders
  * Programmer: Name: Sharayh Badar, Amir Nafissi, Broden Young
  * Date: June 20, 2024
- * Description: A application that will allow users to get introduced to the stock market by trading with fake money
- * It contains features such as real time stock data and graphs from an API
+ * Description: A application that allows users to get introduced to the stock market by trading with digital money
  */
 package main.java;
 
@@ -16,7 +15,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    //public variables to user data throughout the program
+    //public variables to store user data throughout the program
     public static ArrayList<String> usernames = new ArrayList<>();
     public static ArrayList<String> passwords = new ArrayList<>();
     public static ArrayList<String[]> userDataMatrix = new ArrayList<>(); //contains user's portfolio
