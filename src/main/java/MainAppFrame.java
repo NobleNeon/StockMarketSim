@@ -1,3 +1,8 @@
+/**
+ * Name: MainAppFrame
+ * Description: This class contains the main JFrame that contains the application
+ * This is also where the 'portfolioPanel' and 'tradePanel' are initialized and added to the frame
+ */
 package main.java;
 
 import javax.swing.*;
@@ -13,17 +18,18 @@ public class MainAppFrame extends JFrame implements ActionListener {
     PortfolioPanel portfolioPanel;
     TradePanel tradePanel;
     JPanel instructionsPanel;
-    JPanel defaultPanelLayer; //will be used to stack trade and portfolio panels
+    JPanel defaultPanelLayer; //will be used to stack portfolio, trade, and instruction panels
     JPanel bottomNavBar; //this panel will hold the buttons that will change the main screen panel
+
+    //initializing the main frame
     JFrame frame = new JFrame("Aura Traders");
 
     //initializing buttons
-    //buttons
     JButton portfolioButton;
     JButton tradeButton;
 
-
-    MainAppFrame() {
+    //no arg constructor
+    public MainAppFrame() {
 
         //changing logo
         ImageIcon logo = new ImageIcon("stockIcon.png");
@@ -55,7 +61,7 @@ public class MainAppFrame extends JFrame implements ActionListener {
                 "<br>You can make trades by clicking  the 'Trade' button below" +
                 "<br>Make sure you press the 'save' button after making a trade!</p></html>";
 
-        //adding instructions to instructions panel layer
+        //adding instructionsString to instructions panel layer
         instructionsPanel.add(new JLabel(instructionsString));
 
         //adding portfolio and trade buttons to bottom nav bar panel
@@ -65,6 +71,7 @@ public class MainAppFrame extends JFrame implements ActionListener {
         //creating buttons
         portfolioButton = new JButton("Portfolio");
         tradeButton = new JButton("Trade");
+
         //adding action listener to buttons
         portfolioButton.addActionListener(this);
         tradeButton.addActionListener(this);
@@ -136,8 +143,10 @@ public class MainAppFrame extends JFrame implements ActionListener {
 
 
     /**
-     *
-     * @param e the event to be processed
+     * Name: actionPerformed
+     * Description: this method is used to detect if a button is pressed
+     *              as well as the code that will run if those buttons are pressed
+     * @param e: the event to be processed
      */
     @Override
     public void actionPerformed(ActionEvent e) {
