@@ -1,65 +1,26 @@
-/**
- * Name: portfolioPanel
- * Description: the panel that will contain the user's portfolio as well as notifying them of their balance
- */
-
 package main.java;
 
 import javax.swing.*;
 import java.awt.*;
-import java.text.DecimalFormat;
 
-//importing user's data which is initialized in the Main
 import static main.java.Main.userBalance;
 import static main.java.Main.userDataMatrix;
 
 public class PortfolioPanel extends JPanel {
 
-    //fields
     private JPanel displayDataPanel; //for adding the grid containing the user's data onto
     private JLabel displayEmptyDataLabel; //for letting the user know that their portfolio is empty
     private JLabel displayUserBalance; //for displaying user's balance
 
-    //getters and setters:
-    public JPanel getDisplayDataPanel() {
-        return displayDataPanel;
-    }
 
-    public void setDisplayDataPanel(JPanel displayDataPanel) {
-        this.displayDataPanel = displayDataPanel;
-    }
-
-    public JLabel getDisplayEmptyDataLabel() {
-        return displayEmptyDataLabel;
-    }
-
-    public void setDisplayEmptyDataLabel(JLabel displayEmptyDataLabel) {
-        this.displayEmptyDataLabel = displayEmptyDataLabel;
-    }
-
-    public JLabel getDisplayUserBalance() {
-        return displayUserBalance;
-    }
-
-    public void setDisplayUserBalance(JLabel displayUserBalance) {
-        this.displayUserBalance = displayUserBalance;
-    }
-
-    /**
-     * Name: updateLayout
-     * Description: this method will be used to add the necessary components to the panel
-     */
     public void updateLayout() {
-
-        //making DecimalFormat object for displaying user's balance
-        DecimalFormat df = new DecimalFormat("$#.##");
 
         //initializing display data panel
         displayDataPanel = new JPanel();
 
         //initializing labels
         displayEmptyDataLabel = new JLabel("Portfolio empty!");
-        displayUserBalance = new JLabel("Your current balance: " + df.format(userBalance));
+        displayUserBalance = new JLabel("Your current balance: $" + String.valueOf(userBalance));
 
         //setting portfolio's layout:
         this.setLayout(new BorderLayout());
@@ -67,9 +28,9 @@ public class PortfolioPanel extends JPanel {
         //adding user's balance:
         this.add(displayUserBalance, BorderLayout.NORTH);
 
-        //checking if user's data is empty and acting accordingly
+        //
         if (userDataMatrix.isEmpty()) {
-            this.add(displayEmptyDataLabel, BorderLayout.CENTER); //displaying the empty data label
+            this.add(displayEmptyDataLabel, BorderLayout.CENTER);
         }
         else {
 
@@ -105,5 +66,30 @@ public class PortfolioPanel extends JPanel {
             //adding 'displayDataPanel' to 'PortfolioPanel'
             this.add(displayDataPanel, BorderLayout.CENTER);
         }
+    }
+
+    //getters and setters:
+    public JPanel getDisplayDataPanel() {
+        return displayDataPanel;
+    }
+
+    public void setDisplayDataPanel(JPanel displayDataPanel) {
+        this.displayDataPanel = displayDataPanel;
+    }
+
+    public JLabel getDisplayEmptyDataLabel() {
+        return displayEmptyDataLabel;
+    }
+
+    public void setDisplayEmptyDataLabel(JLabel displayEmptyDataLabel) {
+        this.displayEmptyDataLabel = displayEmptyDataLabel;
+    }
+
+    public JLabel getDisplayUserBalance() {
+        return displayUserBalance;
+    }
+
+    public void setDisplayUserBalance(JLabel displayUserBalance) {
+        this.displayUserBalance = displayUserBalance;
     }
 }
