@@ -38,7 +38,6 @@ public class Main {
         MainAppFrame mainAppFrame = new MainAppFrame();
     }
 
-
     /**
      * Description: Will take a filename and read data to array
      * @param fileName: desired file name to be read
