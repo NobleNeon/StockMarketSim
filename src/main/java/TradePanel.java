@@ -30,7 +30,6 @@ public class TradePanel extends JPanel implements ActionListener{
     private static Stock stock = new Stock();
     private final JPanel buttonPanel = new JPanel();
     private final JPanel longSaveButtonPanel;
-    private final JPanel graphingPanel;
     private boolean containsValue;
     private int dataIndexI;
     private String[] sharesArray = new String[4];
