@@ -26,8 +26,8 @@ public class PortfolioPanel extends JPanel {
         }
 
         // creating a table from user's data
-        JTable displayDataTable = new JTable(userDataArray, new String[]{"Ticker Symbol", "Last Price",
-                "Shares Owned", "Transaction Type"});
+        JTable displayDataTable = new JTable(userDataArray,
+                new String[]{"Ticker Symbol", "Last Price", "Shares Owned", "Transaction Type"});
 
         /*
         disabling user's ability to edit table:
