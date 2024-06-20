@@ -207,6 +207,7 @@ public class TradePanel extends JPanel implements ActionListener{
                 }
                 else if (Integer.parseInt(sharesArray[2]) == sharesSold && sharesArray[3].equals("BUY")){
                     userDataMatrix.remove(dataIndexI);
+                    userBalance += (sharesSold * stock.getCurrentPrice());
                     longSaveButtonPanel.setVisible(true);
                     testLabel.setText("Successfully sold stock");
                 }
@@ -263,7 +264,7 @@ public class TradePanel extends JPanel implements ActionListener{
                 if (Integer.parseInt(sharesArray[2]) > sharesSold && sharesArray[3].equals("SHORT")){
                     sharesArray[2] = Integer.toString(Integer.parseInt(sharesArray[2]) - sharesSold);
                     userDataMatrix.set(dataIndexI, sharesArray);
-                    userBalance += (sharesSold * (Integer.parseInt(sharesArray[1]) - stock.getCurrentPrice()));
+                    userBalance += (sharesSold * stock.getCurrentPrice() + (sharesSold * (Integer.parseInt(sharesArray[1]) - stock.getCurrentPrice())));
                     longSaveButtonPanel.setVisible(true);
                     testLabel.setText("Successfully covered stock");
                 }
