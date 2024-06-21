@@ -21,15 +21,20 @@ public class StockGraph extends JPanel{
     public static java.util.List<Long> timestampsList = new ArrayList<>();
     public static List<Double> closingPricesList = new ArrayList<>();
 
-    public StockGraph(String tickerSymbol, String range, String startDay, String endDay) throws IOException {
+    public StockGraph(String tickerSymbol, String startDay) throws IOException {
+
+        String endDay = startDay.substring(0,4)
+                        + (Integer.parseInt(String.valueOf(startDay.charAt(4))) - 1)
+                        + startDay.substring(5);
+
         String apiURL = "https://api.polygon.io/v2/aggs/ticker/" +
                 tickerSymbol +
                 "/range/" +
-                range +
+                "1" +
                 "/day/" +
-                "2023-01-09" + // yyyy-mm-dd
+                startDay + // yyyy-mm-dd
                 "/" +
-                "2023-02-10" + // yyyy-mm-dd
+                endDay + // yyyy-mm-dd
                 "?adjusted=true&sort=asc&limit=5000&apiKey=xWzhEHlJS0D6qsOoOi1_sBrcD_umz4Sj";
 
         URLConnection connection = new URL(apiURL).openConnection();
