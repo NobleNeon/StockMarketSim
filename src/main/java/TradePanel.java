@@ -217,7 +217,9 @@ public class TradePanel extends JPanel implements ActionListener{
             else {
                 buttonPanel.setVisible(true);
                 try {
+
                     stock = new Stock(stockList.get(symbolIndex)); // Update the stock object
+                    System.out.println(stock.getCompanyName());
                     errorLabel.setForeground(Color.BLUE);
                     errorLabel.setText("Stock found!");
 
