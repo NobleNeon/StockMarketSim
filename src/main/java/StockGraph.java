@@ -60,12 +60,6 @@ public class StockGraph extends JPanel{
 
         this.setSize(500,500);
 
-        JLabel graph = createGraph();
-
-        this.add(graph);
-    }
-
-    public JLabel createGraph() throws IOException {
         // Create a BufferedImage with the same size as the TradePanel
         BufferedImage image = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_ARGB);
 
@@ -81,10 +75,9 @@ public class StockGraph extends JPanel{
         // Create an ImageIcon from the BufferedImage
         ImageIcon screenshotIcon = new ImageIcon(image);
 
-        // Create a JLabel with the ImageIcon
-        JLabel screenshotLabel = new JLabel(screenshotIcon);
+        // Add JLabel with the ImageIcon
+        this.add(new JLabel(screenshotIcon));
 
-        return screenshotLabel;
     }
     @Override
     public void paint(Graphics g) {

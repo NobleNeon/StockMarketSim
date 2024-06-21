@@ -195,6 +195,7 @@ public class MainAppFrame extends JFrame implements ActionListener {
             //Changing button's enabled to prevent from double-clicking:
             portfolioButton.setEnabled(false);
             tradeButton.setEnabled(true);
+            graphButton.setEnabled(TradePanel.isTickerSymbolValid());
 
             portfolioPanel.updateLayout(); //updating portfolio panel to be up-to-date with user's data
             portfolioPanel.setVisible(true); //making the panel visible to the user
@@ -213,6 +214,7 @@ public class MainAppFrame extends JFrame implements ActionListener {
 
             //Changing button's enabled to prevent from double-clicking:
             tradeButton.setEnabled(false);
+            graphButton.setEnabled(TradePanel.isTickerSymbolValid());
             portfolioButton.setEnabled(true);
 
             //clearing portfolio panel to make room for new data once user clicks on 'portfolioButton' again
@@ -236,6 +238,11 @@ public class MainAppFrame extends JFrame implements ActionListener {
             tradeButton.setEnabled(true);
             portfolioButton.setEnabled(true);
 
+            try {
+                graphPanel.remove(0);
+            } catch (ArrayIndexOutOfBoundsException ignored) {
+
+            }
 
             try {
                 graphPanel.add(new StockGraph(TradePanel.getStock().getTickerSymbol(), currentDate));

@@ -8,19 +8,12 @@ import static main.java.Main.userDataMatrix;
 
 public class PortfolioPanel extends JPanel {
 
-    private JPanel displayDataPanel; //for adding the grid containing the user's data onto
-    private JLabel displayEmptyDataLabel; //for letting the user know that their portfolio is empty
-    private JLabel displayUserBalance; //for displaying user's balance
+    private JPanel displayDataPanel = new JPanel(); //for adding the grid containing the user's data onto
+    private JLabel displayEmptyDataLabel = new JLabel("Portfolio empty!"); //for letting the user know that their portfolio is empty
+    private JLabel displayUserBalance = new JLabel("Your current balance: $" + (userBalance)); //for displaying user's balance
 
 
     public void updateLayout() {
-
-        //initializing display data panel
-        displayDataPanel = new JPanel();
-
-        //initializing labels
-        displayEmptyDataLabel = new JLabel("Portfolio empty!");
-        displayUserBalance = new JLabel("Your current balance: $" + String.valueOf(userBalance));
 
         //setting portfolio's layout:
         this.setLayout(new BorderLayout());
