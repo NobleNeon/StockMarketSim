@@ -1,14 +1,86 @@
 package main.java;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParser;
+import org.json.JSONObject;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
-import static main.java.TradePanel.closingPricesList;
-import static main.java.TradePanel.timestampsList;
+public class StockGraph extends JPanel{
+    public static java.util.List<Long> timestampsList = new ArrayList<>();
+    public static List<Double> closingPricesList = new ArrayList<>();
 
-public class StockGraph extends JPanel {
+    public StockGraph(String tickerSymbol, String range, String startDay, String endDay) throws IOException {
+        String apiURL = "https://api.polygon.io/v2/aggs/ticker/" +
+                tickerSymbol +
+                "/range/" +
+                range +
+                "/day/" +
+                "2023-01-09" + // yyyy-mm-dd
+                "/" +
+                "2023-02-10" + // yyyy-mm-dd
+                "?adjusted=true&sort=asc&limit=5000&apiKey=xWzhEHlJS0D6qsOoOi1_sBrcD_umz4Sj";
+
+        URLConnection connection = new URL(apiURL).openConnection();
+
+        InputStream inputStream = connection.getInputStream();
+
+        String response = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+        response = gson.toJson(JsonParser.parseString(response));
+        System.out.println(response);
+
+        JSONObject responseJSON = new JSONObject(response);
+
+        org.json.JSONArray resultsArray = (org.json.JSONArray) responseJSON.get("results");
+
+        for (int i = 0; i < resultsArray.length(); i++) {
+            JSONObject resultObject = resultsArray.getJSONObject(i);
+            long timestamp = resultObject.getLong("t");
+            timestampsList.add(timestamp);
+            double closingPrice = resultObject.getDouble("c");
+            closingPricesList.add(closingPrice);
+        }
+
+        System.out.println("Timestamps: " + timestampsList);
+        System.out.println("Closing Prices: " + closingPricesList);
+
+        this.setSize(500,500);
+
+        // Create a BufferedImage with the same size as the TradePanel
+        BufferedImage image = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_ARGB);
+
+        // Create a Graphics2D object from the BufferedImage
+        Graphics2D graphics = image.createGraphics();
+
+        // Call the paint() method of the TradePanel with the Graphics2D object as the argument
+        this.paint(graphics);
+
+        // Dispose of the Graphics2D object
+        graphics.dispose();
+
+        // Create an ImageIcon from the BufferedImage
+        ImageIcon screenshotIcon = new ImageIcon(image);
+
+        // Create a JLabel with the ImageIcon
+        JLabel screenshotLabel = new JLabel(screenshotIcon);
+
+        this.add(screenshotLabel);
+
+    }
 
     @Override
     public void paint(Graphics g) {
@@ -18,13 +90,16 @@ public class StockGraph extends JPanel {
         int numPoints = timestampsList.size();
         int xMargin = 50;
         int yMargin = 50;
+
+        System.out.println("Width:" + getWidth());
+        System.out.println("Height:" + getHeight());
+
         int xRange = getWidth() - 2 * xMargin;
         int yRange = getHeight() - 2 * yMargin;
 
         // Draw axes
         g2d.drawLine(xMargin, yMargin, xMargin, getHeight() - yMargin);
         g2d.drawLine(xMargin, getHeight() - yMargin, getWidth() - xMargin, getHeight() - yMargin);
-
 
         ArrayList<Double> tempClosingPricesList = new ArrayList<>(closingPricesList);
 
