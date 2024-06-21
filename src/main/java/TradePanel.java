@@ -83,13 +83,7 @@ public class TradePanel extends JPanel implements ActionListener{
         longSaveButtonPanel.setLayout(new GridLayout(3,0));
         longSaveButtonPanel.add(saveDataButton);
 
-        // TODO - please remove later! This needs to be added only once the ticker symbol is found
-
-        JPanel beforeGraphPanel = new JPanel();
-        beforeGraphPanel.setLayout(new GridLayout(6,0));
-        beforeGraphPanel.add(textFieldAndLabelPanel, BorderLayout.WEST);
-        beforeGraphPanel.add(buttonPanel, BorderLayout.WEST);
-
+        //Adding all the components to the frame
         this.setLayout(new GridLayout(9 ,0));
         this.add(textFieldAndLabelPanel, BorderLayout.NORTH);
         this.add(buttonPanel, BorderLayout.NORTH);
@@ -176,6 +170,12 @@ public class TradePanel extends JPanel implements ActionListener{
         return buttonPanel;
     }
 
+    /**
+     * Name: binarySearch
+     * Description: Uses the binary search algorithm to check if the ticker symbol the user is valid
+     * @param target the ticker symbol the user enters in the text field
+     * @return - the index that the ticker symbol is located in
+     */
     public int binarySearch (String target) {
         int low = 0;
         int high = stockList.size() - 1;
@@ -185,9 +185,9 @@ public class TradePanel extends JPanel implements ActionListener{
             String midElement = stockList.get(mid);
 
 
-            if (midElement.equals(target)) {
+            if (midElement.equalsIgnoreCase(target)) {
                 return mid; // found the target element
-            } else if (midElement.compareTo(target) < 0) {
+            } else if (midElement.compareToIgnoreCase(target) < 0) {
                 low = mid + 1; // target is in the upper half
             } else {
                 high = mid - 1; // target is in the lower half
@@ -197,9 +197,10 @@ public class TradePanel extends JPanel implements ActionListener{
     }
 
     /**
-     *
+     * Name: actionPerformed()
+     * Description: the method just performs the specific tasks that need to be set when a button is pressed
      * @param e the event to be processed
-     * @throws PathNotFoundException
+     * @throws PathNotFoundException - exception for when the path is not found (who would've thought?)
      */
     @Override
     public void actionPerformed(ActionEvent e) throws PathNotFoundException {
@@ -216,9 +217,7 @@ public class TradePanel extends JPanel implements ActionListener{
             else {
                 buttonPanel.setVisible(true);
                 try {
-
                     stock = new Stock(stockList.get(symbolIndex)); // Update the stock object
-                    System.out.println(stock.getCompanyName());
                     errorLabel.setForeground(Color.BLUE);
                     errorLabel.setText("Stock found!");
 

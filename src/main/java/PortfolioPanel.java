@@ -42,10 +42,11 @@ public class PortfolioPanel extends JPanel {
         //adding user's balance:
         this.add(displayUserBalance, BorderLayout.NORTH);
 
-        //
+        // if the matrix is empty then show the panel for when the matrix is empty
         if (userDataMatrix.isEmpty()) {
             this.add(displayEmptyDataLabel, BorderLayout.CENTER);
         }
+        // show the actual panel for when the matrix is NOT empty
         else {
 
             //converting the mutable 'userDataMatrix' into an immutable 'userDataArray'
@@ -82,7 +83,7 @@ public class PortfolioPanel extends JPanel {
         }
     }
 
-    //getters and setters:
+    //getters and setters
     public JPanel getDisplayDataPanel() {
         return displayDataPanel;
     }

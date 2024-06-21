@@ -1,7 +1,7 @@
 /**
  * Program: Aura Traders
- * Programmer: Name: Sharayh Badar, Amir Nafissi, Broden Young
- * Date: June 20, 2024
+ * Programmer Names: Sharayh Badar, Amir Nafissi, Broden Young
+ * Date: June 20, 2024.
  * Description: A application that allows users to get introduced to the stock market by trading with digital money
  */
 package main.java;
@@ -16,8 +16,6 @@ import java.util.Scanner;
 public class Main {
 
     //public variables to store user data throughout the program
-    public static ArrayList<String> usernames = new ArrayList<>();
-    public static ArrayList<String> passwords = new ArrayList<>();
     public static ArrayList<String[]> userDataMatrix = new ArrayList<>(); //contains user's portfolio
     public static Double userBalance = 0.00; //contains users balance
     public static ArrayList<String> stockList = new ArrayList<>();
@@ -108,8 +106,10 @@ public class Main {
     }
 
     /**
-     *
-     * @throws IOException
+     * Name: getTickerSymbols()
+     * Description: Receives the ticker symbols for companies that are based in the US from the text file that is
+     * already sorted in alphabetical order
+     * @throws IOException - general exception for reading files
      */
     public static void getTickerSymbols() throws IOException {
 

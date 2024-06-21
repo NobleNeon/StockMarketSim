@@ -20,6 +20,7 @@ public class MainAppFrame extends JFrame implements ActionListener {
     // Formatting as per given pattern in the argument
     SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
 
+    // to be used in the parameter for the new stock
     String currentDate = ft.format(new Date());
 
     //initializing panels
@@ -53,8 +54,6 @@ public class MainAppFrame extends JFrame implements ActionListener {
         bottomNavBar = new JPanel();
         graphPanel = new JPanel();
         graphPanel.setSize(500, 500);
-
-
 
         //adding portfolio, trade, and instructions panels to default panel layer
         defaultPanelLayer.add(portfolioPanel);
@@ -229,31 +228,36 @@ public class MainAppFrame extends JFrame implements ActionListener {
             frame.setTitle("Trade");
             frame.setVisible(true);
         }
+        // when the graph button is pressed
         if (e.getSource() == graphButton){
+
+            // change the visibility of the panels accordingly
             portfolioPanel.setVisible(false);
             instructionsPanel.setVisible(false);
             tradePanel.setVisible(false);
 
+            //Changing button's enabled to prevent from double-clicking:
             graphButton.setEnabled(false);
             tradeButton.setEnabled(true);
             portfolioButton.setEnabled(true);
 
-            System.out.println("Number of components: " + graphPanel.getComponentCount());
+            // remove the previously stored graph (if there was one)
             try {
                 graphPanel.remove(0);
             } catch (ArrayIndexOutOfBoundsException ignored) {
 
             }
 
+            // add the new graph with the ticker symbol that the user inputted.
             try {
                 graphPanel.add(new StockGraph(TradePanel.getStock().getTickerSymbol(), currentDate));
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
 
+            // show the new graph and set it with the title with the specific ticker symbol
             graphPanel.setVisible(true);
-
-            frame.setTitle(TradePanel.getStock().getTickerSymbol() + " Stock Price | From 1 Year Ago Until ow");
+            frame.setTitle(TradePanel.getStock().getTickerSymbol() + " Stock Price | From 1 Year Ago Until Now");
         }
     }
 }
