@@ -52,7 +52,7 @@ public class MainAppFrame extends JFrame implements ActionListener {
         defaultPanelLayer = new JPanel();
         bottomNavBar = new JPanel();
         graphPanel = new JPanel();
-        graphPanel.setSize(500, 500);
+        //graphPanel.setSize(500, 500);
 
 
 
@@ -65,7 +65,7 @@ public class MainAppFrame extends JFrame implements ActionListener {
         //changing visibility of panels (will be changed later once user selects buttons)
         portfolioPanel.setVisible(false);
         tradePanel.setVisible(false);
-        graphPanel.setVisible(false);
+        //graphPanel.setVisible(false);
         instructionsPanel.setVisible(true);
         defaultPanelLayer.setVisible(true);
 
@@ -187,6 +187,8 @@ public class MainAppFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == portfolioButton){
 
+            this.remove(graphPanel);
+
             //changing visibility of panels accordingly
             tradePanel.setVisible(false);
             instructionsPanel.setVisible(false);
@@ -204,6 +206,8 @@ public class MainAppFrame extends JFrame implements ActionListener {
             frame.setVisible(true);
         }
         if (e.getSource() == tradeButton){
+
+            this.remove(graphPanel);
 
             //changing visibility of panels accordingly
             portfolioPanel.setVisible(false);
@@ -229,7 +233,6 @@ public class MainAppFrame extends JFrame implements ActionListener {
         }
         if (e.getSource() == graphButton){
 
-
             portfolioPanel.setVisible(false);
             instructionsPanel.setVisible(false);
             tradePanel.setVisible(false);
@@ -238,16 +241,14 @@ public class MainAppFrame extends JFrame implements ActionListener {
             tradeButton.setEnabled(true);
             portfolioButton.setEnabled(true);
 
-            this.remove(graphPanel);
-
             try {
                 graphPanel = new StockGraph(TradePanel.getStock().getTickerSymbol(), currentDate);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
 
-            graphPanel.setVisible(true);
             this.add(graphPanel);
+            graphPanel.setVisible(true);
 
             frame.setTitle(TradePanel.getStock().getTickerSymbol() + " Stock Price | From 1 Year Ago Until Now");
         }
