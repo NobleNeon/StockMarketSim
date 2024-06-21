@@ -184,6 +184,7 @@ public class TradePanel extends JPanel implements ActionListener{
             int mid = (low + high) / 2;
             String midElement = stockList.get(mid);
 
+
             if (midElement.equals(target)) {
                 return mid; // found the target element
             } else if (midElement.compareTo(target) < 0) {
