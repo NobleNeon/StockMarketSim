@@ -18,16 +18,24 @@ import java.util.Collections;
 import java.util.List;
 
 public class StockGraph extends JPanel{
+
+    // pre-initialized variables
     public static java.util.List<Long> timestampsList = new ArrayList<>();
     public static List<Double> closingPricesList = new ArrayList<>();
 
-    public StockGraph(String tickerSymbol, String startDay) throws IOException {
+    private String tickerSymbol;
 
+    public StockGraph(String tickerSymbol, String startDay) throws IOException {
+        this.tickerSymbol = tickerSymbol;
+
+        // Parse through the parameter to figure out the date one year ago
         String endDay = startDay.substring(0,3)
                         + (Integer.parseInt(String.valueOf(startDay.charAt(3))) - 1)
                         + startDay.substring(4);
+
+        // Use the parameters to create a custom url for to get the HTTP response
         String apiURL = "https://api.polygon.io/v2/aggs/ticker/" +
-                tickerSymbol +
+                this.tickerSymbol +
                 "/range/" +
                 "1" +
                 "/day/" +
@@ -36,6 +44,7 @@ public class StockGraph extends JPanel{
                 startDay + // yyyy-mm-dd
                 "?adjusted=true&sort=asc&limit=5000&apiKey=xWzhEHlJS0D6qsOoOi1_sBrcD_umz4Sj";
 
+        // This is teh code to get the data from the URL
         URLConnection connection = new URL(apiURL).openConnection();
 
         InputStream inputStream = connection.getInputStream();
@@ -79,6 +88,15 @@ public class StockGraph extends JPanel{
         this.add(new JLabel(screenshotIcon));
 
     }
+
+    public String getTickerSymbol() {
+        return tickerSymbol;
+    }
+
+    public void setTickerSymbol(String tickerSymbol) {
+        this.tickerSymbol = this.tickerSymbol;
+    }
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);

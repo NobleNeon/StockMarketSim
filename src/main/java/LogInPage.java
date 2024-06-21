@@ -96,6 +96,8 @@ public class LogInPage extends JFrame implements ActionListener {
         frame.setVisible(true);
     }
 
+
+    // getters and setters
     public JPasswordField getConfirmPasswordField() {
         return confirmPasswordField;
     }
@@ -143,9 +145,16 @@ public class LogInPage extends JFrame implements ActionListener {
     public ArrayList<String> getUserNamesArray() {
         return userNamesArray;
     }
+
+    /**
+     * Name: getFileLocation
+     * Description: returns the file location of the current user's information
+     * @return the directory of the user's file and where their information is stored
+     */
     public String getFileLocation() {
         return "Users/" + userNameField.getText() + ".txt";
     }
+
 
 
     /**

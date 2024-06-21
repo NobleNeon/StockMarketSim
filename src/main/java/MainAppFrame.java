@@ -238,6 +238,7 @@ public class MainAppFrame extends JFrame implements ActionListener {
             tradeButton.setEnabled(true);
             portfolioButton.setEnabled(true);
 
+            System.out.println("Number of components: " + graphPanel.getComponentCount());
             try {
                 graphPanel.remove(0);
             } catch (ArrayIndexOutOfBoundsException ignored) {
