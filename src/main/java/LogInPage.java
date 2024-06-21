@@ -47,9 +47,6 @@ public class LogInPage extends JFrame implements ActionListener {
             passwordsArray.add(tokens[1]);
         }
 
-        System.out.println(userNamesArray);
-        System.out.println(passwordsArray);
-
         frame = new JFrame();
         ImageIcon img = new ImageIcon("stockIcon.png");
         frame.setIconImage(img.getImage());
