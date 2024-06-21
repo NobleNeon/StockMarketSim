@@ -233,18 +233,21 @@ public class MainAppFrame extends JFrame implements ActionListener {
             tradePanel.setVisible(false);
 
             graphButton.setEnabled(false);
-            tradePanel.setEnabled(true);
+            tradeButton.setEnabled(true);
             portfolioButton.setEnabled(true);
 
+            this.remove(graphPanel);
+
             try {
-                graphPanel.add(new StockGraph(TradePanel.getStock().getTickerSymbol(), currentDate));
+                graphPanel = new StockGraph(TradePanel.getStock().getTickerSymbol(), currentDate);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
 
             graphPanel.setVisible(true);
+            this.add(graphPanel);
 
-            frame.setTitle(TradePanel.getStock().getTickerSymbol() + " Graph");
+            frame.setTitle(TradePanel.getStock().getTickerSymbol() + " Stock Price | From 1 Year Ago Until Now");
         }
     }
 }

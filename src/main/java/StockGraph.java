@@ -23,18 +23,17 @@ public class StockGraph extends JPanel{
 
     public StockGraph(String tickerSymbol, String startDay) throws IOException {
 
-        String endDay = startDay.substring(0,4)
-                        + (Integer.parseInt(String.valueOf(startDay.charAt(4))) - 1)
-                        + startDay.substring(5);
-
+        String endDay = startDay.substring(0,3)
+                        + (Integer.parseInt(String.valueOf(startDay.charAt(3))) - 1)
+                        + startDay.substring(4);
         String apiURL = "https://api.polygon.io/v2/aggs/ticker/" +
                 tickerSymbol +
                 "/range/" +
                 "1" +
                 "/day/" +
-                startDay + // yyyy-mm-dd
-                "/" +
                 endDay + // yyyy-mm-dd
+                "/" +
+                startDay + // yyyy-mm-dd
                 "?adjusted=true&sort=asc&limit=5000&apiKey=xWzhEHlJS0D6qsOoOi1_sBrcD_umz4Sj";
 
         URLConnection connection = new URL(apiURL).openConnection();
@@ -46,7 +45,6 @@ public class StockGraph extends JPanel{
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         response = gson.toJson(JsonParser.parseString(response));
-        System.out.println(response);
 
         JSONObject responseJSON = new JSONObject(response);
 
@@ -59,9 +57,6 @@ public class StockGraph extends JPanel{
             double closingPrice = resultObject.getDouble("c");
             closingPricesList.add(closingPrice);
         }
-
-        System.out.println("Timestamps: " + timestampsList);
-        System.out.println("Closing Prices: " + closingPricesList);
 
         this.setSize(500,500);
 
@@ -95,9 +90,6 @@ public class StockGraph extends JPanel{
         int numPoints = timestampsList.size();
         int xMargin = 50;
         int yMargin = 50;
-
-        System.out.println("Width:" + getWidth());
-        System.out.println("Height:" + getHeight());
 
         int xRange = getWidth() - 2 * xMargin;
         int yRange = getHeight() - 2 * yMargin;
