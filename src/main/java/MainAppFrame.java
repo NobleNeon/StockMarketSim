@@ -74,8 +74,10 @@ public class MainAppFrame extends JFrame implements ActionListener {
                 "<br><br>Here's how to use the program:" +
                 "<br>You can check your portfolio buy clicking the 'Portfolio' button below" +
                 "<br>The portfolio shows the stocks you own and your balance" +
-                "<br>You can make trades by clicking  the 'Trade' button below" +
-                "<br>Make sure you press the 'save' button after making a trade!</p></html>";
+                "<br><br>You can make trades by clicking  the 'Trade' button below" +
+                "<br>After searching for a ticker symbol, you can see a graph of the stock price over the" +
+                "<br>recent year by clicking the 'Graph' button below" +
+                "<br><br>Make sure you press the 'save' button after making a trade!</p></html>";
 
         //adding instructionsString to instructions panel layer
         instructionsPanel.add(new JLabel(instructionsString));
