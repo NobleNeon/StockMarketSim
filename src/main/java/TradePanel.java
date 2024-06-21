@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import static main.java.Main.*;
+import static main.java.MainAppFrame.graphButton;
 
 public class TradePanel extends JPanel implements ActionListener{
 
@@ -83,7 +84,6 @@ public class TradePanel extends JPanel implements ActionListener{
         longSaveButtonPanel.add(saveDataButton);
 
         // TODO - please remove later! This needs to be added only once the ticker symbol is found
-
 
         JPanel beforeGraphPanel = new JPanel();
         beforeGraphPanel.setLayout(new GridLayout(6,0));
@@ -222,6 +222,8 @@ public class TradePanel extends JPanel implements ActionListener{
                     errorLabel.setText("Stock found!");
 
                     isTickerSymbolValid = true;
+                    graphButton.setEnabled(true);
+
                 } catch (IOException | InterruptedException ex) {
                     throw new RuntimeException(ex);
                 }
