@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import static main.java.Main.userDataMatrix;
 
@@ -20,6 +21,7 @@ public class MainAppFrame extends JFrame implements ActionListener {
     JPanel instructionsPanel;
     JPanel defaultPanelLayer; //will be used to stack portfolio, trade, and instruction panels
     JPanel bottomNavBar; //this panel will hold the buttons that will change the main screen panel
+    JPanel graphPanel; // this panel will show the stocks of the company
 
     //initializing the main frame
     JFrame frame = new JFrame("Aura Traders");
@@ -27,9 +29,10 @@ public class MainAppFrame extends JFrame implements ActionListener {
     //initializing buttons
     JButton portfolioButton;
     JButton tradeButton;
+    static JButton graphButton;
 
     //no arg constructor
-    public MainAppFrame() {
+    public MainAppFrame() throws IOException {
 
         //changing logo
         ImageIcon logo = new ImageIcon("stockIcon.png");
@@ -41,15 +44,21 @@ public class MainAppFrame extends JFrame implements ActionListener {
         instructionsPanel = new JPanel();
         defaultPanelLayer = new JPanel();
         bottomNavBar = new JPanel();
+        graphPanel = new JPanel();
+        graphPanel.setSize(500, 500);
+
+
 
         //adding portfolio, trade, and instructions panels to default panel layer
         defaultPanelLayer.add(portfolioPanel);
         defaultPanelLayer.add(tradePanel);
         defaultPanelLayer.add(instructionsPanel);
+        defaultPanelLayer.add(graphPanel);
 
         //changing visibility of panels (will be changed later once user selects buttons)
         portfolioPanel.setVisible(false);
         tradePanel.setVisible(false);
+        graphPanel.setVisible(false);
         instructionsPanel.setVisible(true);
         defaultPanelLayer.setVisible(true);
 
@@ -66,19 +75,23 @@ public class MainAppFrame extends JFrame implements ActionListener {
 
         //adding portfolio and trade buttons to bottom nav bar panel
         //setting for bottom panel
-        bottomNavBar.setLayout(new GridLayout(1,2)); //setting layout
+        bottomNavBar.setLayout(new GridLayout(1,3)); //setting layout
 
         //creating buttons
         portfolioButton = new JButton("Portfolio");
+        graphButton = new JButton("Graph");
+        graphButton.setEnabled(false);
         tradeButton = new JButton("Trade");
 
         //adding action listener to buttons
         portfolioButton.addActionListener(this);
         tradeButton.addActionListener(this);
+        graphButton.addActionListener(this);
 
         //adding buttons
         bottomNavBar.add(portfolioButton);
         bottomNavBar.add(tradeButton);
+        bottomNavBar.add(graphButton);
 
         //adding nav bar and default panel to the frame
         frame.setLayout(new BorderLayout()); //setting layout
@@ -141,6 +154,21 @@ public class MainAppFrame extends JFrame implements ActionListener {
         this.tradeButton = tradeButton;
     }
 
+    public static JButton getGraphButton() {
+        return graphButton;
+    }
+
+    public void setGraphButton(JButton graphButton) {
+        MainAppFrame.graphButton = graphButton;
+    }
+
+    public JPanel getGraphPanel() {
+        return graphPanel;
+    }
+
+    public void setGraphPanel(JPanel graphPanel) {
+        this.graphPanel = graphPanel;
+    }
 
     /**
      * Name: actionPerformed
@@ -155,11 +183,11 @@ public class MainAppFrame extends JFrame implements ActionListener {
             //changing visibility of panels accordingly
             tradePanel.setVisible(false);
             instructionsPanel.setVisible(false);
+            graphPanel.setVisible(false);
 
             //Changing button's enabled to prevent from double-clicking:
             portfolioButton.setEnabled(false);
             tradeButton.setEnabled(true);
-
 
             portfolioPanel.updateLayout(); //updating portfolio panel to be up-to-date with user's data
             portfolioPanel.setVisible(true); //making the panel visible to the user
@@ -173,6 +201,7 @@ public class MainAppFrame extends JFrame implements ActionListener {
             //changing visibility of panels accordingly
             portfolioPanel.setVisible(false);
             instructionsPanel.setVisible(false);
+            graphPanel.setVisible(false);
             tradePanel.setVisible(true);
 
             //Changing button's enabled to prevent from double-clicking:
@@ -190,6 +219,28 @@ public class MainAppFrame extends JFrame implements ActionListener {
             //changing frame's title to match the panel the user is currently on
             frame.setTitle("Trade");
             frame.setVisible(true);
+        }
+        if (e.getSource() == graphButton){
+            portfolioPanel.setVisible(false);
+            instructionsPanel.setVisible(false);
+            tradePanel.setVisible(false);
+
+            graphButton.setEnabled(false);
+            tradePanel.setEnabled(true);
+            portfolioButton.setEnabled(true);
+
+            try {
+                graphPanel.add(new StockGraph(TradePanel.getStock().getTickerSymbol(),
+                        "1",
+                        "2024-01-15",
+                        "2024-12-11"));
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+
+            graphPanel.setVisible(true);
+
+            frame.setTitle(TradePanel.getStock().getTickerSymbol() + " Graph");
         }
     }
 }

@@ -1,22 +1,12 @@
 package main.java;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonParser;
 import com.jayway.jsonpath.PathNotFoundException;
-import org.json.JSONObject;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 
 import static main.java.Main.*;
 
@@ -33,12 +23,8 @@ public class TradePanel extends JPanel implements ActionListener{
     private int dataIndexI;
     private String[] sharesArray = new String[4];
     private int sharesSold;
-    public static java.util.List<Long> timestampsList = new ArrayList<>();
-    public static List<Double> closingPricesList = new ArrayList<>();
 
     TradePanel() throws IOException {
-
-        getDataForGraph();
 
         // Creating buttons and their action listeners
         JButton buyButton = new JButton("BUY");
@@ -113,55 +99,76 @@ public class TradePanel extends JPanel implements ActionListener{
         longSaveButtonPanel.setVisible(true);
         this.add(testLabel, BorderLayout.SOUTH);
 
-
         this.setBounds(0, 0, 600, 600);
     }
 
-    public static void getDataForGraph() throws IOException {
-        String apiKey = "xWzhEHlJS0D6qsOoOi1_sBrcD_umz4Sj";
+    // Getters and Setters
+    public JTextField getTickerSymbolTextField() {
+        return tickerSymbolTextField;
+    }
 
-        //TODO - edit this better please
-        String apiURL = "https://api.polygon.io/v2/aggs/ticker/" +
-                "AAPL" + //
-                "/range/" +
-                "1" + //
-                "/day/" +
-                "2023-01-09" + //
-                "/" +
-                "2023-02-10" + //
-                "?adjusted=" +
-                "true" + //
-                "&sort=" +
-                "asc" + //
-                "&limit=" +
-                "5000" + //
-                "&apiKey=" + apiKey;
+    public JLabel getTestLabel() {
+        return testLabel;
+    }
 
-        URLConnection connection = new URL(apiURL).openConnection();
+    public static Stock getStock() {
+        return stock;
+    }
 
-        InputStream inputStream = connection.getInputStream();
+    public static void setStock(Stock stock) {
+        TradePanel.stock = stock;
+    }
 
-        String response = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+    public int getSharesSold() {
+        return sharesSold;
+    }
 
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    public void setSharesSold(int sharesSold) {
+        this.sharesSold = sharesSold;
+    }
 
-        response = gson.toJson(JsonParser.parseString(response));
-        System.out.println(response);
+    public String[] getSharesArray() {
+        return sharesArray;
+    }
 
-        JSONObject responseJSON = new JSONObject(response);
+    public void setSharesArray(String[] sharesArray) {
+        this.sharesArray = sharesArray;
+    }
 
-        org.json.JSONArray resultsArray = (org.json.JSONArray) responseJSON.get("results");
+    public static JTextField getNumberOfSharesTextField() {
+        return numberOfSharesTextField;
+    }
 
-        for (int i = 0; i < resultsArray.length(); i++) {
-            JSONObject resultObject = resultsArray.getJSONObject(i);
-            long timestamp = resultObject.getLong("t");
-            timestampsList.add(timestamp);
-            double closingPrice = resultObject.getDouble("c");
-            closingPricesList.add(closingPrice);
-        }
+    public static void setNumberOfSharesTextField(JTextField numberOfSharesTextField) {
+        TradePanel.numberOfSharesTextField = numberOfSharesTextField;
+    }
 
-        System.out.println("Timestamps: " + timestampsList);
-        System.out.println("Closing Prices: " + closingPricesList);
+    public JPanel getLongSaveButtonPanel() {
+        return longSaveButtonPanel;
+    }
+
+    public JLabel getErrorLabel() {
+        return errorLabel;
+    }
+
+    public int getDataIndexI() {
+        return dataIndexI;
+    }
+
+    public void setDataIndexI(int dataIndexI) {
+        this.dataIndexI = dataIndexI;
+    }
+
+    public boolean isContainsValue() {
+        return containsValue;
+    }
+
+    public void setContainsValue(boolean containsValue) {
+        this.containsValue = containsValue;
+    }
+
+    public JPanel getButtonPanel() {
+        return buttonPanel;
     }
 
     public int binarySearch (String target) {
@@ -192,7 +199,7 @@ public class TradePanel extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) throws PathNotFoundException {
         int symbolIndex = 0;
 
-        // if statement for if search button is pressed
+        // if statement for when search button is pressed
         if ("search".equals(e.getActionCommand())) {
             symbolIndex = binarySearch(tickerSymbolTextField.getText());
 
@@ -208,6 +215,7 @@ public class TradePanel extends JPanel implements ActionListener{
                     System.out.println(stock.getCompanyName());
                     errorLabel.setForeground(Color.BLUE);
                     errorLabel.setText("Stock found!");
+                    MainAppFrame.getGraphButton().setEnabled(true);
                 } catch (IOException | InterruptedException ex) {
                     throw new RuntimeException(ex);
                 }
