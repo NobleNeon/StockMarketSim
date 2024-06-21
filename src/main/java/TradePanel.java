@@ -23,6 +23,7 @@ public class TradePanel extends JPanel implements ActionListener{
     private int dataIndexI;
     private String[] sharesArray = new String[4];
     private int sharesSold;
+    public static boolean isTickerSymbolValid;
 
     TradePanel() throws IOException {
 
@@ -100,6 +101,10 @@ public class TradePanel extends JPanel implements ActionListener{
         this.add(testLabel, BorderLayout.SOUTH);
 
         this.setBounds(0, 0, 600, 600);
+    }
+
+    public static boolean isTickerSymbolValid() {
+        return isTickerSymbolValid;
     }
 
     // Getters and Setters
@@ -215,7 +220,8 @@ public class TradePanel extends JPanel implements ActionListener{
                     System.out.println(stock.getCompanyName());
                     errorLabel.setForeground(Color.BLUE);
                     errorLabel.setText("Stock found!");
-                    MainAppFrame.getGraphButton().setEnabled(true);
+
+                    isTickerSymbolValid = true;
                 } catch (IOException | InterruptedException ex) {
                     throw new RuntimeException(ex);
                 }

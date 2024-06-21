@@ -1,40 +1,19 @@
-/**
- * Name: PortfolioPanel
- * Description: JPanel for displaying user's information such as their balance and overall data
- */
 package main.java;
 
 import javax.swing.*;
 import java.awt.*;
-import java.text.DecimalFormat;
 
 import static main.java.Main.userBalance;
 import static main.java.Main.userDataMatrix;
 
 public class PortfolioPanel extends JPanel {
 
-    //fields:
-    private JPanel displayDataPanel; //for adding the grid containing the user's data onto
-    private JLabel displayEmptyDataLabel; //for letting the user know that their portfolio is empty
-    private JLabel displayUserBalance; //for displaying user's balance
+    private JPanel displayDataPanel = new JPanel(); //for adding the grid containing the user's data onto
+    private JLabel displayEmptyDataLabel = new JLabel("Portfolio empty!"); //for letting the user know that their portfolio is empty
+    private JLabel displayUserBalance = new JLabel("Your current balance: $" + (userBalance)); //for displaying user's balance
 
-    /**
-     * Name: updateLayout
-     * Description: this method will be used to create the portfolio panel.
-     * It can be called multiple times to update the panel and show user's current information
-     * when the application is running
-     */
+
     public void updateLayout() {
-
-        //initializing decimal formatter to display user's balance properly:
-        DecimalFormat df = new DecimalFormat("$#.##");
-
-        //initializing display data panel
-        displayDataPanel = new JPanel();
-
-        //initializing labels
-        displayEmptyDataLabel = new JLabel("Portfolio empty!");
-        displayUserBalance = new JLabel("Your current balance: " + df.format(userBalance));
 
         //setting portfolio's layout:
         this.setLayout(new BorderLayout());

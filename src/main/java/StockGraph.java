@@ -75,13 +75,10 @@ public class StockGraph extends JPanel{
         // Create an ImageIcon from the BufferedImage
         ImageIcon screenshotIcon = new ImageIcon(image);
 
-        // Create a JLabel with the ImageIcon
-        JLabel screenshotLabel = new JLabel(screenshotIcon);
-
-        this.add(screenshotLabel);
+        // Add JLabel with the ImageIcon
+        this.add(new JLabel(screenshotIcon));
 
     }
-
     @Override
     public void paint(Graphics g) {
         super.paint(g);

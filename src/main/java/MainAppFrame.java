@@ -52,7 +52,7 @@ public class MainAppFrame extends JFrame implements ActionListener {
         defaultPanelLayer = new JPanel();
         bottomNavBar = new JPanel();
         graphPanel = new JPanel();
-        //graphPanel.setSize(500, 500);
+        graphPanel.setSize(500, 500);
 
 
 
@@ -65,7 +65,7 @@ public class MainAppFrame extends JFrame implements ActionListener {
         //changing visibility of panels (will be changed later once user selects buttons)
         portfolioPanel.setVisible(false);
         tradePanel.setVisible(false);
-        //graphPanel.setVisible(false);
+        graphPanel.setVisible(false);
         instructionsPanel.setVisible(true);
         defaultPanelLayer.setVisible(true);
 
@@ -187,8 +187,6 @@ public class MainAppFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == portfolioButton){
 
-            this.remove(graphPanel);
-
             //changing visibility of panels accordingly
             tradePanel.setVisible(false);
             instructionsPanel.setVisible(false);
@@ -197,6 +195,7 @@ public class MainAppFrame extends JFrame implements ActionListener {
             //Changing button's enabled to prevent from double-clicking:
             portfolioButton.setEnabled(false);
             tradeButton.setEnabled(true);
+            graphButton.setEnabled(TradePanel.isTickerSymbolValid());
 
             portfolioPanel.updateLayout(); //updating portfolio panel to be up-to-date with user's data
             portfolioPanel.setVisible(true); //making the panel visible to the user
@@ -207,8 +206,6 @@ public class MainAppFrame extends JFrame implements ActionListener {
         }
         if (e.getSource() == tradeButton){
 
-            this.remove(graphPanel);
-
             //changing visibility of panels accordingly
             portfolioPanel.setVisible(false);
             instructionsPanel.setVisible(false);
@@ -217,6 +214,7 @@ public class MainAppFrame extends JFrame implements ActionListener {
 
             //Changing button's enabled to prevent from double-clicking:
             tradeButton.setEnabled(false);
+            graphButton.setEnabled(TradePanel.isTickerSymbolValid());
             portfolioButton.setEnabled(true);
 
             //clearing portfolio panel to make room for new data once user clicks on 'portfolioButton' again
@@ -232,7 +230,6 @@ public class MainAppFrame extends JFrame implements ActionListener {
             frame.setVisible(true);
         }
         if (e.getSource() == graphButton){
-
             portfolioPanel.setVisible(false);
             instructionsPanel.setVisible(false);
             tradePanel.setVisible(false);
@@ -242,15 +239,20 @@ public class MainAppFrame extends JFrame implements ActionListener {
             portfolioButton.setEnabled(true);
 
             try {
-                graphPanel = new StockGraph(TradePanel.getStock().getTickerSymbol(), currentDate);
+                graphPanel.remove(0);
+            } catch (ArrayIndexOutOfBoundsException ignored) {
+
+            }
+
+            try {
+                graphPanel.add(new StockGraph(TradePanel.getStock().getTickerSymbol(), currentDate));
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
 
-            this.add(graphPanel);
             graphPanel.setVisible(true);
 
-            frame.setTitle(TradePanel.getStock().getTickerSymbol() + " Stock Price | From 1 Year Ago Until Now");
+            frame.setTitle(TradePanel.getStock().getTickerSymbol() + " Stock Price | From 1 Year Ago Until ow");
         }
     }
 }
