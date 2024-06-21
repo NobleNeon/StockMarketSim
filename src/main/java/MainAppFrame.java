@@ -10,10 +10,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static main.java.Main.userDataMatrix;
 
 public class MainAppFrame extends JFrame implements ActionListener {
+
+    // Formatting as per given pattern in the argument
+    SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
+
+    String currentDate = ft.format(new Date());
 
     //initializing panels
     PortfolioPanel portfolioPanel;
@@ -231,18 +238,18 @@ public class MainAppFrame extends JFrame implements ActionListener {
             tradeButton.setEnabled(true);
             portfolioButton.setEnabled(true);
 
+            this.remove(graphPanel);
+
             try {
-                graphPanel.add(new StockGraph(TradePanel.getStock().getTickerSymbol(),
-                        "1",
-                        "2024-01-15",
-                        "2024-12-11"));
+                graphPanel = new StockGraph(TradePanel.getStock().getTickerSymbol(), currentDate);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
 
             graphPanel.setVisible(true);
+            this.add(graphPanel);
 
-            frame.setTitle(TradePanel.getStock().getTickerSymbol() + " Graph");
+            frame.setTitle(TradePanel.getStock().getTickerSymbol() + " Stock Price | From 1 Year Ago Until Now");
         }
     }
 }
