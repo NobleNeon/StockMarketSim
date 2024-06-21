@@ -1,3 +1,9 @@
+/**
+ * Program: Aura Traders
+ * Programmer: Name: Sharayh Badar, Amir Nafissi, Broden Young
+ * Date: June 20, 2024
+ * Description: A application that allows users to get introduced to the stock market by trading with digital money
+ */
 package main.java;
 
 import java.io.File;
@@ -9,13 +15,13 @@ import java.util.Scanner;
 
 public class Main {
 
-    //public 'ArrayList' matrix to store user's info
+    //public variables to store user data throughout the program
     public static ArrayList<String> usernames = new ArrayList<>();
     public static ArrayList<String> passwords = new ArrayList<>();
-    public static ArrayList<String[]> userDataMatrix = new ArrayList<>();
-    public static Double userBalance = 0.00;
+    public static ArrayList<String[]> userDataMatrix = new ArrayList<>(); //contains user's portfolio
+    public static Double userBalance = 0.00; //contains users balance
     public static ArrayList<String> stockList = new ArrayList<>();
-    public static String userDataFileLocation;
+    public static String userDataFileLocation; //contains user's file location
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
@@ -39,13 +45,14 @@ public class Main {
     }
 
     /**
-     * Description: Will take a filename and read data to array
-     * @param fileName: desired file name to be read
-     * @throws IOException: if the file is not found (it will always be found, but we need to throw for program to run)
+     * Name: readUserData
+     * Description: Will take a filename and read data to 'userDataMatrix' and will also handle user's balance
+     * @param fileName: file name to be read
+     * @throws IOException: handles IO exception if file is not found
      */
     public static void readUserData(String fileName) throws IOException{
 
-        //initializing objects
+        //initializing necessary objects
         File myFile = new File(fileName);
         Scanner readFile = new Scanner(myFile);
 
@@ -56,7 +63,7 @@ public class Main {
         if (readFile.hasNext())
             userBalance = Double.parseDouble(readFile.nextLine());
         else
-            userBalance = 10000.0;
+            userBalance = 100000.0;
 
         //reading the rest of the file
         while (readFile.hasNext()){
@@ -69,9 +76,10 @@ public class Main {
         }
     }
     /**
-     * Description: Will print contents of array to given file
+     * Name: printFileData
+     * Description: Will print user's data back to their respected file
      * @param fileName: file that will be written to
-     * @throws IOException: bro it is an IOException
+     * @throws IOException: handles IO exception if file is not found
      */
     public static void printFileData(String fileName) throws IOException {
 
@@ -86,19 +94,23 @@ public class Main {
         for (int i = 0; i < userDataMatrix.size(); i++) {
             for (int j = 0; j < userDataMatrix.get(i).length; j++) {
 
-                if (j==3){ //this prevents printing placing an extra comma at the end of the line
+                if (j==3){ //this prevents placing an extra comma at the end of the line
                     outFile.print(userDataMatrix.get(i)[j]);
                     break;
                 }
                 else
                     outFile.print(userDataMatrix.get(i)[j] + ", ");
             }
-            outFile.println();
+            outFile.println(); // for printing new line
         }
 
         outFile.close();
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     public static void getTickerSymbols() throws IOException {
 
         File myFile = new File("tickerSymbolsOnly.txt");

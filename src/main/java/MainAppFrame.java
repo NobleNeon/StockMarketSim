@@ -1,10 +1,14 @@
+/**
+ * Name: MainAppFrame
+ * Description: This class contains the main JFrame that contains the application
+ * This is also where the 'portfolioPanel' and 'tradePanel' are initialized and added to the frame
+ */
 package main.java;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 import static main.java.Main.userDataMatrix;
 
@@ -12,21 +16,20 @@ public class MainAppFrame extends JFrame implements ActionListener {
 
     //initializing panels
     PortfolioPanel portfolioPanel;
-    public static JPanel tradePanel;
+    TradePanel tradePanel;
     JPanel instructionsPanel;
-    JPanel defaultPanelLayer; //will be used to stack trade and portfolio panels
+    JPanel defaultPanelLayer; //will be used to stack portfolio, trade, and instruction panels
     JPanel bottomNavBar; //this panel will hold the buttons that will change the main screen panel
-    JPanel graphingPanel;
 
-    public static JFrame frame = new JFrame("Aura Traders");
+    //initializing the main frame
+    JFrame frame = new JFrame("Aura Traders");
 
     //initializing buttons
-    //buttons
     JButton portfolioButton;
     JButton tradeButton;
 
-
-    MainAppFrame() throws IOException {
+    //no arg constructor
+    public MainAppFrame() {
 
         //changing logo
         ImageIcon logo = new ImageIcon("stockIcon.png");
@@ -34,17 +37,10 @@ public class MainAppFrame extends JFrame implements ActionListener {
 
         //creating panels
         portfolioPanel = new PortfolioPanel();
-
-        tradePanel = new JPanel();
-        tradePanel.setLayout(new GridLayout(4, 0));
-        tradePanel.add(new TradePanel());
-        tradePanel.add(new StockGraph().getScreenLabel());
-
-
+        tradePanel = new TradePanel();
         instructionsPanel = new JPanel();
         defaultPanelLayer = new JPanel();
         bottomNavBar = new JPanel();
-        graphingPanel = new JPanel();
 
         //adding portfolio, trade, and instructions panels to default panel layer
         defaultPanelLayer.add(portfolioPanel);
@@ -65,7 +61,7 @@ public class MainAppFrame extends JFrame implements ActionListener {
                 "<br>You can make trades by clicking  the 'Trade' button below" +
                 "<br>Make sure you press the 'save' button after making a trade!</p></html>";
 
-        //adding instructions to instructions panel layer
+        //adding instructionsString to instructions panel layer
         instructionsPanel.add(new JLabel(instructionsString));
 
         //adding portfolio and trade buttons to bottom nav bar panel
@@ -75,6 +71,7 @@ public class MainAppFrame extends JFrame implements ActionListener {
         //creating buttons
         portfolioButton = new JButton("Portfolio");
         tradeButton = new JButton("Trade");
+
         //adding action listener to buttons
         portfolioButton.addActionListener(this);
         tradeButton.addActionListener(this);
@@ -105,13 +102,13 @@ public class MainAppFrame extends JFrame implements ActionListener {
         this.portfolioPanel = portfolioPanel;
     }
 
-//    public TradePanel getTradePanel() {
-//        return tradePanel;
-//    }
-//
-//    public void setTradePanel(TradePanel tradePanel) {
-//        this.tradePanel = tradePanel;
-//    }
+    public TradePanel getTradePanel() {
+        return tradePanel;
+    }
+
+    public void setTradePanel(TradePanel tradePanel) {
+        this.tradePanel = tradePanel;
+    }
 
     public JPanel getDefaultPanelLayer() {
         return defaultPanelLayer;
@@ -146,8 +143,10 @@ public class MainAppFrame extends JFrame implements ActionListener {
 
 
     /**
-     *
-     * @param e the event to be processed
+     * Name: actionPerformed
+     * Description: this method is used to detect if a button is pressed
+     *              as well as the code that will run if those buttons are pressed
+     * @param e: the event to be processed
      */
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -175,17 +174,18 @@ public class MainAppFrame extends JFrame implements ActionListener {
             portfolioPanel.setVisible(false);
             instructionsPanel.setVisible(false);
             tradePanel.setVisible(true);
+
             //Changing button's enabled to prevent from double-clicking:
             tradeButton.setEnabled(false);
             portfolioButton.setEnabled(true);
 
             //clearing portfolio panel to make room for new data once user clicks on 'portfolioButton' again
             if (userDataMatrix.isEmpty())
-                portfolioPanel.remove(portfolioPanel.getDisplayEmptyDataLabel()); // remove this label if no data
+                portfolioPanel.remove(portfolioPanel.getDisplayEmptyDataLabel()); //remove this label if no data
             else
-                portfolioPanel.remove(portfolioPanel.getDisplayDataPanel()); // remove this label if data is present
+                portfolioPanel.remove(portfolioPanel.getDisplayDataPanel()); //remove this label if have data
 
-            portfolioPanel.remove(portfolioPanel.getDisplayUserBalance()); // always remove this label
+            portfolioPanel.remove(portfolioPanel.getDisplayUserBalance()); //always remove this label
 
             //changing frame's title to match the panel the user is currently on
             frame.setTitle("Trade");
