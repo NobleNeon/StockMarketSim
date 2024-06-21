@@ -37,7 +37,10 @@ public class TradePanel extends JPanel implements ActionListener{
     public static java.util.List<Long> timestampsList = new ArrayList<>();
     public static List<Double> closingPricesList = new ArrayList<>();
 
-    TradePanel(){
+    TradePanel() throws IOException {
+
+        getDataForGraph();
+
         // Creating buttons and their action listeners
         JButton buyButton = new JButton("BUY");
         buyButton.addActionListener(this);
@@ -93,29 +96,29 @@ public class TradePanel extends JPanel implements ActionListener{
         longSaveButtonPanel.setLayout(new GridLayout(3,0));
         longSaveButtonPanel.add(saveDataButton);
 
-        // Panel for the graph being displayed
-//        graphingPanel = new JPanel();
-//        // TODO - please remove later! This needs to be added only once the ticker symbol is found
-//        graphingPanel.setSize(300, 300);
-//        graphingPanel.add(new StockGraph());
+        // TODO - please remove later! This needs to be added only once the ticker symbol is found
 
 
-        this.setLayout(new GridLayout(6 ,0));
-        this.add(textFieldAndLabelPanel, BorderLayout.WEST);
-        this.add(buttonPanel, BorderLayout.WEST);
+        JPanel beforeGraphPanel = new JPanel();
+        beforeGraphPanel.setLayout(new GridLayout(6,0));
+        beforeGraphPanel.add(textFieldAndLabelPanel, BorderLayout.WEST);
+        beforeGraphPanel.add(buttonPanel, BorderLayout.WEST);
+
+        this.setLayout(new GridLayout(9 ,0));
+        this.add(textFieldAndLabelPanel, BorderLayout.NORTH);
+        this.add(buttonPanel, BorderLayout.NORTH);
+        this.add(longSaveButtonPanel, BorderLayout.SOUTH);
         buttonPanel.setVisible(false);
-//        this.add(graphingPanel);
-        //TODO - add the graph bef  `ore this save button
-        this.add(longSaveButtonPanel, BorderLayout.CENTER);
-        longSaveButtonPanel.setVisible(false);
-
-        this.add(testLabel);//TODO - temporary
+        this.add(new JLabel());
+        this.add(new JLabel());
+        longSaveButtonPanel.setVisible(true);
+        this.add(testLabel, BorderLayout.SOUTH);
 
 
         this.setBounds(0, 0, 600, 600);
     }
 
-    public static void createGraph() throws IOException {
+    public static void getDataForGraph() throws IOException {
         String apiKey = "xWzhEHlJS0D6qsOoOi1_sBrcD_umz4Sj";
 
         //TODO - edit this better please

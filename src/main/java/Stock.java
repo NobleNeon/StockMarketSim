@@ -11,7 +11,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 public class Stock {
 
@@ -37,9 +36,7 @@ public class Stock {
 
     }
 
-    private final HashMap<String, String> requiredInfo = new HashMap<String, String>();
-    private final ArrayList<String> articleLinks = new ArrayList<>();
-
+    private final HashMap<String, String> requiredInfo = new HashMap<>();
 
     public String getTickerSymbol() {
         return requiredInfo.get("symbol");

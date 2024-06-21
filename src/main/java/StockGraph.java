@@ -2,13 +2,35 @@ package main.java;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 
 import static main.java.TradePanel.closingPricesList;
 import static main.java.TradePanel.timestampsList;
 
-public class StockGraph extends JPanel {
+public class StockGraph extends JPanel{
+
+    private JLabel screenLabel;
+
+    public StockGraph() {
+        BufferedImage image = new BufferedImage(500, 200, BufferedImage.TYPE_INT_ARGB);
+        Graphics graphics = image.createGraphics();
+
+        this.setSize(500, 200);
+        this.paint(graphics);
+
+        ImageIcon icon = new ImageIcon(image);
+        screenLabel = new JLabel(icon);
+    }
+
+    public JLabel getScreenLabel() {
+        return screenLabel;
+    }
+
+    public void setScreenLabel(JLabel screenLabel) {
+        this.screenLabel = screenLabel;
+    }
 
     @Override
     public void paint(Graphics g) {
@@ -18,13 +40,16 @@ public class StockGraph extends JPanel {
         int numPoints = timestampsList.size();
         int xMargin = 50;
         int yMargin = 50;
+
+        System.out.println("Width:" + getWidth());
+        System.out.println("Height:" + getHeight());
+
         int xRange = getWidth() - 2 * xMargin;
         int yRange = getHeight() - 2 * yMargin;
 
         // Draw axes
         g2d.drawLine(xMargin, yMargin, xMargin, getHeight() - yMargin);
         g2d.drawLine(xMargin, getHeight() - yMargin, getWidth() - xMargin, getHeight() - yMargin);
-
 
         ArrayList<Double> tempClosingPricesList = new ArrayList<>(closingPricesList);
 
