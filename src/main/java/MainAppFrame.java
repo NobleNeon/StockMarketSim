@@ -236,18 +236,16 @@ public class MainAppFrame extends JFrame implements ActionListener {
             tradeButton.setEnabled(true);
             portfolioButton.setEnabled(true);
 
-            this.remove(graphPanel);
 
             try {
-                graphPanel = new StockGraph(TradePanel.getStock().getTickerSymbol(), currentDate);
+                graphPanel.add(new StockGraph(TradePanel.getStock().getTickerSymbol(), currentDate));
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
 
             graphPanel.setVisible(true);
-            this.add(graphPanel);
 
-            frame.setTitle(TradePanel.getStock().getTickerSymbol() + " Stock Price | From 1 Year Ago Until Now");
+            frame.setTitle(TradePanel.getStock().getTickerSymbol() + " Stock Price | From 1 Year Ago Until ow");
         }
     }
 }
