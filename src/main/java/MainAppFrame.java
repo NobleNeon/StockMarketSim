@@ -221,12 +221,14 @@ public class MainAppFrame extends JFrame implements ActionListener {
             frame.setVisible(true);
         }
         if (e.getSource() == graphButton){
+
+
             portfolioPanel.setVisible(false);
             instructionsPanel.setVisible(false);
             tradePanel.setVisible(false);
 
             graphButton.setEnabled(false);
-            tradePanel.setEnabled(true);
+            tradeButton.setEnabled(true);
             portfolioButton.setEnabled(true);
 
             try {
